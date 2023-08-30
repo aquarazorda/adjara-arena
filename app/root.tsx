@@ -27,6 +27,12 @@ export let handle = {
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
+  { rel: "shortcut icon", href: "/assets/favicons/favicon-32.png" },
+  { rel: "apple-touch-icon-precomposed", href: "/assets/favicons/favicon-180.png" },
+  { rel: "icon", href: "/assets/favicons/favicon-32.png", sizes: "32x32" },
+  { rel: "icon", href: "/assets/favicons/favicon-192.png", sizes: "192x192" },
+  { rel: "apple-touch-icon-precomposed", href: "/assets/favicons/favicon-180.png" },
+  { rel: "mask-icon", href: "/assets/favicons/favicon-32.png" },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
