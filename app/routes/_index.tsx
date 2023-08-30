@@ -1,7 +1,7 @@
 import type { V2_MetaFunction } from "@remix-run/node";
-import { Button } from '~/components/ui/button';
 import { loader$ } from './api/root';
 import { useLoaderData } from '@remix-run/react';
+import { ThemeToggle } from '~/components/theme-toggle';
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -21,8 +21,7 @@ export default function Index() {
   
   return (
     <div className="flex gap-1">
-      <h1>Welcome to Remix</h1>
-      <Button>Clickando</Button>
+      <ThemeToggle />
     </div>
   );
 }
