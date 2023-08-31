@@ -6,14 +6,16 @@ import type { ZodSchema, z } from 'zod';
 export const loader$ =
   <R>(
     fn: (
-      caller: ReturnType<typeof serverRouter.createCaller>
+      caller: ReturnType<typeof serverRouter.createCaller>,
+      request: Request
     ) => Promise<R>
   ) =>
   ({ request }: LoaderArgs) =>
     fn(
       serverRouter.createCaller({
         req: request,
-      })
+      }),
+      request
     );
 
 export const action$ =

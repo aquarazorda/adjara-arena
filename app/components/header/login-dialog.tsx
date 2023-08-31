@@ -14,7 +14,7 @@ export default function LoginDialog() {
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button variant="ghost" className="p-0">
           <div className="flex flex-col gap-[2px] items-center">
             <img
