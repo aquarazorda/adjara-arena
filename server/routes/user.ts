@@ -1,3 +1,4 @@
+import { parseCookies } from 'server/utils/request';
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -11,14 +12,14 @@ export const authSchema = z.object({
 });
 
 export const userRouter = createTRPCRouter({
-  get: privateProcedure.query(async () => {
-    // db.query.users.findMany();
-    return "I'mma user!";
+  get: privateProcedure.query(async ({ ctx }) => {
+    const cookies = parseCookies(ctx.req.headers.get("Cookie"));
+    
+    return cookies.auth === "1";
   }),
   authenticate: publicProcedure
     .input(authSchema)
     .mutation(async ({ input }) => {
-      console.log(input);
       return true;
     })
 });

@@ -1,7 +1,5 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import { loader$ } from './api/root';
-import { useLoaderData } from '@remix-run/react';
-import { ThemeToggle } from '~/components/theme-toggle';
 import Header from '~/components/header';
 
 export const meta: V2_MetaFunction = () => {
@@ -18,12 +16,9 @@ export const loader = loader$(async (caller) => {
 })
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>();
-  
-  return (
+   return (
     <div className="flex gap-1">
       <Header/>
-      {/* <ThemeToggle /> */}
     </div>
   );
 }
