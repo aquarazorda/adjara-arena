@@ -1,13 +1,12 @@
 import {
   Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useTranslation } from "react-i18next";
+import { lazy } from 'react';
+
+const Content = lazy(() => import('./content'));
 
 export default function LoginDialog() {
   const { t } = useTranslation();
@@ -26,15 +25,7 @@ export default function LoginDialog() {
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{t('login')}</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
+      <Content />
     </Dialog>
   );
 }

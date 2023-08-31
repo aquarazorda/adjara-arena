@@ -16,7 +16,7 @@ module.exports = {
       },
     },
     colors: {
-      border: "hsl(var(--border))",
+      border: "var(--border)",
       input: "hsl(var(--input))",
       ring: "hsl(var(--ring))",
       background: "var(--background)",
@@ -49,6 +49,9 @@ module.exports = {
         DEFAULT: "hsl(var(--card))",
         foreground: "hsl(var(--card-foreground))",
       },
+      brand: {
+        fb: "#1877F2"
+      }
     },
     extend: {
       borderRadius: {
