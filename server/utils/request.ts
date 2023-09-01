@@ -15,7 +15,7 @@ export const parseFormData = <T>(formData: FormData) => {
 
 export const getLoaderLangs = async (request: Request, langKeys: string[]) => {
   const cookie = parseCookies(request.headers.get('cookie'));
-  const t = await i18next.getFixedT(cookie.lang !== '' || !cookie.lang ? cookie.lang : request);
+  const t = await i18next.getFixedT(cookie.lang || request);
 
   return langKeys.reduce((acc, curr) => {
     acc[curr] = t(curr);
