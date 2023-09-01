@@ -27,6 +27,7 @@ export let handle = {
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: "https://newstatic.adjarabet.com/static/atomic/buildcss/new-fonts.css"},
   { rel: "shortcut icon", href: "/assets/favicons/favicon-32.png" },
   { rel: "apple-touch-icon-precomposed", href: "/assets/favicons/favicon-180.png" },
   { rel: "icon", href: "/assets/favicons/favicon-32.png", sizes: "32x32" },
@@ -41,7 +42,7 @@ export default function App() {
   let { i18n } = useTranslation();
 
   return (
-    <html lang={locale} className='dark' dir={i18n.dir()}>
+    <html lang={locale} className='dark font-regular' dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

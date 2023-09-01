@@ -1,5 +1,10 @@
 {
   "title": "adjarabetarena.com - სპორტული სიახლეები და გართობა",
   "search": "ძიება",
-  "login": "შესვლა"
+  "login": "შესვლა",
+  "or": "ან",
+  "login_facebook": "შესვლა Facebook-ით",
+  "username_or_email": "მობილური ან ელ-ფოსტა",
+  "password": "პაროლი",
+  "registration": "რეგისტრაცია"
 }

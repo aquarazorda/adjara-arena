@@ -15,12 +15,23 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      regular: "abmont_proregular",
+      bold: "abmont_probold",
+      light: "abmont_prolight",
+      medium: "abmont_prodemibold",
+      black: "abmont_problack", 
+    },
     colors: {
       border: "var(--border)",
+      "border-hover": "var(--border-hover)",
+      "border-dark": "var(--border-dark)",
       input: "hsl(var(--input))",
       ring: "hsl(var(--ring))",
       background: "var(--background)",
       foreground: "var(--foreground)",
+      white: "#FFF",
+      success: "var(--success)",
       primary: {
         DEFAULT: "hsl(var(--primary))",
         foreground: "hsl(var(--primary-foreground))",

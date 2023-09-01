@@ -15,11 +15,11 @@ export default function LoginDialog() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="ghost" className="p-0">
-          <div className="flex flex-col gap-[2px] items-center">
+          <div className="flex flex-col items-center gap-[2px]">
             <img
               src="/assets/icons/profile.svg"
               alt="Profile"
-              className="w-6 h-6"
+              className="h-6 w-6"
             />
             {t("login")}
           </div>
