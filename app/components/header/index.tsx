@@ -8,17 +8,17 @@ export default function Header() {
   const { t } = useTranslation();
 
   return (
-    <header className="bg-primary text-primary-foreground flex items-center h-[70px] w-full">
+    <header className="flex h-[70px] w-full items-center bg-dark-blue">
       <Link to={"/"}>
         <img src="/assets/logo-sm.svg" alt="Logo" className="px-4 py-3" />
       </Link>
-      <aside className="flex px-4 py-1 ml-auto gap-4">
+      <aside className="ml-auto flex gap-4 px-4 py-1">
         <Button variant="ghost" className="p-0">
-          <div className="flex flex-col gap-[2px] items-center">
+          <div className="flex flex-col items-center gap-[2px]">
             <img
               src="/assets/icons/search.svg"
               alt="Search"
-              className="w-6 h-6"
+              className="h-6 w-6"
             />
             {t("search")}
           </div>

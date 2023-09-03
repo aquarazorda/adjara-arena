@@ -12,23 +12,23 @@ export default function LoginDialogContent() {
   const { t } = useTranslation();
 
   return (
-    <DialogContent className="fill-foreground">
+    <DialogContent>
       <DialogHeader>
         <DialogTitle>
-          <span className="text-2xl uppercase">{t("login")}</span>
+          <span className="font-medium text-2xl uppercase">{t("login")}</span>
         </DialogTitle>
         <DialogDescription asChild>
           <div className="mt-6 flex flex-col gap-6">
             <Button
               variant="ghost"
-              className="flex h-[52px] w-full items-center rounded-sm bg-brand-fb text-base text-foreground hover:bg-brand-fb/80"
+              className="flex h-[52px] w-full items-center bg-blue text-base text-white hover:bg-blue/80"
             >
               {t("login_facebook")}
             </Button>
             <div className="flex items-center gap-4">
-              <div className="h-px flex-1 bg-border" />
-              <span className="text-base text-border-hover">{t("or")}</span>
-              <div className="h-px flex-1 bg-border" />
+              <div className="h-px flex-1 bg-silver-lower" />
+              <span className="text-base text-black-lower">{t("or")}</span>
+              <div className="h-px flex-1 bg-silver-lower" />
             </div>
             <LoginForm />
           </div>

@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -71,7 +70,7 @@ const LoginForm = () => {
           )}
         />
         <Button type="submit" variant="success" size="lg">{t('login')}</Button>
-        <Button type="submit" variant="secondary" size="lg">{t('registration')}</Button>
+        <Button type="submit" size="lg">{t('registration')}</Button>
       </form>
     </Form>
   )

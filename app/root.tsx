@@ -49,7 +49,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className='bg-light-bg dark:bg-dark-blue'>
         <ThemeProvider>
           <Outlet />
           <ScrollRestoration />

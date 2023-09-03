@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -23,53 +23,34 @@ module.exports = {
       black: "abmont_problack", 
     },
     colors: {
-      border: "var(--border)",
-      "border-hover": "var(--border-hover)",
-      "border-dark": "var(--border-dark)",
-      input: "hsl(var(--input))",
-      ring: "hsl(var(--ring))",
-      background: "var(--background)",
-      foreground: "var(--foreground)",
-      white: "#FFF",
-      success: "var(--success)",
-      primary: {
-        DEFAULT: "hsl(var(--primary))",
-        foreground: "hsl(var(--primary-foreground))",
-      },
-      secondary: {
-        DEFAULT: "hsl(var(--secondary))",
-        foreground: "hsl(var(--secondary-foreground))",
-      },
-      destructive: {
-        DEFAULT: "hsl(var(--destructive))",
-        foreground: "hsl(var(--destructive-foreground))",
-      },
-      muted: {
-        DEFAULT: "hsl(var(--muted))",
-        foreground: "hsl(var(--muted-foreground))",
-      },
-      accent: {
-        DEFAULT: "hsl(var(--accent))",
-        foreground: "hsl(var(--accent-foreground))",
-      },
-      popover: {
-        DEFAULT: "hsl(var(--popover))",
-        foreground: "hsl(var(--popover-foreground))",
-      },
-      card: {
-        DEFAULT: "hsl(var(--card))",
-        foreground: "hsl(var(--card-foreground))",
-      },
-      brand: {
-        fb: "#1877F2"
-      }
+      "black": "#07080A",
+      "dark-blue": "#0C0F12",
+      "dark-grey": "#101518",
+      "grey": "#161C21",
+      "medium-grey": "#1F272E",
+      "light-grey": "#323B43",
+      "lighter-grey": "#2C3640",
+      "green": "#039855",
+      "secondary": "#28313B",
+      "red": "#E01F28",
+      "red-error": "#F06A60",
+      "white": "#FFFFFF",
+      "white-border": "#D8D8D8",
+      "white-secondary": "#EDEDED",
+      "silver": "#9AA2AC",
+      "blue": "#1877F2",
+      "football": "#4C8E18",
+      "basketball": "#F76D2E",
+      "tennis": "#ACB52C",
+      "rugby": "#70133B",
+      "ufc": "#C2291C",
+      "light-bg": "#EAECED",
+      "silver-lower": "#9AA2AC4D",
+      "silver-ground": "#9AA2AC4D",
+      "black-low": "#000000B2",
+      "black-lower": "#0000004D"
     },
     extend: {
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
