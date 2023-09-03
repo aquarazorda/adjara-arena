@@ -1,4 +1,5 @@
-import { z } from 'zod'
+import { z } from 'zod';
+require('dotenv').config();
 
 const envSchema = z.object({
   POSTGRES_URL: z.string(),
