@@ -15,4 +15,10 @@ module.exports = {
     v2_normalizeFormMethod: true,
     v2_routeConvention: true,
   },
+  serverDependenciesToBundle: [
+		"lucia",
+		"lucia/middleware",
+		"lucia/polyfill/node",
+		"@lucia-auth/adapter-postgresql"
+	]
 };
