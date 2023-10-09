@@ -1,25 +1,23 @@
-import type { V2_MetaFunction } from "@remix-run/node";
-import { loader$ } from './api/root';
-import Header from '~/components/header';
-import { getLoaderLangs } from 'server/utils/request';
+import Header from "~/components/header";
+import { getLoaderLangs } from "server/utils/request";
+import { eq } from "drizzle-orm";
+import { posts } from "server/db/schema/posts";
+import type { MetaFunction} from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
+import { mainPageLoader } from '~/lib/loaders/mainPage';
 
-export const meta: V2_MetaFunction = ({ data: { langs } }) => {
-  return [
-    { title: langs.title },
-  ];
+export const meta: MetaFunction = ({ data: { langs } }) => {
+  return [{ title: langs.title }];
 };
 
-export const loader = loader$(async (caller, request) => {
-  const langs = await getLoaderLangs(request, ['title']);
-  const data = await caller.user.get();
-  
-  return { data, langs };
-})
+export const loader = mainPageLoader;
 
 export default function Index() {
-   return (
+  const { data } = useLoaderData<typeof loader>();
+
+  return (
     <div className="flex gap-1">
-      <Header/>
+      <Header />
     </div>
   );
 }

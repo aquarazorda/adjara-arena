@@ -1,4 +1,4 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { serverRouter } from "server/router";
 import { parseFormData } from "server/utils/request";
 import type { ZodSchema, z } from 'zod';
@@ -10,7 +10,7 @@ export const loader$ =
       request: Request
     ) => Promise<R>
   ) =>
-  ({ request }: LoaderArgs) =>
+  ({ request }: LoaderFunctionArgs) =>
     fn(
       serverRouter.createCaller({
         req: request,
@@ -26,7 +26,7 @@ export const action$ =
       caller: ReturnType<typeof serverRouter.createCaller>
     ) => Promise<R>
   ) =>
-  async ({ request }: ActionArgs) =>
+  async ({ request }: ActionFunctionArgs) =>
     fn(
       parseFormData(await request.formData()),
       serverRouter.createCaller({ req: request })

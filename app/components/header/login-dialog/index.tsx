@@ -4,9 +4,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../../ui/button";
 import { useTranslation } from "react-i18next";
-import { lazy } from 'react';
-
-const Content = lazy(() => import('./content'));
+import LoginDialogContent from './content';
 
 export default function LoginDialog() {
   const { t } = useTranslation();
@@ -25,7 +23,7 @@ export default function LoginDialog() {
           </div>
         </Button>
       </DialogTrigger>
-      <Content />
+      <LoginDialogContent />
     </Dialog>
   );
 }
