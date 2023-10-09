@@ -1,3 +1,4 @@
+import { auth } from 'server/auth/lucia';
 import { parseCookies } from 'server/utils/request';
 import { z } from "zod";
 import {
@@ -20,6 +21,13 @@ export const userRouter = createTRPCRouter({
   authenticate: publicProcedure
     .input(authSchema)
     .mutation(async ({ input }) => {
-      return true;
+      const key = await auth.useKey("username", input.username, input.password);
+      const session = await auth.createSession({
+        userId: key.userId,
+        attributes: {}
+      });
+      const sessionCookie = auth.createSessionCookie(session);
+
+      return new Response();
     })
 });
