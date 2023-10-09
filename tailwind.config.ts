@@ -51,6 +51,9 @@ module.exports = {
       "black-lower": "#0000004D"
     },
     extend: {
+      fontSize: {
+        xxs: '10px'
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

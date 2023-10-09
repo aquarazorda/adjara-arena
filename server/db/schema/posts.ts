@@ -5,6 +5,8 @@ export const posts = mysqlTable("posts", {
   title: mediumtext("title"),
   shortstory: text("shortstory"),
   publishDate: datetime("publish_date"),
-  isPrivate: boolean("is_private").notNull().default(true),
-  createdAt: datetime("created_at")
+  isPrivate: boolean("is_private").notNull().default(false),
+  createdAt: datetime("created_at"),
+  isDraft: boolean("is_draft").notNull().default(false),
+  image: mediumtext("image"),
 });

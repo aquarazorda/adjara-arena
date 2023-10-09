@@ -8,11 +8,11 @@ const envSchema = z.object({
   DB_PASSWORD: z.string(),
   DB_PORT: z.string().transform((val) => parseInt(val)),
   DB_DATABASE: z.string(),
-  REDIS_PREFIX: z.string(),
+  REDIS_PREFIX: z.string().optional(),
   REDIS_HOST: z.string(),
   REDIS_PORT: z.string().transform((val) => parseInt(val)),
   REDIS_USERNAME: z.string(),
-  REDIS_PASSWORD: z.string(),
+  REDIS_PASSWORD: z.string().optional(),
 });
 
 const parsedEnv = envSchema.parse(process.env);
