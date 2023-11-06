@@ -1,4 +1,5 @@
-import { json, type LinksFunction, type LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import type { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,13 +9,12 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import styles from "./tailwind.css";
-import { cssBundleHref } from "@remix-run/css-bundle";
+import "./tailwind.css";
 import { ThemeProvider } from "./components/theme-provider";
 import { useTranslation } from 'react-i18next';
 import { parseCookies } from 'server/utils/request';
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   const cookies = parseCookies(request.headers.get('Cookie') ?? '');
   let locale = cookies.lang || 'ka';
   
@@ -26,7 +26,6 @@ export let handle = {
 };
 
 export const links: LinksFunction = () => [
-  { rel: "stylesheet", href: styles },
   { rel: "stylesheet", href: "https://newstatic.adjarabet.com/static/atomic/buildcss/new-fonts.css"},
   { rel: "shortcut icon", href: "/assets/favicons/favicon-32.png" },
   { rel: "apple-touch-icon-precomposed", href: "/assets/favicons/favicon-180.png" },
@@ -34,7 +33,6 @@ export const links: LinksFunction = () => [
   { rel: "icon", href: "/assets/favicons/favicon-192.png", sizes: "192x192" },
   { rel: "apple-touch-icon-precomposed", href: "/assets/favicons/favicon-180.png" },
   { rel: "mask-icon", href: "/assets/favicons/favicon-32.png" },
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
 export default function App() {
@@ -53,8 +51,8 @@ export default function App() {
         <ThemeProvider>
           <Outlet />
           <ScrollRestoration />
-          <Scripts />
           <LiveReload />
+          <Scripts />
         </ThemeProvider>
       </body>
     </html>

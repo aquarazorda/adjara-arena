@@ -6,7 +6,7 @@ import LoginDialog from './login-dialog';
 
 export default function Header() {
   const { t } = useTranslation();
-
+  
   return (
     <header className="flex h-[70px] w-full items-center bg-dark-blue">
       <Link to={"/"}>

@@ -7,16 +7,16 @@ import { dbCache } from 'server/redis';
 
 export const mainPageLoader = loader$(async (caller, request) => {
   const langs = await getLoaderLangs(request, ["title"]);
-  const data = await dbCache('posts:db', 5, () => db.query.posts.findMany({
-    where: and(eq(posts.isPrivate, false), eq(posts.isDraft, false)),
-    orderBy: desc(posts.createdAt),
-    limit: 10,
-  }));
+  // const data = await dbCache('posts:db', 5, () => db.query.posts.findMany({
+  //   where: and(eq(posts.isPrivate, false), eq(posts.isDraft, false)),
+  //   orderBy: desc(posts.createdAt),
+  //   limit: 10,
+  // }));
   // const data = await db.query.posts.findMany({
   //   where: and(eq(posts.isPrivate, false), eq(posts.isDraft, false)),
   //   orderBy: desc(posts.createdAt),
   //   limit: 10,
   // });
 
-  return { data, langs };
+  return { langs };
 });
