@@ -52,6 +52,7 @@ export default async function handleRequest(
           responseHeaders.set("Content-Type", "text/html");
 
           resolve(
+            // @ts-expect-error
             new Response(body, {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
