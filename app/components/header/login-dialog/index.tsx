@@ -1,9 +1,6 @@
-import {
-  Dialog,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "../../ui/button";
-import { useTranslation } from "react-i18next";
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '../../ui/button';
+import { useTranslation } from 'react-i18next';
 import LoginDialogContent from './content';
 
 export default function LoginDialog() {
@@ -14,12 +11,8 @@ export default function LoginDialog() {
       <DialogTrigger asChild>
         <Button variant="ghost" className="p-0">
           <div className="flex flex-col items-center gap-[2px]">
-            <img
-              src="/assets/icons/profile.svg"
-              alt="Profile"
-              className="h-6 w-6"
-            />
-            {t("login")}
+            <img src="/assets/icons/profile.svg" alt="Profile" className="h-6 w-6" />
+            {t('login')}
           </div>
         </Button>
       </DialogTrigger>
