@@ -7,7 +7,8 @@
     "start": "remix-serve build/index.js",
     "typecheck": "tsc",
     "generate": "drizzle-kit generate:pg",
-    "migrate": "bun run server/db/migration.ts"
+    "migrate": "bun run server/db/migration.ts",
+    "prettier-format": "prettier --config .prettierrc '/**/*.ts' --write"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
