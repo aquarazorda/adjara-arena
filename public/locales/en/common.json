@@ -3,5 +3,21 @@
   "search": "Search",
   "login": "Login",
   "login_facebook": "Login with Facebook",
-  "now_reading": "Now Reading"
+  "now_reading": "Now Reading",
+  "registration": "Registration",
+  "full_name_validation_error": "Invalid full name. Please use letters, spaces, hyphens, and apostrophes only.",
+  "password_validation_min_length": "Password must be at least 8 characters long",
+  "password_validation_max_length": "Password must not exceed 30 characters",
+  "password_validation_capital_letter": "Password must contain at least one uppercase letter",
+  "password_validation_lower_case_letter": "Password must contain at least one lowercase letter",
+  "password_validation_digit": "Password must contain at least one digit (number)",
+  "password_validation_symbol": "Password must contain at least one symbol (!@#$%^&*)",
+  "password_validation_match": "Passwords do not match",
+  "terms_and_conditions_validation_error": "You must agree to the terms and conditions",
+  "verification_method_validation_error": "Please select a verification method",
+  "email_or_phone_required": "Email or phone number is required",
+  "first_and_last_name": "First and last name",
+  "user_name": "Username",
+  "password": "Password",
+  "confirm_password": "Confirm password"
 }
