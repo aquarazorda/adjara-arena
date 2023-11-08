@@ -1,16 +1,19 @@
-import { Outlet } from '@remix-run/react';
-import { loader$ } from './api/root';
-import { redirect } from '@remix-run/node';
+import { Outlet, useLoaderData } from '@remix-run/react';
+import type { LoaderArgs } from '@remix-run/node';
+import { requireUserId } from 'server/services/session.service';
 
-export const loader = loader$(async ({ user }) => {
-  try {
-    const res = await user.get();
-    return res;
-  } catch (e) {
-    return redirect('/cms/login');
-  }
-});
+export async function loader({ request }: LoaderArgs) {
+  const userId = await requireUserId(request);
+
+  return userId;
+}
 
 export default function CMSLayout() {
-  return <>This is cms layout <Outlet /></>
+  const data = useLoaderData<typeof loader>();
+
+  return (
+    <>
+      This is cms layout {data} <Outlet />
+    </>
+  );
 }
