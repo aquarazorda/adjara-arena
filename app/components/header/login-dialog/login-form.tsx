@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from '@remix-run/react';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 const FormSchema = z.object({
   username: z.string().min(2, {
@@ -18,6 +20,7 @@ const FormSchema = z.object({
 
 const LoginForm = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -33,7 +36,7 @@ const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col">
-        <div className="flex flex-col gap-5 mb-5">
+        <div className="mb-5 flex flex-col gap-5">
           <FormField
             control={form.control}
             name="username"
@@ -60,7 +63,7 @@ const LoginForm = () => {
                 {/* <FormDescription>
                 არასწორია
               </FormDescription> */}
-                <a href="" className="w-fit text-xs dark:text-silver text-silver-ground">
+                <a href="" className="w-fit text-xs text-silver-ground dark:text-silver">
                   {t('forgot_password')}
                 </a>
                 <FormMessage />
@@ -71,9 +74,11 @@ const LoginForm = () => {
         <Button type="submit" variant="success" size="lg" className="mb-3">
           {t('login')}
         </Button>
-        <Button type="submit" size="lg">
-          {t('registration')}
-        </Button>
+        <DialogClose asChild>
+          <Button type="button" size="lg" onClick={() => navigate('/register')}>
+            {t('registration')}
+          </Button>
+        </DialogClose>
       </form>
     </Form>
   );

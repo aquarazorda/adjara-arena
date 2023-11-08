@@ -34,7 +34,6 @@ const isAuthenticatedMiddleware = t.middleware(async (opts) => {
   // const authRequest = auth.handleRequest(opts.ctx.req);
   // const session = await authRequest.validate();
   throw new TRPCError({ code: "UNAUTHORIZED" });
-  
   // if (!session) {
   //   throw new TRPCError({ code: "UNAUTHORIZED" });
   // }

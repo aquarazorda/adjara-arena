@@ -20,15 +20,15 @@ export const action = action$(authSchema, async (formData, caller) => {
 
 export default function CMSLoginPage() {
   return (
-    <div className='flex w-full h-screen items-center justify-center'>
+    <div className='flex h-screen w-full items-center justify-center'>
       <form
         action="/cms/login"
         method="post"
-        className="flex flex-col max-w-lg gap-6"
+        className="flex max-w-lg flex-col gap-6"
       >
         <Input name="username" type="text" placeholder='Username' />
         <Input name="password" type="password" placeholder='Password' />
-        <Button type="submit" variant='secondary'>Submit</Button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
