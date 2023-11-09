@@ -5,7 +5,6 @@ import './tailwind.css';
 import { ThemeProvider } from './components/theme-provider';
 import { useTranslation } from 'react-i18next';
 import { parseCookies } from 'server/utils/request';
-import { ToastProvider } from './hooks/useToast';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookies = parseCookies(request.headers.get('Cookie') ?? '');
@@ -42,11 +41,7 @@ export default function App() {
       </head>
       <body className="bg-light-bg dark:bg-dark-blue">
         <ThemeProvider>
-          <ToastProvider>
-            <>
-              <Outlet />
-            </>
-          </ToastProvider>
+          <Outlet />
           <ScrollRestoration />
           <LiveReload />
           <Scripts />
