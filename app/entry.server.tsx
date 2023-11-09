@@ -1,15 +1,17 @@
-import { PassThrough } from "stream";
-import type { EntryContext } from "@remix-run/node";
-import { RemixServer } from "@remix-run/react";
-import isbot from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
-import { createInstance } from "i18next";
-import i18next from "./i18n.server";
-import { I18nextProvider, initReactI18next } from "react-i18next";
-import Backend from "i18next-fs-backend";
-import i18n from "./i18n"; // your i18n configuration file
-import { resolve } from "node:path";
+import { PassThrough } from 'stream';
+import type { EntryContext } from '@remix-run/node';
+import { RemixServer } from '@remix-run/react';
+import isbot from 'isbot';
+import { renderToPipeableStream } from 'react-dom/server';
+import { createInstance } from 'i18next';
+import i18next from './i18n.server';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import Backend from 'i18next-fs-backend';
+import i18n from './i18n'; // your i18n configuration file
+import { resolve } from 'node:path';
 import { parseCookies } from 'server/utils/request';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const ABORT_DELAY = 5000;
 
@@ -19,9 +21,7 @@ export default async function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  let callbackName = isbot(request.headers.get("user-agent"))
-    ? "onAllReady"
-    : "onShellReady";
+  let callbackName = isbot(request.headers.get('user-agent')) ? 'onAllReady' : 'onShellReady';
 
   const cookies = parseCookies(request.headers.get('Cookie') ?? '');
   let instance = createInstance();
@@ -35,7 +35,7 @@ export default async function handleRequest(
       ...i18n, // spread the configuration
       lng, // The locale we detected above
       ns, // The namespaces the routes about to render wants to use
-      backend: { loadPath: resolve("./public/locales/{{lng}}/{{ns}}.json") },
+      backend: { loadPath: resolve('./public/locales/{{lng}}/{{ns}}.json') },
     });
 
   return new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ export default async function handleRequest(
         [callbackName]: () => {
           let body = new PassThrough();
 
-          responseHeaders.set("Content-Type", "text/html");
+          responseHeaders.set('Content-Type', 'text/html');
 
           resolve(
             // @ts-expect-error
