@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSubmit } from '@remix-run/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +17,8 @@ export default function RegistrationForm() {
   });
 
   const [isEmail, setIsEmail] = useState(true);
+
+  const submit = useSubmit();
 
   return (
     <Form {...form}>
@@ -126,6 +129,30 @@ export default function RegistrationForm() {
             <FormControl>
               <Input placeholder={t('confirm_password')} {...field} type="password" />
             </FormControl>
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="termsAndConditions"
+        render={({ field }) => (
+          <FormItem>
+            <Input
+              placeholder={t('termsAndConditions')} 
+              {...field}
+              type="checkbox"
+              onChange={(e) => {
+                const formData = new FormData();
+                formData.append("value", e.target.checked);
+                formData.append("user_agent", window.navigator.userAgent);
+
+                submit(formData, {
+                  method: "post"
+                });
+
+                field.onChange(e);
+              }}
+            />
           </FormItem>
         )}
       />
