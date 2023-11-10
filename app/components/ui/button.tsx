@@ -9,7 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border border-light-grey bg-secondary text-white-secondary ring-white-secondary hover:bg-[#222930]',
+        default:
+          'border border-silver-ground-lower bg-secondary text-white-secondary ring-white-secondary hover:bg-[#222930]',
         success: 'bg-green text-white-secondary ring-white-secondary hover:bg-[#038047]',
         // destructive:
         //   "bg-destructive text-destructive-foreground hover:bg-destructive/90",

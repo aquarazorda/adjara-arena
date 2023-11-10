@@ -40,7 +40,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-light-bg dark:bg-dark-blue">
+      <body className="bg-light-bg dark:bg-dark-blue-grey">
         <ThemeProvider>
           <ToastProvider>
             <Outlet />

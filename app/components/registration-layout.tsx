@@ -8,7 +8,7 @@ type RegistrationLayoutProps = {
 
 const RegistrationLayout = ({ className, children }: RegistrationLayoutProps) => {
   return (
-    <div className="dark:bg-dark-grey bg-white flex min-h-[calc(100vh-70px)] md:min-h-[calc(100vh-80px)] dark:text-white text-grey">
+    <div className="flex min-h-[calc(100vh-70px)] md:min-h-[calc(100vh-80px)] dark:text-white text-grey">
       <div className="flex-1 hidden md:block">
         <img className="w-full h-full object-cover" src="" alt="adjarabetarena" />
       </div>
