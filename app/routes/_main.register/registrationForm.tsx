@@ -138,16 +138,16 @@ export default function RegistrationForm() {
         render={({ field }) => (
           <FormItem>
             <Input
-              placeholder={t('termsAndConditions')} 
+              placeholder={t('termsAndConditions')}
               {...field}
               type="checkbox"
-              onChange={(e) => {
+              onChange={(e: any) => {
                 const formData = new FormData();
-                formData.append("value", e.target.checked);
-                formData.append("user_agent", window.navigator.userAgent);
+                formData.append('value', e.target.checked);
+                formData.append('user_agent', window.navigator.userAgent);
 
                 submit(formData, {
-                  method: "post"
+                  method: 'post',
                 });
 
                 field.onChange(e);
