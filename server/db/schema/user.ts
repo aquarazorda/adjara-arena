@@ -6,17 +6,17 @@ export const user = pgTable("auth_user", {
   }).primaryKey(),
   username: varchar("username", {
     length: 50,
-  }),
+  }).unique().notNull(),
   full_name: varchar("full_name", {
     length: 100,
-  }),
-  date_of_birth: date("date_of_birth"),
+  }).notNull(),
+  date_of_birth: date("date_of_birth").notNull(),
   phone_number: varchar("phone_number", {
     length: 15,
-  }),
+  }).unique(),
   email: varchar("email", {
     length: 100,
-  }),
+  }).unique(),
   address: text("address"),
   personal_id: bigint("personal_id", { mode: "number" }),
 });

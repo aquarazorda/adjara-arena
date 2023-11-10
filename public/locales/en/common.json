@@ -12,7 +12,7 @@
   "password_validation_lower_case_letter": "Password must contain at least one lowercase letter",
   "password_validation_digit": "Password must contain at least one digit (number)",
   "password_validation_symbol": "Password must contain at least one symbol (!@#$%^&*)",
-  "password_validation_match": "Passwords do not match",
+  "password_validation_mismatch": "Passwords do not match",
   "terms_and_conditions_validation_error": "You must agree to the terms and conditions",
   "verification_method_validation_error": "Please select a verification method",
   "email_or_phone_required": "Email or phone number is required",

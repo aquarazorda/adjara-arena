@@ -4,14 +4,16 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderD
 import './tailwind.css';
 import { ThemeProvider } from './components/theme-provider';
 import { useTranslation } from 'react-i18next';
-import { parseCookies } from 'server/utils/request';
 import { ToastProvider } from './hooks/Toast';
+import clsx from 'clsx';
+import { parseCookies } from './lib/cookies';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookies = parseCookies(request.headers.get('Cookie') ?? '');
   let locale = cookies.lang || 'ka';
+  let theme = cookies.theme || 'light';
 
-  return json({ locale });
+  return json({ locale, theme });
 }
 
 export let handle = {
@@ -29,11 +31,11 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-  let { locale } = useLoaderData<typeof loader>();
+  let { locale, theme } = useLoaderData<typeof loader>();
   let { i18n } = useTranslation();
 
   return (
-    <html lang={locale} className="dark font-regular" dir={i18n.dir()}>
+    <html lang={locale} className={clsx('font-regular', theme === 'dark' && 'dark')} dir={i18n.dir()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

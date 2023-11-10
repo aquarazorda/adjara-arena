@@ -21,17 +21,17 @@ export const registrationSchema = z
   .object({
     fullName: z
       .string()
-      .refine((fullName) => /^[A-Za-z\s'-]+$/.test(fullName), { message: 'full_name_validation_error' }),
+      .refine((fullName) => /\s/.test(fullName.trim()), { message: 'full_name_validation_error' }),
     userName: z.string().min(3).max(20),
     birthday: z.string(),
-    phoneNumber: z.number().min(9).max(9).optional(),
     password: passwordSchema,
     email: z.string().email().optional(),
+    phoneNumber: z.number().min(9).max(9).optional(),
     confirmPassword: z.string(),
     verificationCode: z.string().min(4),
     verificationMethod: z
       .string()
-      .refine((verificationMethod) => verificationMethod === 'email' || verificationMethod === 'phone', {
+      .refine((verificationMethod) => verificationMethod === 'email' || verificationMethod === 'phoneNumber', {
         message: 'verification_method_validation_error',
       }),
     termsAndConditions: z.boolean().refine((termsAndConditions) => termsAndConditions, {
@@ -39,8 +39,6 @@ export const registrationSchema = z
     }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'password_validation_match',
-  })
-  .refine((data) => data.email || data.phoneNumber, {
-    message: 'email_or_phone_required',
+    path: ['confirmPassword'],
+    message: 'password_validation_mismatch',
   })

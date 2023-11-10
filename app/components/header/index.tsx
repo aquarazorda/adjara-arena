@@ -8,7 +8,7 @@ export default function Header() {
   const { t } = useTranslation();
 
   return (
-    <header className="flex h-[80px] w-full items-center bg-dark-blue">
+    <header className="flex h-[80px] w-full items-center bg-grey-600">
       <Link to={'/'}>
         <img src="/assets/logo-sm.svg" alt="Logo" className="px-4 py-3" />
       </Link>

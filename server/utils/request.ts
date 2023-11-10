@@ -1,9 +1,7 @@
+import { json } from '@remix-run/node';
+import type { FieldError } from 'react-hook-form';
 import i18next from '~/i18n.server';
-
-export const parseCookies = (cookie: string | null) => {
-  if (!cookie) return {};
-  return Object.fromEntries(cookie.split('; ').map(v=>v.split(/=(.*)/s).map(decodeURIComponent)));
-}
+import { parseCookies } from '~/lib/cookies';
 
 export const parseFormData = <T>(formData: FormData) => {
   const data: Record<string, string> = {};
@@ -22,3 +20,12 @@ export const getLoaderLangs = async (request: Request, langKeys: string[]) => {
     return acc;
   }, {} as Record<string, string>);
 }
+
+export const createFormErrorReturn = (defaultValues: Record<any, any>) => (errors: Record<string, string>) => {
+  const errorValues = Object.keys(errors).reduce((acc, curr) => {
+    acc[curr] = { message: errors[curr], type: "custom" };
+    return acc;
+  }, {} as Record<string, FieldError>);
+
+  return json({ defaultValues, errors: errorValues });
+};

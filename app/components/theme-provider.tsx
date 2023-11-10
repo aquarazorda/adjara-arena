@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
+import { parseCookies } from '~/lib/cookies'
 
 type Theme = "dark" | "light"
 
@@ -29,20 +30,23 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(() => defaultTheme);
 
   useEffect(() => {
-    localStorage?.getItem(storageKey) && setTheme((localStorage?.getItem(storageKey) as Theme))
+    const cookieTheme = parseCookies(document.cookie).theme as Theme;
+    cookieTheme && setTheme(cookieTheme);
+     
   }, []);
 
   useEffect(() => {
     const root = window.document.documentElement
+    if (root.classList.contains(theme)) return;
+    
     root.classList.remove("light", "dark")
-
     root.classList.add(theme)
   }, [theme])
 
   const value = {
     theme,
     setTheme: (theme: Theme) => {
-      localStorage?.setItem(storageKey, theme)
+      document.cookie = `theme=${theme}; path=/; max-age=31536000; SameSite=Lax`
       setTheme(theme)
     },
   }

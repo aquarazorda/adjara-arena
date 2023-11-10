@@ -1,6 +1,6 @@
 // import { auth } from 'server/auth/lucia';
-import { parseCookies } from 'server/utils/request';
 import { z } from "zod";
+import { parseCookies } from '~/lib/cookies';
 import {
   createTRPCRouter,
   privateProcedure,

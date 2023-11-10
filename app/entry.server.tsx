@@ -9,8 +9,9 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import Backend from 'i18next-fs-backend';
 import i18n from './i18n'; // your i18n configuration file
 import { resolve } from 'node:path';
-import { parseCookies } from 'server/utils/request';
 import dotenv from 'dotenv';
+import { parseCookies } from './lib/cookies';
+
 dotenv.config();
 
 const ABORT_DELAY = 5000;
