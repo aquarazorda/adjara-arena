@@ -16,6 +16,36 @@ module.exports = {
       light: 'abmont_prolight',
       medium: 'abmont_prodemibold',
       black: 'abmont_problack',
+      regular_uppercase: [
+        'abmont_proregular, sans-serif',
+        {
+          fontFeatureSettings: '"case" on',
+        },
+      ],
+      bold_uppercase: [
+        'abmont_probold, sans-serif',
+        {
+          fontFeatureSettings: '"case" on',
+        },
+      ],
+      light_uppercase: [
+        'abmont_prolight, sans-serif',
+        {
+          fontFeatureSettings: '"case" on',
+        },
+      ],
+      medium_uppercase: [
+        'abmont_prodemibold, sans-serif',
+        {
+          fontFeatureSettings: '"case" on',
+        },
+      ],
+      black_uppercase: [
+        'abmont_problack, sans-serif',
+        {
+          fontFeatureSettings: '"case" on',
+        },
+      ],
     },
     colors: {
       black: '#07080A',
@@ -40,6 +70,7 @@ module.exports = {
       rugby: '#70133B',
       ufc: '#C2291C',
       'light-bg': '#EAECED',
+      'dark-silver-text': '#3C4043',
       'silver-lower': '#9AA2AC',
       'silver-ground': '#5F6368',
       'silver-ground-lower': '#38434F',
