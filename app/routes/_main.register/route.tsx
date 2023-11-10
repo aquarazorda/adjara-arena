@@ -7,16 +7,28 @@ export default function RegistrationPage() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col gap-6 p-4">
-      <p className="font-medium text-lg">{t('registration')}</p>
-      <Button
-        variant="ghost"
-        className="flex h-[52px] w-full items-center bg-blue text-base text-white hover:bg-blue/80"
-      >
-        {t('login_facebook')}
-      </Button>
-      <Separator />
-      <RegistrationForm />
+    <div className="dark:bg-dark-grey bg-white flex min-h-[calc(100vh-70px)] md:min-h-[calc(100vh-80px)] dark:text-white text-grey">
+      <div className="flex-1 hidden md:block">
+        <img
+          className="w-full h-full object-cover"
+          src="{{ asset('assets/images/registration-bg.png') }}"
+          alt="adjarabetarena"
+        />
+      </div>
+      <div className="flex-1 flex justify-center items-center py-[16px]">
+        <div className="flex flex-col md:max-w-[460px] w-full gap-6 p-4">
+          <p className="font-medium text-lg">{t('registration')}</p>
+          <Button
+            variant="ghost"
+            size="lg"
+            className="flex w-full items-center bg-blue text-base text-white hover:bg-blue/80 lowercase"
+          >
+            {t('register_facebook')}
+          </Button>
+          <Separator />
+          <RegistrationForm />
+        </div>
+      </div>
     </div>
   );
 }
