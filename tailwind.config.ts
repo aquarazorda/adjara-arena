@@ -118,7 +118,7 @@ module.exports = {
       'yellow-200': '#FFE896',
       'yellow-300': '#FFDD63',
       'yellow-400': '#FFD439',
-      'yellow-500': '#FFC700',      
+      'yellow-500': '#FFC700',
     },
     extend: {
       fontSize: {

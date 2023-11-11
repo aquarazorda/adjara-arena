@@ -19,6 +19,7 @@
   "password_validation_mismatch": "Passwords do not match",
   "phone_number_already_exists": "ასეთი ნომერი უკვე დარეგისტრირებულია",
   "terms_and_conditions_validation_error": "You must agree to the terms and conditions",
+  "terms_and_conditions_description": "გავეცანი და ვეთანხმები წესებსა და პირობებს",
   "verification_method_validation_error": "Please select a verification method",
   "email_or_phone_required": "Email or phone number is required",
   "verification_code": "ვერიფიკაციის კოდი",

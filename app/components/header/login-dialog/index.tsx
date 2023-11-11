@@ -9,11 +9,8 @@ export default function LoginDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="p-0">
-          <div className="flex flex-col items-center gap-[2px]">
-            <img src="/assets/icons/profile.svg" alt="Profile" className="h-6 w-6" />
-            {t('login')}
-          </div>
+        <Button variant="default" className="px-5">
+          <p>{t('შესვლა')}</p>
         </Button>
       </DialogTrigger>
       <LoginDialogContent />

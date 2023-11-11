@@ -12,11 +12,13 @@ import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
 import type { registrationSchema } from '~/lib/schemas/register';
 import { RegistrationVerificationInputs } from './verificationInputs';
 import { DatePicker } from '~/components/ui/date-picker';
+import { trpc } from '~/lib/api';
+import { Checkbox } from '~/components/ui/checkbox';
 
 export default function RegistrationForm() {
   const { t } = useTranslation();
   const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
-  
+
   const form = useRemixForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(z.any()),
     reValidateMode: 'onSubmit',
@@ -25,7 +27,7 @@ export default function RegistrationForm() {
   useEffect(() => {
     form.watch((values) => {
       setVerificationMethod(values.verificationMethod!);
-    })
+    });
   }, [form]);
 
   return (
@@ -71,20 +73,24 @@ export default function RegistrationForm() {
         <FormField
           control={form.control}
           name="verificationMethod"
-          defaultValue='phoneNumber'
+          defaultValue="phoneNumber"
           render={({ field }) => {
             return (
               <FormItem>
-                <Label className='text-silver-800'>{t('verification_method')}</Label>
+                <Label className="text-silver-800">{t('verification_method')}</Label>
                 <FormControl>
-                  <RadioGroup defaultValue='phoneNumber' onValueChange={field.onChange}>
+                  <RadioGroup defaultValue="phoneNumber" onValueChange={field.onChange}>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="phoneNumber" id="phoneNumber" />
-                      <Label htmlFor="phoneNumber" className='text-silver-500 peer-aria-checked:text-silver-800'>{t('phone')}</Label>
+                      <Label htmlFor="phoneNumber" className="text-silver-500 peer-aria-checked:text-silver-800">
+                        {t('phone')}
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="email" id="email" />
-                      <Label htmlFor="email" className='text-silver-500 peer-aria-checked:text-silver-800'>{t('email')}</Label>
+                      <Label htmlFor="email" className="text-silver-500 peer-aria-checked:text-silver-800">
+                        {t('email')}
+                      </Label>
                     </div>
                   </RadioGroup>
                 </FormControl>
@@ -118,6 +124,23 @@ export default function RegistrationForm() {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="termsAndConditions"
+          render={({ field }) => (
+            <FormItem className='flex items-center gap-2'>
+              <Checkbox onCheckedChange={(value) => {
+                field.onChange(value);
+                trpc.user.storeAcceptTerms.mutate({
+                  value: !!value,
+                  user_agent: window.navigator.userAgent,
+                });
+              }} />
+              <Label>{t('terms_and_conditions_description')}</Label>
+            </FormItem>
+          )}
+        />
+
         <Button variant="success" size="lg">
           <p className="font-regular_uppercase text-base">{t('registration')}</p>
         </Button>

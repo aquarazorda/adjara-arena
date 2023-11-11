@@ -12,12 +12,14 @@ export const inputLabelClass =
   'pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-silver-600 transition-all duration-300 peer-focus-visible:top-1 peer-focus-visible:translate-y-0 peer-data-[hasvalue="true"]:top-1 peer-data-[hasvalue="true"]:translate-y-0';
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, placeholder, value = '', addon, ...props }: InputProps, ref) => {
+  ({ className, type, placeholder, value = '', addon, onChange, ...props }: InputProps, ref) => {
     return (
       <div className="relative w-full">
-        <input ref={ref} type={type} className={cn(inputClass, className)} {...props} />
-        <label className={inputLabelClass}>{placeholder}</label>
-        {addon && <div className="absolute right-0 top-1 pr-3">{addon}</div>}
+        <>
+          <input ref={ref} type={type} className={cn(inputClass, className)} {...props} />
+          <label className={inputLabelClass}>{placeholder}</label>
+          {addon && <div className="absolute right-0 top-1 pr-3">{addon}</div>}
+        </>
       </div>
     );
   }

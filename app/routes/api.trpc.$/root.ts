@@ -1,0 +1,24 @@
+import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
+import { serverRouter } from 'server/router';
+import { parseFormData } from 'server/utils/request';
+import type { ZodSchema, z } from 'zod';
+
+export const loader$ =
+  <R>(fn: (caller: ReturnType<typeof serverRouter.createCaller>, request: Request) => Promise<R>) =>
+  ({ request }: LoaderFunctionArgs) =>
+    fn(
+      serverRouter.createCaller({
+        req: request,
+      }),
+      request
+    );
+
+export const action$ =
+  <T, R>(
+    schema: ZodSchema<T>,
+    fn: (formData: z.infer<typeof schema>, caller: ReturnType<typeof serverRouter.createCaller>) => Promise<R>
+  ) =>
+  async ({ request }: ActionFunctionArgs) =>
+    fn(parseFormData(await request.formData()), serverRouter.createCaller({ req: request }));
+
+export const serverCaller = (req: Request) => serverRouter.createCaller({ req });
