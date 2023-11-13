@@ -9,9 +9,6 @@ const PasswordRecoveryPage = () => {
     <RegistrationLayout className="gap-6 p-4">
       <div className="flex flex-col gap-5">
         <p className="font-medium text-lg text-dark-silver-text dark:text-white">{t('პაროლის აღდგენა')}</p>
-        {/* <p className="font-medium text-base text-silver-ground dark:text-silver">
-          {t('თქვენ მიიღებთ კოდს მობილურზე ან ელ-ფოსტაზე')}
-        </p> */}
       </div>
       <PasswordRecoveryForm />
     </RegistrationLayout>
