@@ -1,21 +1,32 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubmit } from '@remix-run/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
 import { Button } from '~/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '~/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
 import { registrationSchema } from '~/lib/schemas/register';
+import { RegistrationVerificationInputs } from '../_main.register/verificationInputs';
 
-export default function FbRegistrationForm() {
+export default function PasswordRecoveryForm() {
   const { t } = useTranslation();
   const form = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
   });
 
+  const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
+
   const [codeSent, setCodeSent] = useState(false);
+
+  useEffect(() => {
+    form.watch((values) => {
+      setVerificationMethod(values.verificationMethod!);
+    });
+  }, [form]);
 
   const submit = useSubmit();
 
@@ -23,15 +34,34 @@ export default function FbRegistrationForm() {
     <Form {...form}>
       <FormField
         control={form.control}
-        name="phoneNumber"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input placeholder={t('phone_number')} {...field} readOnly={codeSent ? true : false} />
-            </FormControl>
-          </FormItem>
-        )}
+        name="verificationMethod"
+        defaultValue="phoneNumber"
+        render={({ field }) => {
+          return (
+            <FormItem>
+              <Label className="text-silver-800">{t('თქვენ მიიღებთ კოდს მობილურზე ან ელ-ფოსტაზე')}</Label>
+              <FormControl>
+                <RadioGroup defaultValue="phoneNumber" onValueChange={field.onChange}>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="phoneNumber" id="phoneNumber" />
+                    <Label htmlFor="phoneNumber" className="text-silver-500 peer-aria-checked:text-silver-800">
+                      {t('phone')}
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="email" id="email" />
+                    <Label htmlFor="email" className="text-silver-500 peer-aria-checked:text-silver-800">
+                      {t('email')}
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          );
+        }}
       />
+      <RegistrationVerificationInputs verificationMethod={verificationMethod} />
       {codeSent && (
         <div className="flex flex-col gap-3">
           <FormField
@@ -80,7 +110,7 @@ export default function FbRegistrationForm() {
           )}
         />
         <Button variant="success" size="lg" onClick={() => setCodeSent(true)}>
-          <p className="text-base font-regular_uppercase">{t('რეგისტრაცია')}</p>
+          <p className="text-base font-regular_uppercase">{t('აღდგენა')}</p>
         </Button>
       </div>
     </Form>
