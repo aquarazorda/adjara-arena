@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSubmit } from '@remix-run/react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
@@ -8,13 +7,11 @@ import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/c
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 
-export default function NewPasswordForm() {
+export default function NewPasswordRoute() {
   const { t } = useTranslation();
   const form = useForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
   });
-
-  const submit = useSubmit();
 
   return (
     <FormProvider {...form}>
@@ -43,7 +40,7 @@ export default function NewPasswordForm() {
         )}
       />
       <Button variant="success" size="lg" onClick={console.log}>
-        <p className="text-base font-regular_uppercase">{t('აღდგენა')}</p>
+        <p className="font-regular_uppercase text-base">{t('აღდგენა')}</p>
       </Button>
     </FormProvider>
   );

@@ -8,8 +8,8 @@ import {
 
 export const forgotPasswordFirstStepSchema = z
   .object({
-    email: emailSchema.optional(),
-    phoneNumber: phoneNumberSchema.optional(),
+    email: emailSchema.optional().or(z.literal('')),
+    phoneNumber: phoneNumberSchema.optional().or(z.literal('')),
     verificationMethod: verificationMethodSchema,
     verificationCode: verificationCodeSchema,
   })

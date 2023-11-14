@@ -1,17 +1,37 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { ActionFunctionArgs} from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
+import { getValidatedFormData, useRemixForm } from 'remix-hook-form';
+import { forgotPasswordFirstStepSchema } from '~/lib/schemas/forgot-password';
+import { zodResolver } from '@hookform/resolvers/zod';
 import type { z } from 'zod';
-import { RegistrationVerificationInputs } from '../_.register/verificationInputs';
+import { useEffect, useState } from 'react';
 import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/components/ui/form';
+import { Form } from '@remix-run/react';
 import { Label } from '~/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
 import { Button } from '~/components/ui/button';
-import { useRemixForm } from 'remix-hook-form';
-import { forgotPasswordFirstStepSchema } from '~/lib/schemas/forgot-password';
-import { Form } from '@remix-run/react';
+import { RegistrationVerificationInputs } from './_.register/verificationInputs';
 
-export default function PasswordRecoveryForm() {
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const {
+    receivedValues: defaultValues,
+    data,
+    errors,
+  } = await getValidatedFormData<z.infer<typeof forgotPasswordFirstStepSchema>>(
+    request,
+    zodResolver(forgotPasswordFirstStepSchema)
+  );
+
+  if (errors && !data) {
+    return json({ defaultValues, errors });
+  }
+
+  // TODO check verification code, if not valid send error message
+  return redirect('/forgot_password/new_password?code=1234');
+};
+
+export default function ForgotPasswordRoute() {
   const { t } = useTranslation();
   const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
   const form = useRemixForm<z.infer<typeof forgotPasswordFirstStepSchema>>({
@@ -69,7 +89,7 @@ export default function PasswordRecoveryForm() {
         />
         <RegistrationVerificationInputs verificationMethod={verificationMethod} />
         <Button variant="success" size="lg" type="submit">
-          <p className="text-base font-regular_uppercase">{t('აღდგენა')}</p>
+          <p className="font-regular_uppercase text-base">{t('აღდგენა')}</p>
         </Button>
       </Form>
     </FormProvider>
