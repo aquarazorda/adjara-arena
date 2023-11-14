@@ -4,12 +4,19 @@ import { Slot } from '@radix-ui/react-slot';
 
 import { cn } from 'app/lib/utils';
 import { Label } from 'app/components/ui/label';
-import { RemixFormProvider, useRemixFormContext, } from 'remix-hook-form';
-import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form';
+import type { useRemixForm } from 'remix-hook-form';
+import { RemixFormProvider, useRemixFormContext } from 'remix-hook-form';
+import type {
+  ControllerProps,
+  FieldError,
+  FieldPath,
+  FieldValues,
+  Path,
+} from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-const Form = RemixFormProvider;
+const FormProvider = RemixFormProvider;
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -116,8 +123,8 @@ FormDescription.displayName = 'FormDescription';
 const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, children, ...props }, ref) => {
     const { error, formMessageId } = useFormField();
-    const {t} = useTranslation();
-    
+    const { t } = useTranslation();
+
     if (!error?.message) {
       return null;
     }
@@ -131,4 +138,26 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
 );
 FormMessage.displayName = 'FormMessage';
 
-export { useFormField, Form, FormItem, FormLabel, FormControl, FormDescription, FormMessage, FormField };
+const setFormErrors = <T extends FieldValues>(
+  form: ReturnType<typeof useRemixForm<T>>,
+  response: { errors: Partial<Record<Path<T>, FieldError>> }
+) => {
+  Object.keys(response.errors).forEach((key) => {
+    response.errors[key as Path<T>] && form.setError(key as Path<T>, {
+      type: response.errors[key as Path<T>]?.type,
+      message: response.errors[key as Path<T>]?.message,
+    });
+  });
+};
+
+export {
+  useFormField,
+  FormProvider,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+  setFormErrors,
+};

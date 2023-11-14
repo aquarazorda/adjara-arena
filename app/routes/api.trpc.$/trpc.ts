@@ -6,13 +6,16 @@ import { auth } from 'server/auth/lucia';
 
 export type Context = {
   req: Request;
+  resHeaders: Headers,
   user?: {}
 };
 
 export const createTRPCContext = ({
-  req
+  req,
+  resHeaders
 }: FetchCreateContextFnOptions) => ({
-  req
+  req,
+  resHeaders
 });
 
 const t = initTRPC.context<Context>().create({

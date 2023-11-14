@@ -1,11 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRemixForm } from 'remix-hook-form';
 import { z } from 'zod';
 import { Button } from '~/components/ui/button';
-import { Form as UIForm, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/form';
+import { FormProvider, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
@@ -14,11 +13,12 @@ import { RegistrationVerificationInputs } from './verificationInputs';
 import { DatePicker } from '~/components/ui/date-picker';
 import { trpc } from '~/lib/api';
 import { Checkbox } from '~/components/ui/checkbox';
+import { Form } from '@remix-run/react';
 
 export default function RegistrationForm() {
   const { t } = useTranslation();
   const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
-
+  
   const form = useRemixForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(z.any()),
     reValidateMode: 'onSubmit',
@@ -31,8 +31,7 @@ export default function RegistrationForm() {
   }, [form]);
 
   return (
-    // @ts-expect-error
-    <UIForm {...form}>
+    <FormProvider {...form}>
       <Form method="post" className="flex flex-col gap-6" onSubmit={form.handleSubmit}>
         <FormField
           control={form.control}
@@ -128,14 +127,16 @@ export default function RegistrationForm() {
           control={form.control}
           name="termsAndConditions"
           render={({ field }) => (
-            <FormItem className='flex items-center gap-2'>
-              <Checkbox onCheckedChange={(value) => {
-                field.onChange(value);
-                trpc.user.storeAcceptTerms.mutate({
-                  value: !!value,
-                  user_agent: window.navigator.userAgent,
-                });
-              }} />
+            <FormItem className="flex items-center gap-2">
+              <Checkbox
+                onCheckedChange={(value) => {
+                  field.onChange(value);
+                  trpc.user.storeAcceptTerms.mutate({
+                    value: !!value,
+                    user_agent: window.navigator.userAgent,
+                  });
+                }}
+              />
               <Label>{t('terms_and_conditions_description')}</Label>
             </FormItem>
           )}
@@ -145,6 +146,6 @@ export default function RegistrationForm() {
           <p className="font-regular_uppercase text-base">{t('registration')}</p>
         </Button>
       </Form>
-    </UIForm>
+    </FormProvider>
   );
 }

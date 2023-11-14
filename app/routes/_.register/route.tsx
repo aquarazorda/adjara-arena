@@ -6,23 +6,23 @@ import type { ActionFunctionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { getValidatedFormData } from 'remix-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { registrationSchema } from '~/lib/schemas/register';
+import { registrationSchema } from '~/lib/schemas/register';
 import { auth } from 'server/auth/lucia';
-import { z } from 'zod';
 import { LuciaError } from 'lucia';
 import { PostgresError } from 'postgres';
 import { match } from 'ts-pattern';
-import { createFormErrorReturn } from 'server/utils/request';
+import { createFormErrorReturnJson } from 'server/utils/request';
+import type { z } from 'zod';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const {
     receivedValues: defaultValues,
     data,
     errors,
-  } = await getValidatedFormData<z.infer<typeof registrationSchema>>(request, zodResolver(z.any()));
+  } = await getValidatedFormData<z.infer<typeof registrationSchema>>(request, zodResolver(registrationSchema));
   
-  const errorResponse = createFormErrorReturn(defaultValues);
-
+  const errorResponse = createFormErrorReturnJson(defaultValues);
+  
   if (errors && !data) {
     return json({ defaultValues, errors });
   }

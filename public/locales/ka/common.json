@@ -35,5 +35,7 @@
   "phone": "მობილური",
   "birth_date": "დაბადების თარიღი",
   "required": "ველის შევსება სავალდებულოა",
-  "username_already_exists": "მომხმარებელი ამ სახელით უკვე არსებობს"
+  "username_already_exists": "მომხმარებელი ამ სახელით უკვე არსებობს",
+  "forgot_password": "დაგავიწყდა პაროლი?",
+  "forgot_password_header": "პაროლის აღდგენა"
 }

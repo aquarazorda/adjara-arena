@@ -17,14 +17,20 @@ export const passwordSchema = z
     message: 'password_validation_symbol',
   });
 
+export const emailSchema = z.string().email('email_validation_error');
+export const phoneNumberSchema = z
+  .string()
+  .min(9, { message: 'phone_number_validation_error' })
+  .max(9, { message: 'phone_number_validation_error' });
+
 export const registrationSchema = z
   .object({
     fullName: z.string().refine((fullName) => /\s/.test(fullName.trim()), { message: 'full_name_validation_error' }),
     userName: z.string().min(3).max(20),
     birthday: z.string(),
     password: passwordSchema,
-    email: z.string().email().optional(),
-    phoneNumber: z.number().min(9).max(9).optional(),
+    email: emailSchema.optional(),
+    phoneNumber: phoneNumberSchema.optional(),
     confirmPassword: z.string(),
     verificationCode: z.string().min(4),
     verificationMethod: z
