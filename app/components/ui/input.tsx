@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from 'app/lib/utils';
+import { useRemixFormContext } from 'remix-hook-form';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   addon?: React.ReactNode;
@@ -13,10 +14,11 @@ export const inputLabelClass =
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, placeholder, value = '', addon, onChange, ...props }: InputProps, ref) => {
+    const { register } = useRemixFormContext();
     return (
       <div className="relative w-full">
         <>
-          <input ref={ref} type={type} className={cn(inputClass, className)} {...props} />
+          <input {...register(props.name!)} type={type} className={cn(inputClass, className)} {...props} />
           <label className={inputLabelClass}>{placeholder}</label>
           {addon && <div className="absolute right-0 top-1 pr-3">{addon}</div>}
         </>

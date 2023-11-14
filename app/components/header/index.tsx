@@ -4,10 +4,12 @@ import { ThemeToggle } from '../theme-toggle';
 import { Link, useNavigate } from '@remix-run/react';
 import LoginDialog from './login-dialog';
 import Search from '../icons/Search.svg?react';
+import { useUser } from '~/hooks/User';
 
 export default function Header() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const user = useUser();
 
   return (
     <header className="flex h-[80px] w-full items-center bg-grey-600">
@@ -20,19 +22,19 @@ export default function Header() {
             <Search className="h-6 w-6" />
           </div>
         </Button>
-        {true ? (
+        {user ? (
+          <Button variant="ghost" className="p-0">
+            <div className="bg-silver-ground-lower flex h-8 w-8 cursor-pointer items-center justify-center rounded-full">
+              <p className="font-regular_uppercase uppercase">{user.username[0]}</p>
+            </div>
+          </Button>
+        ) : (
           <div className="flex gap-3">
             <LoginDialog />
-            <Button variant="success" className="px-5" onClick={() => navigate("/register")}>
+            <Button variant="success" className="px-5" onClick={() => navigate('/register')}>
               <p>{t('რეგისტრაცია')}</p>
             </Button>
           </div>
-        ) : (
-          <Button variant="ghost" className="p-0">
-            <div className="bg-silver-ground-lower flex h-8 w-8 cursor-pointer items-center justify-center rounded-full">
-              <p className="font-ABMontProUpperCase">A</p>
-            </div>
-          </Button>
         )}
         <ThemeToggle />
       </aside>

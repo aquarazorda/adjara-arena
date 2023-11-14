@@ -21,11 +21,15 @@ export const getLoaderLangs = async (request: Request, langKeys: string[]) => {
   }, {} as Record<string, string>);
 }
 
-export const createFormErrorReturn = (defaultValues: Record<any, any>) => (errors: Record<string, string>) => {
+export const createFormErrorReturn = <T extends object>(defaultValues: T) => (errors: Partial<Record<keyof T, string>>) => {
   const errorValues = Object.keys(errors).reduce((acc, curr) => {
-    acc[curr] = { message: errors[curr], type: "custom" };
+    acc[curr as keyof T] = { message: errors[curr as keyof T], type: "custom" };
     return acc;
-  }, {} as Record<string, FieldError>);
+  }, {} as Record<keyof T, FieldError>);
 
-  return json({ defaultValues, errors: errorValues });
+  return { status: "error", defaultValues, errors: errorValues } as const;
 };
+
+export const createFormErrorReturnJson = <T extends object>(defaultValues: T) => (errors: Partial<Record<keyof T, string>>) => {
+  return json (createFormErrorReturn(defaultValues)(errors));
+}

@@ -7,13 +7,19 @@ import { useTranslation } from 'react-i18next';
 import { ToastProvider } from './hooks/Toast';
 import clsx from 'clsx';
 import { parseCookies } from './lib/cookies';
+import { auth } from 'server/auth/lucia';
+import { UserProvider } from './hooks/User';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookies = parseCookies(request.headers.get('Cookie') ?? '');
-  let locale = cookies.lang || 'ka';
-  let theme = cookies.theme || 'light';
-
-  return json({ locale, theme });
+  const locale: string = cookies.lang || 'ka';
+  const theme: string = cookies.theme || 'light';
+  const authRequest = auth.handleRequest(request);
+  const session = await authRequest.validate();
+  const user = session?.user;
+  
+  return json({ locale, theme, user });
 }
 
 export let handle = {
@@ -30,8 +36,10 @@ export const links: LinksFunction = () => [
   { rel: 'mask-icon', href: '/assets/favicons/favicon-32.png' },
 ];
 
+const queryClient = new QueryClient();
+
 export default function App() {
-  let { locale, theme } = useLoaderData<typeof loader>();
+  let { locale, theme, user } = useLoaderData<typeof loader>();
   let { i18n } = useTranslation();
 
   return (
@@ -43,14 +51,19 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-light-bg dark:bg-dark-blue-grey">
-        <ThemeProvider>
-          <ToastProvider>
-            <Outlet />
-          </ToastProvider>
-          <ScrollRestoration />
-          <LiveReload />
-          <Scripts />
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+        {/* @ts-ignore https://github.com/remix-run/remix/issues/7599 */}
+          <UserProvider user={user}>
+            <ThemeProvider>
+              <ToastProvider>
+                <Outlet />
+              </ToastProvider>
+            </ThemeProvider>
+          </UserProvider>
+        </QueryClientProvider>
+        <ScrollRestoration />
+        <LiveReload />
+        <Scripts />
       </body>
     </html>
   );
