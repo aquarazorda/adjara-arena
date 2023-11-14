@@ -1,6 +1,7 @@
-import RegistrationLayout from '~/components/registration-layout';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import PasswordRecoveryForm from './passwordRecoveryForm';
+import RegistrationLayout from '~/components/registration-layout';
+import NewPasswordForm from './newPasswordForm';
 
 const PasswordRecoveryPage = () => {
   const { t } = useTranslation();
@@ -10,7 +11,7 @@ const PasswordRecoveryPage = () => {
       <div className="flex flex-col gap-5">
         <p className="font-medium text-lg text-dark-silver-text dark:text-white">{t('პაროლის აღდგენა')}</p>
       </div>
-      <PasswordRecoveryForm />
+      <NewPasswordForm />
     </RegistrationLayout>
   );
 };

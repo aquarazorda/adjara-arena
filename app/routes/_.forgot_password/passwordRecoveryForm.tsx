@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
-import { Button } from '~/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/form';
-import { Input } from '~/components/ui/input';
+import { RegistrationVerificationInputs } from '../_.register/verificationInputs';
+import { registrationSchema } from '~/lib/schemas/register';
+import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/components/ui/form';
 import { Label } from '~/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
-import { registrationSchema } from '~/lib/schemas/register';
-import { RegistrationVerificationInputs } from '../_main.register/verificationInputs';
+import { Input } from '~/components/ui/input';
+import { Button } from '~/components/ui/button';
 
 export default function PasswordRecoveryForm() {
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ export default function PasswordRecoveryForm() {
   const submit = useSubmit();
 
   return (
-    <Form {...form}>
+    <FormProvider {...form}>
       <FormField
         control={form.control}
         name="verificationMethod"
@@ -113,6 +113,6 @@ export default function PasswordRecoveryForm() {
           <p className="text-base font-regular_uppercase">{t('აღდგენა')}</p>
         </Button>
       </div>
-    </Form>
+    </FormProvider>
   );
 }

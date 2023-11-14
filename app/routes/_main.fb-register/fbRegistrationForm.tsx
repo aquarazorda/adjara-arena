@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
 import { Button } from '~/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '~/components/ui/form';
+import { FormControl, FormField, FormItem, FormProvider } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { registrationSchema } from '~/lib/schemas/register';
 
@@ -20,7 +20,7 @@ export default function FbRegistrationForm() {
   const submit = useSubmit();
 
   return (
-    <Form {...form}>
+    <FormProvider {...form}>
       <FormField
         control={form.control}
         name="phoneNumber"
@@ -83,6 +83,6 @@ export default function FbRegistrationForm() {
           <p className="text-base font-regular_uppercase">{t('რეგისტრაცია')}</p>
         </Button>
       </div>
-    </Form>
+    </FormProvider>
   );
 }
