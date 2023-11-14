@@ -8,7 +8,7 @@ import { FormProvider, FormControl, FormField, FormItem, FormMessage } from '~/c
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
-import type { registrationSchema } from '~/lib/schemas/register';
+import { registrationSchema } from '~/lib/schemas/registration.schema';
 import { RegistrationVerificationInputs } from './verificationInputs';
 import { DatePicker } from '~/components/ui/date-picker';
 import { trpc } from '~/lib/api';
@@ -20,7 +20,7 @@ export default function RegistrationForm() {
   const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
   
   const form = useRemixForm<z.infer<typeof registrationSchema>>({
-    resolver: zodResolver(z.any()),
+    resolver: zodResolver(registrationSchema),
     reValidateMode: 'onSubmit',
   });
 

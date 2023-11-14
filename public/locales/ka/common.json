@@ -22,6 +22,7 @@
   "terms_and_conditions_description": "გავეცანი და ვეთანხმები წესებსა და პირობებს",
   "verification_method_validation_error": "Please select a verification method",
   "email_or_phone_required": "Email or phone number is required",
+  "verification_code_value_error": "ვერიფიკაციის კოდი უნდა შეიცავდეს 4 ციფრს",
   "verification_code": "ვერიფიკაციის კოდი",
   "verification": "ვერიფიკაცია",
   "didnt_receive_code": "არ მიგიღია კოდი?",

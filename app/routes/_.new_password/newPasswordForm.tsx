@@ -3,7 +3,7 @@ import { useSubmit } from '@remix-run/react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
-import { registrationSchema } from '~/lib/schemas/register';
+import { registrationSchema } from '~/lib/schemas/registration.schema';
 import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';

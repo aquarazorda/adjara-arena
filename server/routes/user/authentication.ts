@@ -4,6 +4,7 @@ import { auth } from 'server/auth/lucia';
 import { db } from 'server/db';
 import { user } from 'server/db/schema/user';
 import { createFormErrorReturn } from 'server/utils/request';
+import { Ok } from 'ts-results';
 import { authSchema } from '~/lib/schemas/auth';
 import { publicProcedure } from '~/routes/api.trpc.$/trpc';
 
@@ -27,7 +28,8 @@ export const authenticate = publicProcedure.input(authSchema).mutation(async ({ 
     const sessionCookie = auth.createSessionCookie(session);
 
     ctx.resHeaders.set('Set-Cookie', sessionCookie.serialize());
-    return { status: 'success' } as const;
+    
+    return Ok({});
   } catch (e: any) {
     if (e instanceof LuciaError && (e.message === 'AUTH_INVALID_KEY_ID' || e.message === 'AUTH_INVALID_PASSWORD')) {
       return errorResponse({ emailOrUsername: 'invalid_email_or_phone_number' });

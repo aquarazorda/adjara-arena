@@ -6,7 +6,7 @@ import type { ActionFunctionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { getValidatedFormData } from 'remix-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { registrationSchema } from '~/lib/schemas/register';
+import { registrationSchema } from '~/lib/schemas/registration.schema';
 import { auth } from 'server/auth/lucia';
 import { LuciaError } from 'lucia';
 import { PostgresError } from 'postgres';

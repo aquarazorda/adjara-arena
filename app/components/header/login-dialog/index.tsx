@@ -13,11 +13,10 @@ import { authSchema } from '~/lib/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { trpc } from '~/lib/api';
 import { FormControl, FormField, FormItem, FormMessage, FormProvider, setFormErrors } from '~/components/ui/form';
-import { useNavigate } from '@remix-run/react';
+import { Link, useNavigate } from '@remix-run/react';
 import type { z } from 'zod';
 import { Input } from '~/components/ui/input';
 import { DialogClose } from '@radix-ui/react-dialog';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Separator from '~/components/ui/separator';
 import { useMutation } from 'react-query';
@@ -39,8 +38,8 @@ export default function LoginDialog() {
       onValid: async (data) => {
         const response = await mutateAsync(data);
 
-        if (response.status === 'error') {
-          setFormErrors(form, response);
+        if (response.err) {
+          setFormErrors(form, response.val);
         }
       },
     },

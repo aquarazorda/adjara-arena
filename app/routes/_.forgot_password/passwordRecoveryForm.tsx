@@ -1,118 +1,77 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSubmit } from '@remix-run/react';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
 import { RegistrationVerificationInputs } from '../_.register/verificationInputs';
-import { registrationSchema } from '~/lib/schemas/register';
 import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/components/ui/form';
 import { Label } from '~/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
-import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
+import { useRemixForm } from 'remix-hook-form';
+import { forgotPasswordFirstStepSchema } from '~/lib/schemas/forgot-password';
+import { Form } from '@remix-run/react';
 
 export default function PasswordRecoveryForm() {
   const { t } = useTranslation();
-  const form = useForm<z.infer<typeof registrationSchema>>({
-    resolver: zodResolver(registrationSchema),
+  const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
+  const form = useRemixForm<z.infer<typeof forgotPasswordFirstStepSchema>>({
+    resolver: zodResolver(forgotPasswordFirstStepSchema),
+    mode: 'onSubmit',
+    defaultValues: {
+      verificationMethod: 'phoneNumber',
+      phoneNumber: '',
+      email: '',
+      verificationCode: '',
+    },
   });
 
-  const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
-
-  const [codeSent, setCodeSent] = useState(false);
-
   useEffect(() => {
-    form.watch((values) => {
-      setVerificationMethod(values.verificationMethod!);
+    form.watch((values, { name }) => {
+      if (name === 'verificationMethod' && values.verificationMethod) {
+        setVerificationMethod(values.verificationMethod);
+        form.setValue('phoneNumber', '');
+        form.setValue('email', '');
+      }
     });
   }, [form]);
 
-  const submit = useSubmit();
-
   return (
     <FormProvider {...form}>
-      <FormField
-        control={form.control}
-        name="verificationMethod"
-        defaultValue="phoneNumber"
-        render={({ field }) => {
-          return (
-            <FormItem>
-              <Label className="text-silver-800">{t('თქვენ მიიღებთ კოდს მობილურზე ან ელ-ფოსტაზე')}</Label>
-              <FormControl>
-                <RadioGroup defaultValue="phoneNumber" onValueChange={field.onChange}>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="phoneNumber" id="phoneNumber" />
-                    <Label htmlFor="phoneNumber" className="text-silver-500 peer-aria-checked:text-silver-800">
-                      {t('phone')}
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="email" id="email" />
-                    <Label htmlFor="email" className="text-silver-500 peer-aria-checked:text-silver-800">
-                      {t('email')}
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          );
-        }}
-      />
-      <RegistrationVerificationInputs verificationMethod={verificationMethod} />
-      {codeSent && (
-        <div className="flex flex-col gap-3">
-          <FormField
-            control={form.control}
-            name="verificationCode"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input placeholder={t('verification_code')} {...field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <div className="flex justify-between">
-            <p className="text-xs text-silver-ground dark:text-silver/60 cursor-pointer">{t('არ მიგიღია კოდი?')}</p>
-            <p className="text-xs text-silver-ground dark:text-silver/60 cursor-pointer">
-              <span className="dark:text-white-secondary text-dark-silver-text mr-2">00:10</span>
-              {t('გააგზავნე ხელახლა')}
-            </p>
-          </div>
-        </div>
-      )}
-      <div className="flex flex-col gap-4">
+      <Form method="post" onSubmit={form.handleSubmit} className="flex flex-col gap-6">
         <FormField
           control={form.control}
-          name="termsAndConditions"
-          render={({ field }) => (
-            <FormItem>
-              <Input
-                placeholder={t('termsAndConditions')}
-                {...field}
-                type="checkbox"
-                onChange={(e: any) => {
-                  const formData = new FormData();
-                  formData.append('value', e.target.checked);
-                  formData.append('user_agent', window.navigator.userAgent);
-
-                  submit(formData, {
-                    method: 'post',
-                  });
-
-                  field.onChange(e);
-                }}
-              />
-            </FormItem>
-          )}
+          name="verificationMethod"
+          defaultValue="phoneNumber"
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <Label className="text-silver-800">{t('თქვენ მიიღებთ კოდს მობილურზე ან ელ-ფოსტაზე')}</Label>
+                <FormControl>
+                  <RadioGroup defaultValue="phoneNumber" onValueChange={field.onChange}>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="phoneNumber" id="phoneNumber" />
+                      <Label htmlFor="phoneNumber" className="text-silver-500 peer-aria-checked:text-silver-800">
+                        {t('phone')}
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="email" id="email" />
+                      <Label htmlFor="email" className="text-silver-500 peer-aria-checked:text-silver-800">
+                        {t('email')}
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
-        <Button variant="success" size="lg" onClick={() => setCodeSent(true)}>
+        <RegistrationVerificationInputs verificationMethod={verificationMethod} />
+        <Button variant="success" size="lg" type="submit">
           <p className="text-base font-regular_uppercase">{t('აღდგენა')}</p>
         </Button>
-      </div>
+      </Form>
     </FormProvider>
   );
 }

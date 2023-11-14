@@ -10,14 +10,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'border border-[#333E4A] bg-[#28313B] text-white ring-white hover:bg-[#222930]',
-        success: 'bg-green-500 text-white ring-white hover:bg-[#038047]',
-        outline: "border border-silver-200 bg-white text-silver-800",
+        success: 'bg-green-500 text-white ring-white hover:bg-[#038047] disabled:bg-green-500/50',
+        outline: 'border border-silver-200 bg-white text-silver-800',
         // destructive:
         //   "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         // secondary:
         //   "text-secondary-foreground bg-secondary hover:bg-secondary/80",
         ghost: 'text-white focus-visible:ring-0',
-        // link: "text-primary underline-offset-4 hover:underline",
+        plain: '',
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: 'h-10 px-4 py-2',
@@ -40,9 +41,17 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, type, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} autoFocus={false} {...props} />;
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        autoFocus={false}
+        type={type || 'button'}
+        {...props}
+      />
+    );
   }
 );
 Button.displayName = 'Button';

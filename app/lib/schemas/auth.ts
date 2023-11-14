@@ -1,11 +1,7 @@
 import { z } from 'zod';
-import { emailSchema, passwordSchema, phoneNumberSchema } from './register';
+import { emailOrPhoneNumberSchema, passwordSchema } from './shared-user.schema';
 
 export const authSchema = z.object({
-  emailOrUsername: z
-    .string()
-    .refine((value) => emailSchema.safeParse(value).success || phoneNumberSchema.safeParse(value).success, {
-      message: 'invalid_email_or_phone_number',
-    }),
+  emailOrUsername: emailOrPhoneNumberSchema,
   password: passwordSchema,
 });

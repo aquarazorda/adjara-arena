@@ -7,7 +7,7 @@ import type { z } from 'zod';
 import { Button } from '~/components/ui/button';
 import { FormControl, FormField, FormItem, FormProvider } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
-import { registrationSchema } from '~/lib/schemas/register';
+import { registrationSchema } from '~/lib/schemas/registration.schema';
 
 export default function FbRegistrationForm() {
   const { t } = useTranslation();
