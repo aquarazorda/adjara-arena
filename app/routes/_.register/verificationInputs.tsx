@@ -45,7 +45,7 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
   const { t } = useTranslation();
   const form = useRemixFormContext<z.infer<typeof verificationInputSchema>>();
   const [state, setState] = useState(defaultState);
-  const { mutateAsync: sendSms } = useMutation({
+  const { mutateAsync: sendSms, isLoading: isSmsSending } = useMutation({
     mutationFn: trpc.verification.generateCodeAndSendSms.query
   });
 
@@ -104,7 +104,7 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
         variant={'success'}
         type="button"
         onClick={() => sendVerificationCode()}
-        disabled={state.verificationButtonDisabled}
+        disabled={state.verificationButtonDisabled || isSmsSending}
       >
         {t('verification')}
       </Button>

@@ -1,10 +1,9 @@
 import {
   generateVerificationAndSendSms,
-  generateVerificationCode,
   validateVerificationCode,
 } from 'server/services/verification.service';
 import { createFormErrorReturn } from 'server/utils/request';
-import { Err, Ok } from 'ts-results';
+import { Ok } from 'ts-results';
 import { phoneNumberSchema } from '~/lib/schemas/shared-user.schema';
 import { verificationCodeSchema } from '~/lib/schemas/verification';
 import { createTRPCRouter, publicProcedure } from '~/routes/api.trpc.$/trpc';
