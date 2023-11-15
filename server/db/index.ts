@@ -4,7 +4,12 @@ import postgres from 'postgres';
 
 import schema from './schema';
 
-export const pgClient = postgres(serverEnv.POSTGRES_URL);
+export const pgClient = postgres(serverEnv.POSTGRES_URL, {
+  user: serverEnv.DB_USERNAME,
+  password: serverEnv.DB_PASSWORD,
+  host: serverEnv.DB_HOST,
+  port: serverEnv.DB_PORT,
+});
 
 export const db = drizzle(pgClient, {
   schema

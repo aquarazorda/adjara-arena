@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRemixFormContext } from 'remix-hook-form';
 import { Button } from '~/components/ui/button';
-import { FormControl, FormField, FormItem, FormMessage } from '~/components/ui/form';
+import { FormControl, FormField, FormItem, FormMessage, setFormErrors } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import Checkmark from '~/components/icons/Checkmark.svg?react';
-import { z } from 'zod';
-import {
-  emailSchema,
-  phoneNumberSchema,
-  verificationCodeSchema,
-  verificationMethodSchema,
-} from '~/lib/schemas/shared-user.schema';
+import type { z } from 'zod';
+import { emailSchema, phoneNumberSchema } from '~/lib/schemas/shared-user.schema';
+import type { verificationInputSchema } from '~/lib/schemas/verification';
+import { useMutation } from 'react-query';
+import { trpc } from '~/lib/api';
 
 type Props = {
   verificationMethod: string;
@@ -31,17 +29,16 @@ const defaultState: State = {
   verificationButtonDisabled: true,
 };
 
-const verificationInputSchema = z.object({
-  phoneNumber: phoneNumberSchema,
-  email: emailSchema,
-  verificationCode: verificationCodeSchema,
-  verificationMethod: verificationMethodSchema,
-});
-
 export const RegistrationVerificationInputs = ({ verificationMethod }: Props) => {
   const { t } = useTranslation();
   const form = useRemixFormContext<z.infer<typeof verificationInputSchema>>();
   const [state, setState] = useState(defaultState);
+  const {
+    mutateAsync: sendSms,
+    isLoading: isSmsSending,
+  } = useMutation({
+    mutationFn: trpc.verification.generateCodeAndSend.mutate,
+  });
 
   useEffect(() => {
     setState(defaultState);
@@ -73,7 +70,15 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
       });
     }, 1000);
 
-  const sendVerificationCode = () => {
+  const sendVerificationCode = async () => {
+    const res = await sendSms(form.getValues());
+
+    if (res.err) {
+      setFormErrors(form, res.val);
+      return;
+    }
+
+    form.setValue('verificationId', res.val.id);
     setState({ ...defaultState, codeSent: true, codeInterval: getVerificationInterval() });
   };
 
@@ -87,7 +92,7 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
         variant={'success'}
         type="button"
         onClick={() => sendVerificationCode()}
-        disabled={state.verificationButtonDisabled}
+        disabled={state.verificationButtonDisabled || isSmsSending}
       >
         {t('verification')}
       </Button>

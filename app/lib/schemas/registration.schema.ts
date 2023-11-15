@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { emailSchema, passwordSchema, phoneNumberSchema, verificationCodeSchema, verificationMethodSchema } from './shared-user.schema';
+import { emailSchema, passwordSchema, phoneNumberSchema } from './shared-user.schema';
+import { verificationInputSchema } from './verification';
 
 export const registrationSchema = z
   .object({
@@ -10,8 +11,6 @@ export const registrationSchema = z
     email: emailSchema.optional(),
     phoneNumber: phoneNumberSchema.optional(),
     confirmPassword: z.string(),
-    verificationCode: verificationCodeSchema,
-    verificationMethod: verificationMethodSchema,
     termsAndConditions: z
       .boolean()
       .default(false)
@@ -19,6 +18,7 @@ export const registrationSchema = z
         message: 'terms_and_conditions_validation_error',
       }),
   })
+  .merge(verificationInputSchema)
   .refine((data) => data.password === data.confirmPassword, {
     path: ['confirmPassword'],
     message: 'password_validation_mismatch',

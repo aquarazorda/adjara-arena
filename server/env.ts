@@ -20,6 +20,9 @@ const envSchema = z.object({
   SAML_IDP_METADATA: z.string(),
   SAML_CALLBACK: z.string(),
   SAML_LOGIN_URL: z.string(),
+  SMS_SERVICE_PATH: z.string(),
+  SMS_SERVICE_TOKEN: z.string(),
+  SMS_SERVICE_SENDERNAME: z.string()
 })
 .transform((val) => ({
   ...val,
