@@ -6,7 +6,7 @@ import { auth } from 'server/auth/lucia';
 
 export type Context = {
   req: Request;
-  resHeaders: Headers,
+  resHeaders?: Headers,
   user?: {}
 };
 

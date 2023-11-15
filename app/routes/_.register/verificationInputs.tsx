@@ -1,17 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRemixFormContext } from 'remix-hook-form';
 import { Button } from '~/components/ui/button';
-import { FormControl, FormField, FormItem, FormMessage } from '~/components/ui/form';
+import { FormControl, FormField, FormItem, FormMessage, setFormErrors } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import Checkmark from '~/components/icons/Checkmark.svg?react';
 import { z } from 'zod';
+import debounce from 'lodash.debounce';
 import {
   emailSchema,
   phoneNumberSchema,
-  verificationCodeSchema,
   verificationMethodSchema,
 } from '~/lib/schemas/shared-user.schema';
+import { verificationCodeFormInputSchema } from '~/lib/schemas/verification';
+import { useMutation } from 'react-query';
+import { trpc } from '~/lib/api';
 
 type Props = {
   verificationMethod: string;
@@ -34,7 +37,7 @@ const defaultState: State = {
 const verificationInputSchema = z.object({
   phoneNumber: phoneNumberSchema,
   email: emailSchema,
-  verificationCode: verificationCodeSchema,
+  verificationCode: verificationCodeFormInputSchema,
   verificationMethod: verificationMethodSchema,
 });
 
@@ -42,6 +45,13 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
   const { t } = useTranslation();
   const form = useRemixFormContext<z.infer<typeof verificationInputSchema>>();
   const [state, setState] = useState(defaultState);
+  const { mutateAsync: sendSms } = useMutation({
+    mutationFn: trpc.verification.generateCodeAndSendSms.query
+  });
+
+  const checkCodeVerification = useCallback(debounce((code: string) => {
+
+  }, 400), []);
 
   useEffect(() => {
     setState(defaultState);
@@ -73,7 +83,14 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
       });
     }, 1000);
 
-  const sendVerificationCode = () => {
+  const sendVerificationCode = async () => {
+    const res = await sendSms(form.getValues("phoneNumber"));
+    
+    if (res.err) {
+      setFormErrors(form, res.val);
+      return;
+    }
+
     setState({ ...defaultState, codeSent: true, codeInterval: getVerificationInterval() });
   };
 

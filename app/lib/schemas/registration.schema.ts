@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { emailSchema, passwordSchema, phoneNumberSchema, verificationCodeSchema, verificationMethodSchema } from './shared-user.schema';
+import { emailSchema, passwordSchema, phoneNumberSchema, verificationMethodSchema } from './shared-user.schema';
+import { verificationCodeFormInputSchema } from './verification';
 
 export const registrationSchema = z
   .object({
@@ -10,7 +11,7 @@ export const registrationSchema = z
     email: emailSchema.optional(),
     phoneNumber: phoneNumberSchema.optional(),
     confirmPassword: z.string(),
-    verificationCode: verificationCodeSchema,
+    verificationCode: verificationCodeFormInputSchema,
     verificationMethod: verificationMethodSchema,
     termsAndConditions: z
       .boolean()
