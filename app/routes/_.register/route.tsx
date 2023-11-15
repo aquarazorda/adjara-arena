@@ -13,6 +13,7 @@ import { PostgresError } from 'postgres';
 import { match } from 'ts-pattern';
 import { createFormErrorReturnJson } from 'server/utils/request';
 import type { z } from 'zod';
+import { validateVerificationCode } from 'server/services/verification.service';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const {
@@ -27,8 +28,15 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ defaultValues, errors });
   }
 
-  // TODO check verification code, if not send error message
-  console.log(data);
+  const codeValidationRes = await validateVerificationCode({
+    id: data.verificationId,
+    verificationCode: data.verificationCode,
+  });
+
+  if (codeValidationRes.err) {
+    return errorResponse({ verificationCode: 'invalid_verification_code' });
+  }
+
   try {
     const user = await auth.createUser({
       key: {
