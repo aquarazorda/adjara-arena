@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { emailSchema, phoneNumberSchema } from './shared-user.schema';
 
 export const verificationCodeFormInputSchema = z.coerce
   .number()
@@ -13,3 +14,12 @@ export const verificationCodeSchema = z.object({
   id: z.coerce.number(),
   verificationCode: verificationCodeFormInputSchema,
 });
+
+export const verificationInputSchema = z
+  .object({
+    phoneNumber: phoneNumberSchema.optional(),
+    email: emailSchema.optional(),
+    verificationMethod: z.enum(['email', 'phoneNumber']),
+    verificationCode: verificationCodeFormInputSchema,
+    verificationId: z.coerce.number(),
+  });

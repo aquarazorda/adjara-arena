@@ -38,10 +38,7 @@ export default function ForgotPasswordRoute() {
     resolver: zodResolver(forgotPasswordFirstStepSchema),
     mode: 'onSubmit',
     defaultValues: {
-      verificationMethod: 'phoneNumber',
-      phoneNumber: '',
-      email: '',
-      verificationCode: '',
+      verificationMethod: 'phoneNumber'
     },
   });
 
@@ -49,7 +46,7 @@ export default function ForgotPasswordRoute() {
     form.watch((values, { name }) => {
       if (name === 'verificationMethod' && values.verificationMethod) {
         setVerificationMethod(values.verificationMethod);
-        form.setValue('phoneNumber', '');
+        form.setValue('phoneNumber', 0);
         form.setValue('email', '');
       }
     });

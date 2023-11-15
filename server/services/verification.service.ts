@@ -2,13 +2,13 @@ import { and, eq, lt } from 'drizzle-orm';
 import { db } from 'server/db';
 import { verification } from 'server/db/schema/verification';
 import { Err, Ok } from 'ts-results';
-import { z } from 'zod';
-import { verificationCodeSchema } from '~/lib/schemas/verification';
+import type { z } from 'zod';
+import type { verificationCodeSchema } from '~/lib/schemas/verification';
 import { sendVerificationCode } from './sms.service';
 
-export const generateVerificationCode = async () => {
-  const code = Math.floor(100000 + Math.random() * 900000).toString();
+const generateVerificationCode = () => Math.floor(100000 + Math.random() * 900000).toString();
 
+export const storeVerificationCode = async (code: string) => {
   try {
     const res = await db.insert(verification).values({ code: code }).returning({ id: verification.id });
 
@@ -17,8 +17,7 @@ export const generateVerificationCode = async () => {
     }
 
     return Ok({
-      id: res[0].id,
-      code: code,
+      id: res[0].id
     });
   } catch (e) {
     return Err('Failed to generate verification code');
@@ -26,19 +25,19 @@ export const generateVerificationCode = async () => {
 };
 
 export const generateVerificationAndSendSms = async (phone: number) => {
-  const generateRes = await generateVerificationCode();
-
-  if (generateRes.err) {
-    return generateRes;
-  }
+  const code = generateVerificationCode();
 
   const res = await sendVerificationCode({
     type: 'phone',
-    code: generateRes.val.code,
+    code: code,
     phone,
   });
 
-  return res;
+  if (res.err) {
+    return res;
+  }
+ 
+  return await storeVerificationCode(code);
 };
 
 export const validateVerificationCode = async (input: z.infer<typeof verificationCodeSchema>) => {
