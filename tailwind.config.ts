@@ -48,8 +48,9 @@ module.exports = {
       ],
     },
     colors: {
-      black: '#07080A',
-      white: '#EDEDED',
+      'transparent': 'transparent',
+      'black': '#07080A',
+      'white': '#EDEDED',
       'information-blue': '#53B1FD',
       'error-red': '#F06A60',
       'warning-yellow': '#F5990E',

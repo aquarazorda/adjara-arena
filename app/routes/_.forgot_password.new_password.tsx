@@ -6,6 +6,7 @@ import { registrationSchema } from '~/lib/schemas/registration.schema';
 import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
+import PasswordInput from '~/components/form/password/passwordInput';
 
 export default function NewPasswordRoute() {
   const { t } = useTranslation();
@@ -15,18 +16,7 @@ export default function NewPasswordRoute() {
 
   return (
     <FormProvider {...form}>
-      <FormField
-        control={form.control}
-        name="password"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input placeholder={t('password')} {...field} type="password" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <PasswordInput />
       <FormField
         control={form.control}
         name="confirmPassword"

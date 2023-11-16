@@ -52,7 +52,7 @@ export default function LoginDialog() {
           <p>{t('შესვლა')}</p>
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent showClose>
         <DialogHeader>
           <DialogTitle>
             <span className="font-medium text-2xl uppercase">{t('login')}</span>

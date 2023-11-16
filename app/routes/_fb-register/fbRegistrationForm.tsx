@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSubmit } from '@remix-run/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -16,8 +15,6 @@ export default function FbRegistrationForm() {
   });
 
   const [codeSent, setCodeSent] = useState(false);
-
-  const submit = useSubmit();
 
   return (
     <FormProvider {...form}>
@@ -46,15 +43,15 @@ export default function FbRegistrationForm() {
             )}
           />
           <div className="flex justify-between">
-            <p className="text-xs text-silver-ground dark:text-silver/60 cursor-pointer">{t('არ მიგიღია კოდი?')}</p>
-            <p className="text-xs text-silver-ground dark:text-silver/60 cursor-pointer">
+            <p className="text-silver-ground dark:text-silver/60 cursor-pointer text-xs">{t('არ მიგიღია კოდი?')}</p>
+            <p className="text-silver-ground dark:text-silver/60 cursor-pointer text-xs">
               <span className="dark:text-white-secondary text-dark-silver-text mr-2">00:10</span>
               {t('გააგზავნე ხელახლა')}
             </p>
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-4">
+      {/* <div className="flex flex-col gap-4">
         <FormField
           control={form.control}
           name="termsAndConditions"
@@ -82,7 +79,7 @@ export default function FbRegistrationForm() {
         <Button variant="success" size="lg" onClick={() => setCodeSent(true)}>
           <p className="text-base font-regular_uppercase">{t('რეგისტრაცია')}</p>
         </Button>
-      </div>
+      </div> */}
     </FormProvider>
   );
 }

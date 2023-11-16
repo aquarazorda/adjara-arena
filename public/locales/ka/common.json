@@ -46,5 +46,17 @@
   "validation_capital_letter": "მინიმუმ ერთი დიდი ასო",
   "validation_minimum_one_digit": "მინიმუმ ერთი ციფრი",
   "validation_minimum_one_symbol": "მინიმუმ ერთი სიმბოლო (!@#$+*;%^&_+=)",
-  "validation_length": "მინიმუმ 8 და მაქსიმუმ 30 სიმბოლო"
+  "validation_length": "მინიმუმ 8 და მაქსიმუმ 30 სიმბოლო",
+  "suggestions": "შეთავაზებები",
+  "add_news": "გამოაქვეყნე სიახლე",
+  "add_new_quiz": "გამოაქვეყნე ქვიზი",
+  "add_setanta_stream": "გამოაქვეყნე Setanta-ს სტრიმი",
+  "video": "ვიდეო",
+  "champions_league": "ჩემპიონთა ლიგა",
+  "premier_league": "პრემიერ ლიგა",
+  "add_article": "გამოაქვეყნე სტატია",
+  "users": "მომხმარებლები",
+  "user_search": "მომხმარებლის ძებნა",
+  "user_logs": "მომხმარებლის ლოგები",
+  "type_search": "ჩაწერე ბრძანება ან საძიებო სიტყვა..."
 }
