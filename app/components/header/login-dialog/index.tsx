@@ -95,7 +95,9 @@ export default function LoginDialog() {
                     />
                   </div>
                   <DialogClose asChild>
-                    <Link to="/forgot_password">{t('forgot_password')}</Link>
+                    <Link to="/forgot_password" className="text-silver-700 dark:text-grey-100">
+                      {t('forgot_password')}
+                    </Link>
                   </DialogClose>
                   <div className="mt-5 flex flex-col gap-1 font-regular_uppercase">
                     <Button type="submit" variant="success" size="lg" className="mb-3" disabled={isLoading}>

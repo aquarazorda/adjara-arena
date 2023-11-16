@@ -6,13 +6,7 @@ import { cn } from 'app/lib/utils';
 import { Label } from 'app/components/ui/label';
 import type { useRemixForm } from 'remix-hook-form';
 import { RemixFormProvider, useRemixFormContext } from 'remix-hook-form';
-import type {
-  ControllerProps,
-  FieldError,
-  FieldPath,
-  FieldValues,
-  Path,
-} from 'react-hook-form';
+import type { ControllerProps, FieldError, FieldPath, FieldValues, Path } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -130,7 +124,7 @@ const FormMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<
     }
 
     return (
-      <p ref={ref} id={formMessageId} className={cn('text-sm font-medium text-destructive', className)} {...props}>
+      <p ref={ref} id={formMessageId} className={cn('text-sm font-medium text-error-red', className)} {...props}>
         {t(error.message.toLowerCase())}
       </p>
     );
@@ -143,10 +137,11 @@ const setFormErrors = <T extends FieldValues>(
   response: { errors: Partial<Record<Path<T>, FieldError>> }
 ) => {
   Object.keys(response.errors).forEach((key) => {
-    response.errors[key as Path<T>] && form.setError(key as Path<T>, {
-      type: response.errors[key as Path<T>]?.type,
-      message: response.errors[key as Path<T>]?.message,
-    });
+    response.errors[key as Path<T>] &&
+      form.setError(key as Path<T>, {
+        type: response.errors[key as Path<T>]?.type,
+        message: response.errors[key as Path<T>]?.message,
+      });
   });
 };
 

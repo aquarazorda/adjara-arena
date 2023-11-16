@@ -8,10 +8,10 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 export const inputClass =
-  'peer flex pt-4 data-[hasvalue="true"]:pt-6 data-[hasvalue="true"]:pb-2 focus-visible:pt-6 focus-visible:pb-2 h-12 text-base w-full rounded-md border dark:border-light-grey border-silver px-3 bg-silver-light dark:bg-grey text-dark-grey dark:text-white-secondary ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50';
+  'peer flex pt-4 data-[hasvalue="true"]:pt-6 data-[hasvalue="true"]:pb-2 focus-visible:pt-6 focus-visible:pb-2 h-12 text-base w-full rounded-md border dark:border-grey-400 border-silver-400 aria-[invalid="true"]:border-error-red px-3 bg-silver-200 dark:bg-grey-500 text-dark-grey dark:text-white-secondary ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50';
 
 export const inputLabelClass =
-  'pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-silver-600 transition-all duration-300 peer-focus-visible:top-1 peer-focus-visible:translate-y-0 peer-data-[hasvalue="true"]:top-1 peer-data-[hasvalue="true"]:translate-y-0';
+  'pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-silver-600 transition-all duration-300 peer-focus-visible:top-1 peer-focus-visible:translate-y-0 peer-data-[hasvalue="true"]:top-1 peer-data-[hasvalue="true"]:translate-y-0 peer-aria-[invalid="true"]:text-error-red';
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (

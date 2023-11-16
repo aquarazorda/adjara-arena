@@ -168,16 +168,18 @@ export default function RegistrationForm() {
           name="termsAndConditions"
           render={({ field }) => (
             <FormItem className="flex items-center gap-2">
-              <Checkbox
-                onCheckedChange={(value) => {
-                  field.onChange(value);
-                  trpc.user.storeAcceptTerms.mutate({
-                    value: !!value,
-                    user_agent: window.navigator.userAgent,
-                  });
-                }}
-              />
-              <Label>{t('terms_and_conditions_description')}</Label>
+              <Label className="flex gap-2 items-center">
+                <Checkbox
+                  onCheckedChange={(value) => {
+                    field.onChange(value);
+                    trpc.user.storeAcceptTerms.mutate({
+                      value: !!value,
+                      user_agent: window.navigator.userAgent,
+                    });
+                  }}
+                />
+                {t('terms_and_conditions_description')}
+              </Label>
             </FormItem>
           )}
         />

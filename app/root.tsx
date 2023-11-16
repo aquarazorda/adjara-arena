@@ -18,7 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const authRequest = auth.handleRequest(request);
   const session = await authRequest.validate();
   const user = session?.user;
-  
+
   return json({ locale, theme, user });
 }
 
@@ -50,9 +50,9 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-light-bg dark:bg-dark-blue-grey">
+      <body className="bg-white dark:bg-blue-gray-700 text-silver-800 dark:text-white">
         <QueryClientProvider client={queryClient}>
-        {/* @ts-ignore https://github.com/remix-run/remix/issues/7599 */}
+          {/* @ts-ignore https://github.com/remix-run/remix/issues/7599 */}
           <UserProvider user={user}>
             <ThemeProvider>
               <ToastProvider>
