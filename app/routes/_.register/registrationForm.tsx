@@ -14,8 +14,7 @@ import { trpc } from '~/lib/api';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Form } from '@remix-run/react';
 import type { z } from 'zod';
-import { cn } from '~/lib/utils';
-import CheckCircle from '~/components/icons/Check-circle';
+import PasswordInput from '~/components/form/password/passwordInput';
 
 export default function RegistrationForm() {
   const { t } = useTranslation();
@@ -23,7 +22,7 @@ export default function RegistrationForm() {
 
   const form = useRemixForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
-    reValidateMode: 'onSubmit',
+    mode: 'onSubmit',
   });
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export default function RegistrationForm() {
 
   return (
     <FormProvider {...form}>
-      <Form method="post" className="flex flex-col gap-6" onSubmit={form.handleSubmit}>
+      <Form className="flex flex-col gap-6" onSubmit={form.handleSubmit}>
         <FormField
           control={form.control}
           name="fullName"
@@ -101,56 +100,7 @@ export default function RegistrationForm() {
           }}
         />
         <RegistrationVerificationInputs verificationMethod={verificationMethod} />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder={t('password')}
-                  {...field}
-                  type="password"
-                  tooltipContent={
-                    <ul className="flex flex-col gap-[12px]">
-                      <li className="flex items-center gap-[8px]">
-                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
-                        <p className="text-[11px] text-silver-700 dark:text-grey-100">{t('minimum_one_lowercase')}</p>
-                      </li>
-                      <li className="flex items-center gap-[8px]">
-                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
-                        <p className="text-[11px] text-silver-700 dark:text-grey-100">{t('minimum_one_uppercase')}</p>
-                      </li>
-                      <li className="flex items-center gap-[8px]">
-                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
-                        <p className="text-[11px] text-silver-700 dark:text-grey-100">{t('minimum_one_number')}</p>
-                      </li>
-                      <li className="flex items-center gap-[8px]">
-                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
-                        <p className="text-[11px] text-silver-700 dark:text-grey-100">
-                          {t('minimum_one_special_character')}
-                        </p>
-                      </li>
-                      {/* Checked one */}
-                      <li className="flex items-center gap-[8px]">
-                        <CheckCircle className="fill-green-500" />
-                        <p
-                          className={cn(
-                            'text-[11px] text-silver-700 dark:text-grey-100',
-                            'text-green-500 dark:text-green-500'
-                          )}
-                        >
-                          {t('character_length_range')}
-                        </p>
-                      </li>
-                    </ul>
-                  }
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <PasswordInput />
         <FormField
           control={form.control}
           name="confirmPassword"
@@ -168,7 +118,7 @@ export default function RegistrationForm() {
           name="termsAndConditions"
           render={({ field }) => (
             <FormItem className="flex items-center gap-2">
-              <Label className="flex gap-2 items-center">
+              <Label className="flex items-center gap-2">
                 <Checkbox
                   onCheckedChange={(value) => {
                     field.onChange(value);
@@ -184,7 +134,7 @@ export default function RegistrationForm() {
           )}
         />
 
-        <Button variant="success" size="lg">
+        <Button variant="success" size="lg" type="submit">
           <p className="font-regular_uppercase text-base">{t('registration')}</p>
         </Button>
       </Form>

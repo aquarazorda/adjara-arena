@@ -8,8 +8,8 @@ export const emailOrPhoneNumberSchema = z
 
 export const passwordSchema = z
   .string()
-  .min(8, { message: 'password_validation_min_length' })
-  .max(30, { message: 'password_validation_max_length' })
+  .min(8, { message: 'password_validation_length_min' })
+  .max(30, { message: 'password_validation_length_max' })
   .refine((password) => /[A-Z]/.test(password), {
     message: 'password_validation_capital_letter',
   })
@@ -17,10 +17,10 @@ export const passwordSchema = z
     message: 'password_validation_lower_case_letter',
   })
   .refine((password) => /\d/.test(password), {
-    message: 'password_validation_digit',
+    message: 'password_validation_one_digit',
   })
   .refine((password) => /[!@#$%^&*]/.test(password), {
-    message: 'password_validation_symbol',
+    message: 'password_validation_one_symbol',
   });
 
 export const emailSchema = z.string().email('email_validation_error');
