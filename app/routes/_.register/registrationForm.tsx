@@ -14,11 +14,13 @@ import { trpc } from '~/lib/api';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Form } from '@remix-run/react';
 import type { z } from 'zod';
+import { cn } from '~/lib/utils';
+import CheckCircle from '~/components/icons/Check-circle';
 
 export default function RegistrationForm() {
   const { t } = useTranslation();
   const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
-  
+
   const form = useRemixForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
     reValidateMode: 'onSubmit',
@@ -105,7 +107,44 @@ export default function RegistrationForm() {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder={t('password')} {...field} type="password" />
+                <Input
+                  placeholder={t('password')}
+                  {...field}
+                  type="password"
+                  tooltipContent={
+                    <ul className="flex flex-col gap-[12px]">
+                      <li className="flex items-center gap-[8px]">
+                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
+                        <p className="text-[11px] text-silver-700 dark:text-grey-100">მინიმუმ ერთი პატარა ასო</p>
+                      </li>
+                      <li className="flex items-center gap-[8px]">
+                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
+                        <p className="text-[11px] text-silver-700 dark:text-grey-100">მინიმუმ ერთი დიდი ასო</p>
+                      </li>
+                      <li className="flex items-center gap-[8px]">
+                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
+                        <p className="text-[11px] text-silver-700 dark:text-grey-100">მინიმუმ ერთი ციფრი</p>
+                      </li>
+                      <li className="flex items-center gap-[8px]">
+                        <CheckCircle className="fill-silver-700 dark:text-grey-100" />
+                        <p className="text-[11px] text-silver-700 dark:text-grey-100">
+                          მინიმუმ ერთი სიმბოლო (!@#$+*;%^&_+=)
+                        </p>
+                      </li>
+                      <li className="flex items-center gap-[8px]">
+                        <CheckCircle className="fill-green-500" />
+                        <p
+                          className={cn(
+                            'text-[11px] text-silver-700 dark:text-grey-100',
+                            'text-green-500 dark:text-green-500'
+                          )}
+                        >
+                          მინიმუმ 8 და მაქსიმუმ 30 სიმბოლო
+                        </p>
+                      </li>
+                    </ul>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
