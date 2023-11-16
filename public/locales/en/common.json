@@ -19,5 +19,10 @@
   "first_and_last_name": "First and last name",
   "user_name": "Username",
   "password": "Password",
-  "confirm_password": "Confirm password"
+  "confirm_password": "Confirm password",
+  "minimum_one_lowercase": "Minimum one lowercase",
+  "minimum_one_uppercase": "At least one uppercase letter",
+  "minimum_one_number": "At least one number",
+  "minimum_one_special_character": "At least one special character (!@#$+*;%^&_+=)",
+  "character_length_range": "Minimum 8 and maximum 30 characters"
 }

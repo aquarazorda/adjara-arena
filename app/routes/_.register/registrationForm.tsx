@@ -115,22 +115,23 @@ export default function RegistrationForm() {
                     <ul className="flex flex-col gap-[12px]">
                       <li className="flex items-center gap-[8px]">
                         <CheckCircle className="fill-silver-700 dark:text-grey-100" />
-                        <p className="text-[11px] text-silver-700 dark:text-grey-100">მინიმუმ ერთი პატარა ასო</p>
+                        <p className="text-[11px] text-silver-700 dark:text-grey-100">{t('minimum_one_lowercase')}</p>
                       </li>
                       <li className="flex items-center gap-[8px]">
                         <CheckCircle className="fill-silver-700 dark:text-grey-100" />
-                        <p className="text-[11px] text-silver-700 dark:text-grey-100">მინიმუმ ერთი დიდი ასო</p>
+                        <p className="text-[11px] text-silver-700 dark:text-grey-100">{t('minimum_one_uppercase')}</p>
                       </li>
                       <li className="flex items-center gap-[8px]">
                         <CheckCircle className="fill-silver-700 dark:text-grey-100" />
-                        <p className="text-[11px] text-silver-700 dark:text-grey-100">მინიმუმ ერთი ციფრი</p>
+                        <p className="text-[11px] text-silver-700 dark:text-grey-100">{t('minimum_one_number')}</p>
                       </li>
                       <li className="flex items-center gap-[8px]">
                         <CheckCircle className="fill-silver-700 dark:text-grey-100" />
                         <p className="text-[11px] text-silver-700 dark:text-grey-100">
-                          მინიმუმ ერთი სიმბოლო (!@#$+*;%^&_+=)
+                          {t('minimum_one_special_character')}
                         </p>
                       </li>
+                      {/* Checked one */}
                       <li className="flex items-center gap-[8px]">
                         <CheckCircle className="fill-green-500" />
                         <p
@@ -139,7 +140,7 @@ export default function RegistrationForm() {
                             'text-green-500 dark:text-green-500'
                           )}
                         >
-                          მინიმუმ 8 და მაქსიმუმ 30 სიმბოლო
+                          {t('character_length_range')}
                         </p>
                       </li>
                     </ul>

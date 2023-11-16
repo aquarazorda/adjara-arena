@@ -41,5 +41,10 @@
   "required": "ველის შევსება სავალდებულოა",
   "username_already_exists": "მომხმარებელი ამ სახელით უკვე არსებობს",
   "forgot_password": "დაგავიწყდა პაროლი?",
-  "forgot_password_header": "პაროლის აღდგენა"
+  "forgot_password_header": "პაროლის აღდგენა",
+  "minimum_one_lowercase": "მინიმუმ ერთი პატარა ასო",
+  "minimum_one_uppercase": "მინიმუმ ერთი დიდი ასო",
+  "minimum_one_number": "მინიმუმ ერთი ციფრი",
+  "minimum_one_special_character": "მინიმუმ ერთი სიმბოლო (!@#$+*;%^&_+=)",
+  "character_length_range": "მინიმუმ 8 და მაქსიმუმ 30 სიმბოლო"
 }
