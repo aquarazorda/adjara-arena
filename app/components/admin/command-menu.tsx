@@ -64,6 +64,7 @@ const RenderItem = ({
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const Component = rootItem ? CommandItem : SubItem;
 
   const onSelect = () => {
@@ -81,7 +82,7 @@ const RenderItem = ({
 
   return (
     <>
-      <Component onSelect={onSelect}>
+      <Component onSelect={onSelect} key={item.title} value={t(item.title)}>
         {item.icon && <item.icon className="mr-2 h-4 w-4" />}
         <span>{t(item.title)}</span>
       </Component>
@@ -143,7 +144,7 @@ export default function CommandMenu() {
       <CommandDialog open={open}>
         <CommandInput placeholder={t('type_search')} value={search} onValueChange={setSearch} />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>{t('result_not_found')}</CommandEmpty>
           {page?.map(({ title, items }, idx) => (
             <CommandGroup heading={t(title)} key={title} isLast={idx > page.length - 1}>
               {items?.map((item) => (
