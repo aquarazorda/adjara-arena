@@ -15,6 +15,13 @@
       "when": 1700048110926,
       "tag": "0001_silky_blur",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1700317360559,
+      "tag": "0002_sweet_scorpion",
+      "breakpoints": true
     }
   ]
 }

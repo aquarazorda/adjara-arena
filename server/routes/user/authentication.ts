@@ -3,6 +3,7 @@ import { LuciaError } from 'lucia';
 import { auth } from 'server/auth/lucia';
 import { db } from 'server/db';
 import { user } from 'server/db/schema/user';
+import { saveLog } from 'server/services/logger.service';
 import { createFormErrorReturn } from 'server/utils/request';
 import { Ok } from 'ts-results';
 import { authSchema } from '~/lib/schemas/auth';
@@ -27,7 +28,12 @@ export const authenticate = publicProcedure.input(authSchema).mutation(async ({ 
     });
     const sessionCookie = auth.createSessionCookie(session);
 
-    ctx.resHeaders.set('Set-Cookie', sessionCookie.serialize());
+    ctx.resHeaders?.set('Set-Cookie', sessionCookie.serialize());
+
+    saveLog({
+      user_id: dbUser.id,
+      activity_type: 'auth_success',
+    });
     
     return Ok({});
   } catch (e: any) {
