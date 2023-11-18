@@ -7,19 +7,18 @@ import { Input } from '~/components/ui/input';
 import Checkmark from '~/components/icons/Checkmark.svg?react';
 import type { z } from 'zod';
 import { emailSchema, phoneNumberSchema } from '~/lib/schemas/shared-user.schema';
-import type { verificationInputSchema } from '~/lib/schemas/verification';
+import { verificationSendSchema, type verificationInputSchema } from '~/lib/schemas/verification';
 import { useMutation } from 'react-query';
 import { trpc } from '~/lib/api';
-
-type Props = {
-  verificationMethod: string;
-};
+import { VerificationType } from 'server/db/schema/verification';
+import { createFormErrorReturn } from 'server/utils/form';
 
 type State = {
   codeSent: boolean;
   codeTime: number;
   codeInterval: NodeJS.Timeout | null;
   verificationButtonDisabled: boolean;
+  verificationMethod: VerificationType;
 };
 
 const defaultState: State = {
@@ -27,26 +26,30 @@ const defaultState: State = {
   codeTime: 60,
   codeInterval: null,
   verificationButtonDisabled: true,
+  verificationMethod: 'phoneNumber',
 };
 
-export const RegistrationVerificationInputs = ({ verificationMethod }: Props) => {
+export const RegistrationVerificationInputs = () => {
   const { t } = useTranslation();
   const form = useRemixFormContext<z.infer<typeof verificationInputSchema>>();
   const [state, setState] = useState(defaultState);
-  const {
-    mutateAsync: sendSms,
-    isLoading: isSmsSending,
-  } = useMutation({
+  const { mutateAsync: sendSms, isLoading: isSmsSending } = useMutation({
     mutationFn: trpc.verification.generateCodeAndSend.mutate,
   });
 
   useEffect(() => {
     setState(defaultState);
     state.codeInterval && clearInterval(state.codeInterval);
-  }, [verificationMethod]);
+  }, [state.verificationMethod]);
 
   useEffect(() => {
     form.watch((values, { name }) => {
+      if (name === 'verificationMethod' && values.verificationMethod) {
+        setState((s) => ({ ...s, verificationMethod: values.verificationMethod as VerificationType }));
+        form.setValue('phoneNumber', 0);
+        form.setValue('email', '');
+      }
+
       if (name === 'phoneNumber' || name === 'email') {
         setState((s) => ({
           ...s,
@@ -71,15 +74,27 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
     }, 1000);
 
   const sendVerificationCode = async () => {
-    const res = await sendSms(form.getValues());
+    const values = verificationSendSchema.safeParse(form.getValues());
+    if (!values.success) return;
+    try {
+      const res = await sendSms(values.data);
 
-    if (res.err) {
-      setFormErrors(form, res.val);
-      return;
+      if (res.err) {
+        setFormErrors(form, res.val);
+        return;
+      }
+
+      form.setValue('verificationId', res.val.id);
+      setState({ ...defaultState, codeSent: true, codeInterval: getVerificationInterval() });
+    } catch (e) {
+      setFormErrors(
+        form,
+        createFormErrorReturn(values.data)({
+          phoneNumber: 'error_sending_verification_code',
+          email: 'error_sending_verification_code',
+        }).val
+      );
     }
-
-    form.setValue('verificationId', res.val.id);
-    setState({ ...defaultState, codeSent: true, codeInterval: getVerificationInterval() });
   };
 
   const VerificationButton = () =>
@@ -91,6 +106,7 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
       <Button
         variant={'success'}
         type="button"
+        className="z-10"
         onClick={() => sendVerificationCode()}
         disabled={state.verificationButtonDisabled || isSmsSending}
       >
@@ -100,7 +116,7 @@ export const RegistrationVerificationInputs = ({ verificationMethod }: Props) =>
 
   return (
     <>
-      {verificationMethod == 'email' ? (
+      {state.verificationMethod == 'email' ? (
         <FormField
           control={form.control}
           name="email"

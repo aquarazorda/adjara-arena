@@ -4,7 +4,7 @@ import { auth } from 'server/auth/lucia';
 import { db } from 'server/db';
 import { user } from 'server/db/schema/user';
 import { saveLog } from 'server/services/logger.service';
-import { createFormErrorReturn } from 'server/utils/request';
+import { createFormErrorReturn } from 'server/utils/form';
 import { Ok } from 'ts-results';
 import { authSchema } from '~/lib/schemas/auth';
 import { publicProcedure } from '~/routes/api.trpc.$/trpc';

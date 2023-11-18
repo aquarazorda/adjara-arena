@@ -1,32 +1,33 @@
 import { generateVerificationAndSendSms, validateVerificationCode } from 'server/services/verification.service';
-import { createFormErrorReturn } from 'server/utils/request';
+import { createFormErrorReturn } from 'server/utils/form';
 import { P, match } from 'ts-pattern';
 import { Ok } from 'ts-results';
-import { verificationCodeSchema, verificationInputSchema } from '~/lib/schemas/verification';
+import { verificationCodeSchema, verificationSendSchema } from '~/lib/schemas/verification';
 import { createTRPCRouter, publicProcedure } from '~/routes/api.trpc.$/trpc';
 
 const verificationRouter = createTRPCRouter({
-  generateCodeAndSend: publicProcedure.input(verificationInputSchema).mutation(async ({ input }) => {
+  generateCodeAndSend: publicProcedure.input(verificationSendSchema).mutation(async ({ input }) => {
     const errorResponse = createFormErrorReturn(input);
-
-    return await match(input)
+    const res = await match(input)
       .with({ verificationMethod: 'phoneNumber', phoneNumber: P.number.select() }, async (number) => {
         const res = await generateVerificationAndSendSms(number);
 
         if (res.err) {
           return errorResponse({
-            phoneNumber: 'phone_number_invalid',
+            phoneNumber: res.val,
           });
         }
 
         return res;
       })
       // .with({verificationMethod: 'email', email: P.string.select()}, async ())
-      .otherwise(async () =>
-        errorResponse({
+      .otherwise(async () => {
+        return errorResponse({
           verificationMethod: 'verification_method_invalid',
-        })
-      );
+        });
+      });
+
+    return res;
   }),
   verifyCode: publicProcedure.input(verificationCodeSchema).mutation(async ({ input }) => {
     const errorReponse = createFormErrorReturn(input);

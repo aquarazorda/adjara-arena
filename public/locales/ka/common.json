@@ -47,6 +47,7 @@
   "validation_minimum_one_digit": "მინიმუმ ერთი ციფრი",
   "validation_minimum_one_symbol": "მინიმუმ ერთი სიმბოლო (!@#$+*;%^&_+=)",
   "validation_length": "მინიმუმ 8 და მაქსიმუმ 30 სიმბოლო",
+  "error_sending_verification_code": "ვერიფიკაციის კოდის გაგზავნისას მოხდა შეცდომა",
   "suggestions": "შეთავაზებები",
   "add_news": "გამოაქვეყნე სიახლე",
   "add_new_quiz": "გამოაქვეყნე ქვიზი",

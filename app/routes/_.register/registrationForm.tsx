@@ -18,18 +18,11 @@ import PasswordInput from '~/components/form/password/passwordInput';
 
 export default function RegistrationForm() {
   const { t } = useTranslation();
-  const [verificationMethod, setVerificationMethod] = useState('phoneNumber');
 
   const form = useRemixForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    form.watch((values) => {
-      setVerificationMethod(values.verificationMethod!);
-    });
-  }, [form]);
 
   return (
     <FormProvider {...form}>
@@ -99,7 +92,7 @@ export default function RegistrationForm() {
             );
           }}
         />
-        <RegistrationVerificationInputs verificationMethod={verificationMethod} />
+        <RegistrationVerificationInputs  />
         <PasswordInput />
         <FormField
           control={form.control}

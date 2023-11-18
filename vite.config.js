@@ -6,6 +6,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [remix(), tsconfigPaths(), svgr()],
   ssr: {
-    noExternal: ["remix-i18next", "react-i18next"]
+    noExternal: ["remix-i18next", "react-i18next", "ts-results"]
   }
 });

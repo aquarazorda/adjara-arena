@@ -15,11 +15,15 @@ export const verificationCodeSchema = z.object({
   verificationCode: verificationCodeFormInputSchema,
 });
 
+export const verificationSendSchema = z.object({
+  phoneNumber: phoneNumberSchema.optional(),
+  email: emailSchema.optional(),
+  verificationMethod: z.enum(['email', 'phoneNumber']),
+});
+
 export const verificationInputSchema = z
   .object({
-    phoneNumber: phoneNumberSchema.optional(),
-    email: emailSchema.optional(),
-    verificationMethod: z.enum(['email', 'phoneNumber']),
     verificationCode: verificationCodeFormInputSchema,
     verificationId: z.coerce.number(),
-  });
+  })
+  .merge(verificationSendSchema);
