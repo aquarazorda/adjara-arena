@@ -2,9 +2,10 @@ import * as React from 'react';
 import { cn } from 'app/lib/utils';
 import { useRemixFormContext } from 'remix-hook-form';
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
   addon?: React.ReactNode;
   tooltipContent?: JSX.Element;
+  value?: string | number | readonly string[] | undefined | null;
 }
 
 export const inputClass =

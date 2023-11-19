@@ -1,4 +1,4 @@
-import { ilike, like, or } from 'drizzle-orm';
+import { eq, ilike, like, or } from 'drizzle-orm';
 import { db } from 'server/db';
 import { user } from 'server/db/schema/user';
 import { z } from 'zod';
@@ -12,6 +12,13 @@ const adminRouter = createTRPCRouter({
         ilike(user.full_name, `%${input}%`),
         like(user.phone_number, `${input}%`),
       )
+    });
+
+    return res;
+  }),
+  findUserById: privateProcedure.input(z.string()).query(async ({ input }) => {
+    const res = await db.query.user.findFirst({
+      where: eq(user.id, input)
     });
 
     return res;

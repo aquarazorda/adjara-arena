@@ -28,14 +28,14 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ defaultValues, errors });
   }
 
-  const codeValidationRes = await validateVerificationCode({
-    id: data.verificationId,
-    verificationCode: data.verificationCode,
-  });
+  // const codeValidationRes = await validateVerificationCode({
+  //   id: data.verificationId,
+  //   verificationCode: data.verificationCode,
+  // });
 
-  if (codeValidationRes.err) {
-    return errorResponse({ verificationCode: 'invalid_verification_code' });
-  }
+  // if (codeValidationRes.err) {
+  //   return errorResponse({ verificationCode: 'invalid_verification_code' });
+  // }
 
   try {
     const user = await auth.createUser({
@@ -47,7 +47,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       attributes: {
         full_name: data.fullName,
         username: data.userName,
-        date_of_birth: data.birthday,
+        date_of_birth: data.birthday.toISOString(),
         address: null,
         email: data.email || null,
         phone_number: String(data.phoneNumber) || null,
@@ -68,6 +68,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       },
     });
   } catch (e) {
+    console.log(e);
     if (e instanceof LuciaError && e.message === `AUTH_DUPLICATE_KEY_ID`) {
       return errorResponse({ userName: 'username_already_exists' });
     }

@@ -11,6 +11,10 @@ import { auth } from 'server/auth/lucia';
 import { UserProvider } from './hooks/user-provider';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './lib/queryClient';
+import Header from './components/header';
+import { Suspense, lazy } from 'react';
+
+const CommandMenu = lazy(() => import('~/components/admin/command-menu'));
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookies = parseCookies(request.headers.get('Cookie') ?? '');
@@ -51,14 +55,20 @@ export default function App() {
       </head>
       <body className="bg-white dark:bg-blue-gray-700 text-silver-800 dark:text-white">
         <QueryClientProvider client={queryClient}>
-          {/* @ts-ignore https://github.com/remix-run/remix/issues/7599 */}
-          <UserProvider user={user}>
-            <ThemeProvider>
-              <ToastProvider>
-                <Outlet />
-              </ToastProvider>
-            </ThemeProvider>
-          </UserProvider>
+          <Suspense>
+            {/* @ts-ignore https://github.com/remix-run/remix/issues/7599 */}
+            <UserProvider user={user}>
+              <ThemeProvider>
+                <ToastProvider>
+                  <Header />
+                  <Suspense>
+                    <Outlet />
+                  </Suspense>
+                  <CommandMenu />
+                </ToastProvider>
+              </ThemeProvider>
+            </UserProvider>
+          </Suspense>
         </QueryClientProvider>
         <ScrollRestoration />
         <LiveReload />

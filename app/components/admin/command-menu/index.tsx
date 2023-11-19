@@ -1,11 +1,23 @@
-import { Suspense, createContext, useEffect, useState } from 'react';
+import { Suspense, createContext, useContext, useEffect, useState } from 'react';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandList } from '../../ui/command';
 import { useTranslation } from 'react-i18next';
 import menuItems, { MenuItem } from './menu-items';
 import { RenderItem } from './menu-item';
 import { useDebounce } from 'use-debounce';
 
-const CommandMenuContext = createContext<MenuItem[][]>([menuItems]);
+type CommadMenuState = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  items: MenuItem[][];
+};
+
+const CommandMenuContext = createContext<CommadMenuState>({
+  open: false,
+  setOpen: () => {},
+  items: [],
+});
+
+export const useCommandMenuState = () => useContext(CommandMenuContext);
 
 export default function CommandMenu() {
   const { t } = useTranslation();
@@ -35,9 +47,12 @@ export default function CommandMenu() {
   }, [open]);
 
   return (
-    <CommandMenuContext.Provider value={pages}>
+    <CommandMenuContext.Provider value={{
+      items: pages,
+      open,
+      setOpen
+    }}>
       <div
-        onBlur={() => setOpen(false)}
         onKeyDown={(e) => {
           if (e.key === 'Escape' || (e.key === 'Backspace' && !search)) {
             e.preventDefault();
@@ -55,7 +70,7 @@ export default function CommandMenu() {
           }
         }}
       >
-        <CommandDialog open={open}>
+        <CommandDialog open={open} onOpenChange={setOpen}>
           <CommandInput placeholder={t('type_search')} value={search} onValueChange={setSearch} />
           <Suspense>
             <CommandList>

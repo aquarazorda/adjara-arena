@@ -1,24 +1,26 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
-import { serverRouter } from 'server/router';
+import type { ActionFunction, ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
+import { AppRouter, serverRouter } from 'server/router';
 import { parseFormData } from 'server/utils/request';
 import type { ZodSchema, z } from 'zod';
 
-export const loader$ =
-  <R>(fn: (caller: ReturnType<typeof serverRouter.createCaller>, request: Request) => Promise<R>) =>
-  ({ request }: LoaderFunctionArgs) =>
-    fn(
-      serverRouter.createCaller({
-        req: request,
-      }),
-      request
-    );
+type CallerType = ReturnType<typeof serverRouter.createCaller>;
 
-export const action$ =
-  <T, R>(
-    schema: ZodSchema<T>,
-    fn: (formData: z.infer<typeof schema>, caller: ReturnType<typeof serverRouter.createCaller>) => Promise<R>
-  ) =>
-  async ({ request }: ActionFunctionArgs) =>
-    fn(parseFormData(await request.formData()), serverRouter.createCaller({ req: request }));
+export const loader$ =
+  <R>(fn: (caller: CallerType, request: LoaderFunctionArgs) => Promise<R>) =>
+  (args: LoaderFunctionArgs) => {
+    return fn(
+      serverRouter.createCaller({
+        req: args.request,
+      }),
+      args
+    );
+  };
+
+export function action$(handler: (caller: CallerType, request: Request) => Promise<Response>): ActionFunction {
+  return async ({ request }) => {
+    const caller = serverRouter.createCaller({ req: request });
+    return handler(caller, request);
+  };
+}
 
 export const serverCaller = (req: Request) => serverRouter.createCaller({ req });

@@ -1,6 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useRemixForm } from 'remix-hook-form';
 import { Button } from '~/components/ui/button';
 import { FormProvider, FormControl, FormField, FormItem, FormMessage } from '~/components/ui/form';
@@ -15,6 +13,7 @@ import { Checkbox } from '~/components/ui/checkbox';
 import { Form } from '@remix-run/react';
 import type { z } from 'zod';
 import PasswordInput from '~/components/form/password/passwordInput';
+import { useTranslation } from 'react-i18next';
 
 export default function RegistrationForm() {
   const { t } = useTranslation();

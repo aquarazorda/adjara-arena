@@ -8,7 +8,7 @@ import type { z } from 'zod';
 import { Form } from '@remix-run/react';
 import { Label } from '~/components/ui/label';
 import { Button } from '~/components/ui/button';
-import { RegistrationVerificationInputs } from './_.register/verificationInputs';
+import { RegistrationVerificationInputs } from './register/verificationInputs';
 import { FormProvider } from '~/components/ui/form';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
