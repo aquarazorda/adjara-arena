@@ -2,6 +2,7 @@ import { lucia } from "lucia";
 import { web } from "lucia/middleware";
 import { postgres as postgresAdapter } from "@lucia-auth/adapter-postgresql";
 import { pgClient } from 'server/db';
+import "lucia/polyfill/node";
 
 export const auth = lucia({
 	env: "DEV",

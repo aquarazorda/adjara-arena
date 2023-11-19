@@ -6,7 +6,7 @@ export const registrationSchema = z
   .object({
     fullName: z.string().refine((fullName) => /\s/.test(fullName.trim()), { message: 'full_name_validation_error' }),
     userName: z.string().min(3).max(20),
-    birthday: z.string(),
+    birthday: z.coerce.date(),
     password: passwordSchema,
     email: emailSchema.optional(),
     phoneNumber: phoneNumberSchema.optional(),

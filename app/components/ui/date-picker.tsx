@@ -12,17 +12,15 @@ import { forwardRef, useEffect, useState } from 'react';
 
 type Props = {
   placeholder: string;
-  value?: string;
-  name: string;
-  onChange: (date?: string) => void;
+  onChange: (date?: Date) => void;
 };
 
-export const DatePicker = forwardRef(({ placeholder, value, name, onChange }: Props, ref) => {
+export const DatePicker = forwardRef(({ placeholder, onChange }: Props, ref) => {
   const [date, setDate] = useState<Date>();
   const { t } = useTranslation();
   
   useEffect(() => {
-    onChange(date as unknown as string);
+    onChange(date);
   }, [date]);
 
   return (
@@ -31,6 +29,7 @@ export const DatePicker = forwardRef(({ placeholder, value, name, onChange }: Pr
         <div className={'relative w-full'}>
           <button
             type="button"
+            tabIndex={0}
             data-hasvalue={!!date}
             className={cn(inputClass, 'group-data-[hasvalue="true"]:top-1 group-data-[hasvalue="true"]:translate-y-0')}
           >

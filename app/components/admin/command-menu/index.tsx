@@ -1,16 +1,8 @@
 import { Suspense, createContext, useEffect, useState } from 'react';
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandList,
-  CommandSeparator,
-} from '../../ui/command';
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandList } from '../../ui/command';
 import { useTranslation } from 'react-i18next';
 import menuItems, { MenuItem } from './menu-items';
 import { RenderItem } from './menu-item';
-import debounce from 'lodash.debounce';
 import { useDebounce } from 'use-debounce';
 
 const CommandMenuContext = createContext<MenuItem[][]>([menuItems]);
@@ -42,8 +34,6 @@ export default function CommandMenu() {
     }
   }, [open]);
 
-  console.log(pages);
-
   return (
     <CommandMenuContext.Provider value={pages}>
       <div
@@ -54,7 +44,6 @@ export default function CommandMenu() {
 
             if (search) {
               setSearch('');
-              return;
             }
 
             if (pages.length === 1) {
@@ -68,20 +57,19 @@ export default function CommandMenu() {
       >
         <CommandDialog open={open}>
           <CommandInput placeholder={t('type_search')} value={search} onValueChange={setSearch} />
-          <CommandList>
-            {page?.map(({ title, items, component: Component }, idx) => (
-              <CommandGroup key={title} heading={t(title)} isLast={idx > page.length - 1 || !items?.length}>
-                {items?.map((item) => (
-                  <RenderItem key={item.title} item={item} setPages={setPages} setOpen={setOpen} rootItem />
-                ))}
-                {Component && (
-                  <Suspense>
-                    <Component search={debouncedSearch} />
-                  </Suspense>
-                )}
-              </CommandGroup>
-            ))}
-          </CommandList>
+          <Suspense>
+            <CommandList>
+              {page?.map(({ title, items, component: Component }, idx) => (
+                <CommandGroup key={title} heading={t(title)} isLast={idx > page.length - 1 || !items?.length}>
+                  {!Component &&
+                    items?.map((item) => (
+                      <RenderItem key={item.title} item={item} setPages={setPages} setOpen={setOpen} rootItem />
+                    ))}
+                  {Component && <Component search={debouncedSearch} />}
+                </CommandGroup>
+              ))}
+            </CommandList>
+          </Suspense>
           <CommandEmpty>{t('result_not_found')}</CommandEmpty>
         </CommandDialog>
       </div>

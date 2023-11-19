@@ -9,7 +9,8 @@ import clsx from 'clsx';
 import { parseCookies } from './lib/cookies';
 import { auth } from 'server/auth/lucia';
 import { UserProvider } from './hooks/User';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from './lib/queryClient';
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookies = parseCookies(request.headers.get('Cookie') ?? '');
@@ -35,8 +36,6 @@ export const links: LinksFunction = () => [
   { rel: 'apple-touch-icon-precomposed', href: '/assets/favicons/favicon-180.png' },
   { rel: 'mask-icon', href: '/assets/favicons/favicon-32.png' },
 ];
-
-const queryClient = new QueryClient();
 
 export default function App() {
   let { locale, theme, user } = useLoaderData<typeof loader>();
