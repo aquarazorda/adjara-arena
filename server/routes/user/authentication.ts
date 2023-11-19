@@ -35,7 +35,7 @@ export const authenticate = publicProcedure.input(authSchema).mutation(async ({ 
       activity_type: 'auth_success',
     });
     
-    return Ok({});
+    return Ok(session.user);
   } catch (e: any) {
     if (e instanceof LuciaError && (e.message === 'AUTH_INVALID_KEY_ID' || e.message === 'AUTH_INVALID_PASSWORD')) {
       return errorResponse({ emailOrUsername: 'invalid_email_or_phone_number' });

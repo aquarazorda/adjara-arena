@@ -4,12 +4,12 @@ import { ThemeToggle } from '../theme-toggle';
 import { Link, useNavigate } from '@remix-run/react';
 import LoginDialog from './login-dialog';
 import Search from '../icons/Search.svg?react';
-import { useUser } from '~/hooks/User';
+import { useUser } from '~/hooks/user-provider';
 
 export default function Header() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const user = useUser();
+  const [user] = useUser();
 
   return (
     <header className="flex h-[80px] w-full items-center bg-grey-600">

@@ -8,7 +8,7 @@ import { ToastProvider } from './hooks/Toast';
 import clsx from 'clsx';
 import { parseCookies } from './lib/cookies';
 import { auth } from 'server/auth/lucia';
-import { UserProvider } from './hooks/User';
+import { UserProvider } from './hooks/user-provider';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './lib/queryClient';
 

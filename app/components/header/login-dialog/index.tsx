@@ -20,10 +20,12 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { useState } from 'react';
 import Separator from '~/components/ui/separator';
 import { useMutation } from 'react-query';
+import { useUser } from '~/hooks/user-provider';
 
 export default function LoginDialog() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [_, setUser] = useUser();
   const [dialogOpen, setDialogOpen] = useState(false);
   const { mutateAsync, isLoading } = useMutation(trpc.user.authenticate.mutate);
 
@@ -40,7 +42,11 @@ export default function LoginDialog() {
 
         if (response.err) {
           setFormErrors(form, response.val);
+          return;
         }
+
+        setUser(response.val);
+        setDialogOpen(false);
       },
     },
   });
