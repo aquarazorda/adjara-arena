@@ -7,6 +7,64 @@ import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/c
 import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import PasswordInput from '~/components/form/password/passwordInput';
+import { action$ } from './api.trpc.$/root';
+import { getValidatedFormData } from 'remix-hook-form';
+import { forgotPasswordSecondStepSchema } from '~/lib/schemas/forgot-password';
+import { json, redirect } from '@remix-run/node';
+import { auth } from 'server/auth/lucia';
+
+export const action = action$(async (caller, request) => {
+  const {
+    receivedValues: defaultValues,
+    data,
+    errors,
+  } = await getValidatedFormData<z.infer<typeof forgotPasswordSecondStepSchema>>(
+    request,
+    zodResolver(forgotPasswordSecondStepSchema)
+  );
+
+  if (errors) {
+    return json({ defaultValues, errors });
+  }
+
+  if (!data) {
+    return redirect('/forgot_password');
+  }
+
+  const isValid = await caller.verification.verifyCode({
+    id: data.verificationId,
+    verificationCode: data.verificationCode,
+  });
+
+  if (isValid.err) {
+    return json(isValid.val);
+  }
+
+  if (!isValid.val.associatedUserId) {
+    return redirect('/forgot_password');
+  }
+
+  try {
+    let user = await auth.getUser(isValid.val.associatedUserId);
+    await auth.invalidateAllUserSessions(user.userId);
+    await auth.updateKeyPassword('userId', user.userId, data.password);
+
+    const session = await auth.createSession({
+      userId: user.userId,
+      attributes: {},
+    });
+
+    const sessionCookie = auth.createSessionCookie(session);
+
+    return redirect('/', {
+      headers: {
+        'Set-Cookie': sessionCookie.serialize(),
+      },
+    });
+  } catch (e) {
+    return redirect('/forgot_password');
+  }
+});
 
 export default function NewPasswordRoute() {
   const { t } = useTranslation();

@@ -62,36 +62,7 @@ export default function RegistrationForm() {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="verificationMethod"
-          defaultValue="phoneNumber"
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <Label className="text-silver-800">{t('verification_method')}</Label>
-                <FormControl>
-                  <RadioGroup defaultValue="phoneNumber" onValueChange={field.onChange}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="phoneNumber" id="phoneNumber" />
-                      <Label htmlFor="phoneNumber" className="text-silver-500 peer-aria-checked:text-silver-800">
-                        {t('phone')}
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="email" id="email" />
-                      <Label htmlFor="email" className="text-silver-500 peer-aria-checked:text-silver-800">
-                        {t('email')}
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
-        />
-        <RegistrationVerificationInputs  />
+        <RegistrationVerificationInputs />
         <PasswordInput />
         <FormField
           control={form.control}

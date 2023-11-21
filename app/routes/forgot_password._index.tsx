@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import type { ActionFunctionArgs } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { getValidatedFormData, useRemixForm } from 'remix-hook-form';
 import { forgotPasswordFirstStepSchema } from '~/lib/schemas/forgot-password';
@@ -10,8 +9,9 @@ import { Label } from '~/components/ui/label';
 import { Button } from '~/components/ui/button';
 import { RegistrationVerificationInputs } from './register/verificationInputs';
 import { FormProvider } from '~/components/ui/form';
+import { action$ } from './api.trpc.$/root';
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = action$(async (caller, request) => {
   const {
     receivedValues: defaultValues,
     data,
@@ -25,9 +25,19 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return json({ defaultValues, errors });
   }
 
-  // TODO check verification code, if not valid send error message
-  return redirect('/forgot_password/new_password?code=1234');
-};
+  const isValid = await caller.verification.verifyCode({
+    id: data.verificationId,
+    verificationCode: data.verificationCode,
+  });
+
+  if (isValid.err) {
+    return json(isValid.val);
+  }
+
+  return redirect(
+    `/forgot_password/new_password?verificationCode=${data.verificationCode}&verificationId=${data.verificationId}`
+  );
+});
 
 export default function ForgotPasswordRoute() {
   const { t } = useTranslation();
