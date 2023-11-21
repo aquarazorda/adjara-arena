@@ -6,6 +6,15 @@ export const emailOrPhoneNumberSchema = z
     message: 'invalid_email_or_phone_number',
   });
 
+export const looseOptional = <T extends z.ZodTypeAny>(schema: T) =>
+  z.preprocess(
+    (value: unknown) =>
+      !value || value === 'undefined'
+        ? undefined
+        : value,
+    schema.optional()
+  );
+
 export const passwordSchema = z
   .string()
   .min(8, { message: 'password_validation_length_min' })
@@ -23,11 +32,11 @@ export const passwordSchema = z
     message: 'password_validation_one_symbol',
   });
 
-export const emailSchema = z.string().email('email_validation_error');
+export const emailSchema = z.string().email();
 
 export const verificationMethodSchema = z.string().and(z.literal('phoneNumber')).or(z.literal('email'));
 
 export const phoneNumberSchema = z.coerce
   .number()
-  .gte(100000000, { message: 'phone_number_validation_error' })
-  .lte(999999999, { message: 'phone_number_validation_error' });
+  .gte(500000000, { message: 'phone_number_validation_error' })
+  .lte(599999999, { message: 'phone_number_validation_error' });

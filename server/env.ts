@@ -22,7 +22,14 @@ const envSchema = z.object({
   SAML_LOGIN_URL: z.string(),
   SMS_SERVICE_PATH: z.string(),
   SMS_SERVICE_TOKEN: z.string(),
-  SMS_SERVICE_SENDERNAME: z.string()
+  SMS_SERVICE_SENDERNAME: z.string(),
+  SMTP_HOST: z.string(),
+  SMTP_PORT: z.string().transform((val) => parseInt(val)),
+  SMTP_USERNAME: z.string(),
+  SMTP_PASSWORD: z.string(),
+  SMTP_SENDER_NAME: z.string(),
+  SMTP_SENDER_EMAIL: z.string(),
+  SMTP_TLS: z.string().transform((val) => Boolean(val)),
 })
 .transform((val) => ({
   ...val,

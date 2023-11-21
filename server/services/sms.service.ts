@@ -1,13 +1,18 @@
-import { VerificationType } from 'server/db/schema/verification';
 import { serverEnv } from 'server/env';
+import verifyEmail from 'server/mail-templates/verification-template';
 import { P, match } from 'ts-pattern';
 import { Err, Ok } from 'ts-results';
+import MailService from './mailer.service';
 
 const sendPhoneMessage = async (phone: number, message: string) => {
   const formData = new FormData();
   formData.append('phone', phone.toString());
   formData.append('message', message);
-  
+
+  if (process.env.NODE_ENV !== 'production') {
+    return Ok({});
+  }
+
   const res = await fetch(serverEnv.SMS_SERVICE_PATH + '/send', {
     method: 'POST',
     headers: {
@@ -22,7 +27,7 @@ const sendPhoneMessage = async (phone: number, message: string) => {
       if (json?.status === 'success') {
         return Ok({});
       }
-      
+
       return Err('error_sending_verification_code');
     })
     .catch((e) => {
@@ -31,6 +36,23 @@ const sendPhoneMessage = async (phone: number, message: string) => {
     });
 
   return res;
+};
+
+const sendEmailMessage = async (email: string, message: string) => {
+  try {
+    const emailTemplate = verifyEmail(message);
+    const mailService = MailService.getInstance();
+
+    mailService.send({
+      to: email,
+      subject: 'Verify OTP',
+      html: emailTemplate.html,
+    });
+
+    return Ok({ });
+  } catch (err) {
+    return Err('Email send error')
+  }
 };
 
 type SendVerificationCodeInput =
@@ -51,6 +73,8 @@ export const sendVerificationCode = (input: SendVerificationCodeInput) =>
       return await sendPhoneMessage(phone, `Your verification code is ${code}`); // TODO Swap this message
     })
     .with({ type: 'email', email: P.string, code: P.string }, async ({ email, code }) => {
-      return Err('Email verification is not implemented yet');
+      return await sendEmailMessage(email, code);
     })
-    .otherwise(async () => Err('Invalid input type'));
+    .otherwise(async () => {
+      return Err('Invalid input type')
+    });

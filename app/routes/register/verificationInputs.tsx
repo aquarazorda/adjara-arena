@@ -38,7 +38,6 @@ export const RegistrationVerificationInputs = () => {
   });
 
   useEffect(() => {
-    setState(defaultState);
     state.codeInterval && clearInterval(state.codeInterval);
   }, [state.verificationMethod]);
 
@@ -75,6 +74,7 @@ export const RegistrationVerificationInputs = () => {
 
   const sendVerificationCode = async () => {
     const values = verificationSendSchema.safeParse(form.getValues());
+
     if (!values.success) return;
     try {
       const res = await sendSms(values.data);
@@ -85,7 +85,7 @@ export const RegistrationVerificationInputs = () => {
       }
 
       form.setValue('verificationId', res.val.id);
-      setState({ ...defaultState, codeSent: true, codeInterval: getVerificationInterval() });
+      setState({ ...defaultState, codeSent: true, verificationMethod: state.verificationMethod, codeInterval: getVerificationInterval() });
     } catch (e) {
       setFormErrors(
         form,

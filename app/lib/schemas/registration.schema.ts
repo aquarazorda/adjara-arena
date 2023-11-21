@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { emailSchema, passwordSchema, phoneNumberSchema } from './shared-user.schema';
+import { emailSchema, looseOptional, passwordSchema, phoneNumberSchema } from './shared-user.schema';
 import { verificationInputSchema } from './verification';
 
 export const registrationSchema = z
@@ -8,8 +8,8 @@ export const registrationSchema = z
     userName: z.string().min(3).max(20),
     birthday: z.coerce.date(),
     password: passwordSchema,
-    email: emailSchema.optional(),
-    phoneNumber: phoneNumberSchema.optional(),
+    email: looseOptional(emailSchema),
+    phoneNumber: looseOptional(phoneNumberSchema),
     confirmPassword: z.string(),
     termsAndConditions: z
       .boolean()

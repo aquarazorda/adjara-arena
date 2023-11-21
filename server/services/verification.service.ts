@@ -1,4 +1,4 @@
-import { and, eq, lt } from 'drizzle-orm';
+import { and, eq, gt, lt } from 'drizzle-orm';
 import { db } from 'server/db';
 import { VerificationType, verification } from 'server/db/schema/verification';
 import { Err, Ok } from 'ts-results';
@@ -8,9 +8,9 @@ import { sendVerificationCode } from './sms.service';
 
 const generateVerificationCode = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-export const storeVerificationCode = async (code: string, type: VerificationType) => {
+export const storeVerificationCode = async (code: string, type: VerificationType, value: string) => {
   try {
-    const res = await db.insert(verification).values({ code: code, type }).returning({ id: verification.id });
+    const res = await db.insert(verification).values({ code, type, value }).returning({ id: verification.id });
 
     if (res.length === 0) {
       return Err('Failed to generate verification code');
@@ -37,7 +37,23 @@ export const generateVerificationAndSendSms = async (phone: number) => {
     return res;
   }
  
-  return await storeVerificationCode(code, "phoneNumber");
+  return await storeVerificationCode(code, "phoneNumber", String(phone));
+};
+
+export const generateVerificationAndSendEmail = async (email: string) => {
+  const code = generateVerificationCode();
+  
+  const res = await sendVerificationCode({
+    type: 'email',
+    code,
+    email,
+  });
+
+  if (res?.err) {
+    return res;
+  }
+ 
+  return await storeVerificationCode(code, "email", email);
 };
 
 export const validateVerificationCode = async (input: z.infer<typeof verificationCodeSchema>) => {
@@ -45,7 +61,8 @@ export const validateVerificationCode = async (input: z.infer<typeof verificatio
     where: and(
       eq(verification.id, input.id),
       eq(verification.code, String(input.verificationCode)),
-      lt(verification.validTill, new Date())
+      eq(verification.value, String(input.value)),
+      // lt(verification.validTill, new Date()) server time is back 4 hour, we need momentjs
     ),
   });
 

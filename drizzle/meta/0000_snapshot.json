@@ -1,5 +1,5 @@
 {
-  "id": "7e64f321-0a3c-48d3-8e5b-2bf4cfd528fb",
+  "id": "42015e53-b2a1-49c8-bcf0-603043c2f8cd",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -64,6 +64,68 @@
         "accepted_terms_user_id_auth_user_id_fk": {
           "name": "accepted_terms_user_id_auth_user_id_fk",
           "tableFrom": "accepted_terms",
+          "tableTo": "auth_user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "activity_log": {
+      "name": "activity_log",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "activityType": {
+          "name": "activityType",
+          "type": "activityType",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "activity_log_user_id_auth_user_id_fk": {
+          "name": "activity_log_user_id_auth_user_id_fk",
+          "tableFrom": "activity_log",
           "tableTo": "auth_user",
           "columnsFrom": [
             "user_id"
@@ -308,9 +370,65 @@
           ]
         }
       }
+    },
+    "verification": {
+      "name": "verification",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "varchar(6)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "verification_type": {
+          "name": "verification_type",
+          "type": "verification_type",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "validTill": {
+          "name": "validTill",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now() + interval '1 minute'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "activityType": {
+      "name": "activityType",
+      "values": {
+        "auth_success": "auth_success",
+        "forgot_password_success": "forgot_password_success"
+      }
+    },
+    "verification_type": {
+      "name": "verification_type",
+      "values": {
+        "email": "email",
+        "phoneNumber": "phoneNumber"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "schemas": {},
