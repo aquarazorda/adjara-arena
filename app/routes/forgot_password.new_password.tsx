@@ -12,6 +12,7 @@ import { getValidatedFormData } from 'remix-hook-form';
 import { forgotPasswordSecondStepSchema } from '~/lib/schemas/forgot-password';
 import { json, redirect } from '@remix-run/node';
 import { auth } from 'server/auth/lucia';
+import { saveLog } from 'server/services/logger.service';
 
 export const action = action$(async (caller, request) => {
   const {
@@ -55,6 +56,11 @@ export const action = action$(async (caller, request) => {
     });
 
     const sessionCookie = auth.createSessionCookie(session);
+
+    saveLog({
+      user_id: user.userId,
+      activity_type: 'forgot_password_success',
+    });
 
     return redirect('/', {
       headers: {
