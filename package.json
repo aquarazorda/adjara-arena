@@ -9,6 +9,7 @@
     "typecheck": "tsc",
     "generate": "drizzle-kit generate:pg",
     "migrate": "bun run server/db/migration.ts",
+    "drop": "drizzle-kit drop",
     "prettier-format": "prettier --config .prettierrc '/**/*.ts' --write"
   },
   "dependencies": {
