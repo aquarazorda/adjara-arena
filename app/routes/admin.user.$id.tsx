@@ -1,6 +1,4 @@
-import { ActionFunctionArgs } from '@remix-run/node';
-import { serverRouter } from 'server/router';
-import { action$, loader$ } from './api.trpc.$/root';
+import { loader$ } from './api.trpc.$/root';
 import { Form, useLoaderData } from '@remix-run/react';
 import { FormControl, FormField, FormItem, FormMessage, FormProvider } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';

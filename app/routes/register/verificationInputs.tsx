@@ -12,6 +12,8 @@ import { useMutation } from 'react-query';
 import { trpc } from '~/lib/api';
 import { VerificationType } from 'server/db/schema/verification';
 import { createFormErrorReturn } from 'server/utils/form';
+import { Label } from '~/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '~/components/ui/radio-group';
 
 type State = {
   codeSent: boolean;
@@ -38,12 +40,13 @@ export const RegistrationVerificationInputs = () => {
   });
 
   useEffect(() => {
+    setState({ ...defaultState, verificationMethod: state.verificationMethod });
     state.codeInterval && clearInterval(state.codeInterval);
   }, [state.verificationMethod]);
 
   useEffect(() => {
     form.watch((values, { name }) => {
-      if (name === 'verificationMethod' && values.verificationMethod) {
+      if (name === 'verificationMethod') {
         setState((s) => ({ ...s, verificationMethod: values.verificationMethod as VerificationType }));
         form.setValue('phoneNumber', 0);
         form.setValue('email', '');
@@ -76,6 +79,7 @@ export const RegistrationVerificationInputs = () => {
     const values = verificationSendSchema.safeParse(form.getValues());
 
     if (!values.success) return;
+
     try {
       const res = await sendSms(values.data);
 
@@ -116,6 +120,35 @@ export const RegistrationVerificationInputs = () => {
 
   return (
     <>
+      <FormField
+        control={form.control}
+        name="verificationMethod"
+        defaultValue="phoneNumber"
+        render={({ field }) => {
+          return (
+            <FormItem>
+              <Label className="text-silver-800">{t('verification_method')}</Label>
+              <FormControl>
+                <RadioGroup defaultValue="phoneNumber" onValueChange={field.onChange}>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="phoneNumber" id="phoneNumber" />
+                    <Label htmlFor="phoneNumber" className="text-silver-500 peer-aria-checked:text-silver-800">
+                      {t('phone')}
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="email" id="email" />
+                    <Label htmlFor="email" className="text-silver-500 peer-aria-checked:text-silver-800">
+                      {t('email')}
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          );
+        }}
+      />
       {state.verificationMethod == 'email' ? (
         <FormField
           control={form.control}

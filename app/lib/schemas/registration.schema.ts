@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { emailSchema, looseOptional, passwordSchema, phoneNumberSchema } from './shared-user.schema';
+import { emailSchema, looseOptional, phoneNumberSchema } from './shared-user.schema';
 import { verificationInputSchema } from './verification';
+import { passwordSchema } from './password.schema';
 
 export const registrationSchema = z
   .object({

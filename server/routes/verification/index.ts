@@ -51,7 +51,7 @@ const verificationRouter = createTRPCRouter({
         });
       }
 
-      return Ok({});
+      return res;
     } catch (e) {
       return errorReponse({
         verificationCode: 'verification_code_send_error',
