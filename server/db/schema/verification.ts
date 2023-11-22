@@ -15,7 +15,7 @@ export const verification = pgTable('verification', {
   value: varchar("value", { length: 50 }).notNull(),
   type: verificationType("verification_type").notNull(),
   validTill: timestamp('validTill').default(sql`now() + interval '1 minute'`),
-  associatedUserId: varchar('id', {
+  associatedUserId: varchar('associatedUserId', {
     length: 15,
   }).references(() => user.id),
 });
