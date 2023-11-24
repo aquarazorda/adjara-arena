@@ -21,21 +21,30 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     data,
     errors,
   } = await getValidatedFormData<z.infer<typeof registrationSchema>>(request, zodResolver(registrationSchema));
-  
+
   const errorResponse = createFormErrorReturnJson(defaultValues);
-  
+
   if (errors && !data) {
     return json({ defaultValues, errors });
   }
 
-  // const codeValidationRes = await validateVerificationCode({
-  //   id: data.verificationId,
-  //   verificationCode: data.verificationCode,
-  // });
+  if (data.verificationMethod === 'email' && !data.email) {
+    return errorResponse({ email: 'email_must_be_required' });
+  }
 
-  // if (codeValidationRes.err) {
-  //   return errorResponse({ verificationCode: 'invalid_verification_code' });
-  // }
+  if (data.verificationMethod === 'phoneNumber' && !data.phoneNumber) {
+    return errorResponse({ phoneNumber: 'phoneNumber_must_be_required' });
+  }
+
+  const codeValidationRes = await validateVerificationCode({
+    id: data.verificationId,
+    verificationCode: data.verificationCode,
+    value: String(data[data.verificationMethod]),
+  });
+
+  if (codeValidationRes.err) {
+    return errorResponse({ verificationCode: 'invalid_verification_code' });
+  }
 
   try {
     const user = await auth.createUser({
@@ -50,7 +59,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         date_of_birth: data.birthday.toISOString(),
         address: null,
         email: data.email || null,
-        phone_number: String(data.phoneNumber) || null,
+        phone_number: data.phoneNumber != undefined ? String(data.phoneNumber) : null,
         personal_id: null,
       },
     });

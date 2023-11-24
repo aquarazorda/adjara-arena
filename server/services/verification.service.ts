@@ -1,4 +1,4 @@
-import { and, eq, lt } from 'drizzle-orm';
+import { and, eq, gt, lt } from 'drizzle-orm';
 import { db } from 'server/db';
 import { VerificationType, verification } from 'server/db/schema/verification';
 import { Err, Ok } from 'ts-results';
@@ -9,11 +9,11 @@ import { user } from 'server/db/schema/user';
 
 const generateVerificationCode = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-export const storeVerificationCode = async (code: string, type: VerificationType, associatedUserId?: string | null) => {
+export const storeVerificationCode = async (code: string, type: VerificationType, value: string, associatedUserId?: string | null) => {
   try {
     const res = await db
       .insert(verification)
-      .values({ code: code, type, associatedUserId: associatedUserId ?? null })
+      .values({ code: code, type, associatedUserId: associatedUserId ?? null, value })
       .returning({ id: verification.id });
 
     if (res.length === 0) {
@@ -46,9 +46,33 @@ export const generateVerificationAndSendSms = async (phone: number) => {
       where: eq(user.phone_number, String(phone)),
     });
 
-    return await storeVerificationCode(code, 'phoneNumber', res?.id);
+    return await storeVerificationCode(code, 'phoneNumber', String(phone), res?.id);
   } catch (e) {
-    return await storeVerificationCode(code, 'phoneNumber');
+    return await storeVerificationCode(code, 'phoneNumber', String(phone));
+  }
+};
+
+export const generateVerificationAndSendEmail = async (email: string) => {
+  const code = generateVerificationCode();
+  
+  const res = await sendVerificationCode({
+    type: 'email',
+    code,
+    email,
+  });
+
+  if (res?.err) {
+    return res;
+  }
+ 
+  try {
+    const res = await db.query.user.findFirst({
+      where: eq(user.email, String(email)),
+    });
+
+    return await storeVerificationCode(code, 'email', String(email), res?.id);
+  } catch (e) {
+    return await storeVerificationCode(code, 'email', String(email));
   }
 };
 
@@ -57,7 +81,8 @@ export const validateVerificationCode = async (input: z.infer<typeof verificatio
     where: and(
       eq(verification.id, input.id),
       eq(verification.code, String(input.verificationCode)),
-      lt(verification.validTill, new Date())
+      eq(verification.value, String(input.value)),
+      // lt(verification.validTill, new Date()) server time is back 4 hour, we need momentjs
     ),
   });
 

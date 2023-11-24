@@ -1,4 +1,4 @@
-import { generateVerificationAndSendSms, validateVerificationCode } from 'server/services/verification.service';
+import { generateVerificationAndSendEmail, generateVerificationAndSendSms, validateVerificationCode } from 'server/services/verification.service';
 import { createFormErrorReturn } from 'server/utils/form';
 import { P, match } from 'ts-pattern';
 import { Ok } from 'ts-results';
@@ -20,7 +20,17 @@ const verificationRouter = createTRPCRouter({
 
         return res;
       })
-      // .with({verificationMethod: 'email', email: P.string.select()}, async ())
+      .with({ verificationMethod: 'email', email: P.string.select() }, async (email: string) => {
+        const res = await generateVerificationAndSendEmail(email);
+
+        if (res.err) {
+          return errorResponse({
+            email: res.val,
+          });
+        }
+
+        return res;
+      })
       .otherwise(async () => {
         return errorResponse({
           verificationMethod: 'verification_method_invalid',
