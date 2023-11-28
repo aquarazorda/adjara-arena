@@ -30,6 +30,8 @@ const envSchema = z.object({
   SMTP_SENDER_NAME: z.string(),
   SMTP_SENDER_EMAIL: z.string(),
   SMTP_TLS: z.string().transform((val) => Boolean(val)),
+  SCHEDULER_PORT: z.string().transform((val) => parseInt(val)),
+  SPORTBOOK_API: z.string(),
 })
 .transform((val) => ({
   ...val,

@@ -12,5 +12,6 @@ export const pgClient = postgres(serverEnv.POSTGRES_URL, {
 });
 
 export const db = drizzle(pgClient, {
-  schema
+  schema,
+  logger: process.env.NODE_ENV != 'production'
 });
