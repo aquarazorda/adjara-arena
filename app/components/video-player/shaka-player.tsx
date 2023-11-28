@@ -14,6 +14,7 @@ import { kbEventListener, videoEventListeners } from './utils';
 import usePlayerError from './hooks/usePlayerError';
 import useWatchSession, { WatchState } from './hooks/useWatchSession';
 import { differenceInSeconds, intervalToDuration, subSeconds } from 'date-fns';
+import './css/index.css';
 
 type Match = {
   id: number;
@@ -29,7 +30,7 @@ type Match = {
   has_dvr: boolean;
 };
 
-export const ShakaPlayer = ({ stream, cover, title, id, start_at, has_dvr }: Match) => {
+const ShakaPlayer = ({ stream, cover, title, id, start_at, has_dvr }: Match) => {
   const playerRef = useRef(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [ply, setPlayer] = useState<Player>();
@@ -204,6 +205,21 @@ export const ShakaPlayer = ({ stream, cover, title, id, start_at, has_dvr }: Mat
         ply.configure(config);
         ply.src = streamLink;
 
+        ply.addEventListener('error', (error: any) => {
+          sendError(error, error.code);
+        });
+
+        ply.addEventListener('loaded', () => {
+          player?.play();
+          setLoading(false);
+        });
+
+        ply.addEventListener('variantchanged', (value: any) => {
+          if (browser !== BrowserTypes.Safari) {
+            setLoading(true);
+          }
+        });
+
         try {
           await ply.load(streamLink);
 
@@ -221,27 +237,12 @@ export const ShakaPlayer = ({ stream, cover, title, id, start_at, has_dvr }: Mat
         } catch (error: any) {
           sendError(error, error.code);
         }
-
-        ply.addEventListener('error', (error: any) => {
-          sendError(error, error.code);
-        });
-
-        ply.addEventListener('loaded', () => {
-          player?.play();
-          setLoading(false);
-        });
-
-        ply.addEventListener('variantchanged', (value: any) => {
-          if (browser !== BrowserTypes.Safari) {
-            setLoading(true);
-          }
-        });
       }
     }
 
     loadPlayer();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSeeking]);
+  }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const changeControlsVisibleDebounced = useCallback(
@@ -470,3 +471,5 @@ export const ShakaPlayer = ({ stream, cover, title, id, start_at, has_dvr }: Mat
     </>
   );
 };
+
+export default ShakaPlayer;

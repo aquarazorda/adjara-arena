@@ -1,0 +1,152 @@
+/* @font-face{
+  font-family:resident-primary-font;
+  font-display: swap;
+  src:url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.ttf) format("truetype"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.eot), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.eot?#iefix) format("embedded-opentype"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.woff) format("woff"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.svg) format("svg");
+  font-weight:400;
+  font-style:normal;
+}
+@font-face{
+  font-family:resident-secondary-font;
+  font-display: swap;
+  src:url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeWeb-Light.ttf) format("truetype"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeWeb-Light.eot), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeWeb-Light.eot?#iefix) format("embedded-opentype"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeWeb-Light.woff) format("woff"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeWeb-Light.svg) format("svg");
+  font-weight:400;
+  font-style:normal;
+}
+@font-face{
+  font-family:resident-tertiary-font;
+  font-display: swap;
+  src:url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.ttf) format("truetype"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.eot), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.eot?#iefix) format("embedded-opentype"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.woff) format("woff"), url(https://static.diceplatform.com/prod/original/dce.adjara/fonts/GraphikGeApp-Semibold.svg) format("svg");
+  font-weight:400;
+  font-style:normal;
+} */
+:root {
+  --color-primary: 253, 206, 9;
+}
+
+.resident-primary-color-bg,
+.resident-primary-color-bg-hover:hover,
+.resident-primary-color-bg-active:active,
+.resident-primary-color-bg-focus:focus {
+  background-color: #fdce09 !important;
+}
+
+.resident-primary-color-fg,
+.resident-primary-color-fg-hover:hover,
+.resident-primary-color-fg-active:active,
+.resident-primary-color-fg-focus:focus {
+  color: #fdce09 !important;
+}
+
+.resident-primary-color-fill,
+.resident-primary-color-fill-hover:hover,
+.resident-primary-color-fill-active:active,
+.resident-primary-color-fill-focus:focus {
+  fill: #fdce09 !important;
+}
+
+.resident-primary-color-border,
+.resident-primary-color-border-hover:hover,
+.resident-primary-color-border-active:active,
+.resident-primary-color-border-focus:focus {
+  border-color: #fdce09 !important;
+}
+
+:root {
+  --color-secondary: 255, 255, 255;
+}
+
+.resident-secondary-color-bg,
+.resident-secondary-color-bg-hover:hover,
+.resident-secondary-color-bg-active:active,
+.resident-secondary-color-bg-focus:focus {
+  background-color: #FFFFFF !important;
+}
+
+.resident-secondary-color-fg,
+.resident-secondary-color-fg-hover:hover,
+.resident-secondary-color-fg-active:active,
+.resident-secondary-color-fg-focus:focus {
+  color: #FFFFFF !important;
+}
+
+.resident-secondary-color-fill,
+.resident-secondary-color-fill-hover:hover,
+.resident-secondary-color-fill-active:active,
+.resident-secondary-color-fill-focus:focus {
+  fill: #FFFFFF !important;
+}
+
+.resident-secondary-color-border,
+.resident-secondary-color-border-hover:hover,
+.resident-secondary-color-border-active:active,
+.resident-secondary-color-border-focus:focus {
+  border-color: #FFFFFF !important;
+}
+
+:root {
+  --color-tertiary: 0, 0, 0;
+}
+
+.resident-tertiary-color-bg,
+.resident-tertiary-color-bg-hover:hover,
+.resident-tertiary-color-bg-active:active,
+.resident-tertiary-color-bg-focus:focus {
+  background-color: #000000 !important;
+}
+
+.resident-tertiary-color-fg,
+.resident-tertiary-color-fg-hover:hover,
+.resident-tertiary-color-fg-active:active,
+.resident-tertiary-color-fg-focus:focus {
+  color: #000000 !important;
+}
+
+.resident-tertiary-color-fill,
+.resident-tertiary-color-fill-hover:hover,
+.resident-tertiary-color-fill-active:active,
+.resident-tertiary-color-fill-focus:focus {
+  fill: #000000 !important;
+}
+
+.resident-tertiary-color-border,
+.resident-tertiary-color-border-hover:hover,
+.resident-tertiary-color-border-active:active,
+.resident-tertiary-color-border-focus:focus {
+  border-color: #000000 !important;
+}
+
+:root {
+  --color-bg: 0, 0, 0;
+}
+
+.resident-bg-color-bg,
+.resident-bg-color-bg-hover:hover,
+.resident-bg-color-bg-active:active,
+.resident-bg-color-bg-focus:focus {
+  background-color: #000000 !important;
+}
+
+.resident-bg-color-fg,
+.resident-bg-color-fg-hover:hover,
+.resident-bg-color-fg-active:active,
+.resident-bg-color-fg-focus:focus {
+  color: #000000 !important;
+}
+
+.resident-bg-color-fill,
+.resident-bg-color-fill-hover:hover,
+.resident-bg-color-fill-active:active,
+.resident-bg-color-fill-focus:focus {
+  fill: #000000 !important;
+}
+
+.resident-bg-color-border,
+.resident-bg-color-border-hover:hover,
+.resident-bg-color-border-active:active,
+.resident-bg-color-border-focus:focus {
+  border-color: #000000 !important;
+}
+
+.resident-primary-gradient-background {
+  background-image: linear-gradient(to bottom right, #fdce09ee 0, #fdce09 25%, #fff 50%, #000 0) !important;
+}

@@ -1,0 +1,116 @@
+:root {
+  --font-multiplier: 1;
+  --standardCard-line-height: 1.38rem;
+  --playlistCard-line-height: 1.975rem;
+  --discoveryCard-line-height: 1rem;
+  --logo-multiplier: 2.3;
+  --background-color: #000000;
+  --primary-color: #fdce09;
+  --item-width-default: 365px;
+  --item-width-section: 182.5px;
+  --color-primary: 253, 206, 9;
+  --color-secondary: 255, 255, 255;
+  --color-tertiary: 0, 0, 0;
+  --color-bg: 0, 0, 0;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.ds-slider__horizontal input[type='range'] {
+  -webkit-appearance: media-slider;
+  background: transparent;
+  cursor: pointer;
+  border: transparent;
+  width: 100%;
+  opacity: 0;
+  padding: 0;
+  margin: 10px 0 0 0;
+  z-index: 1;
+  height: 25px;
+  flex: none;
+}
+
+.ds-slider__slider,
+.ds-slider__slider-background,
+.ds-slider__slider-hover {
+  z-index: -1;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  /* -webkit-appearance: none; */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  opacity: 0;
+}
+
+input[type='range']:focus {
+  outline: none;
+  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type='range']::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+
+::-webkit-media-controls {
+  display: none !important;
+}
+
+:picture-in-picture {
+  display: none;
+}
+
+.volume-slider-st {
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: transparent;
+  transform: rotate(-90deg);
+  transform-origin: left;
+  margin-left: 15px;
+  margin-top: 146px;
+  height: 20px;
+  width: 140px;
+  z-index: 1;
+}
+
+.volume-control-rail {
+  z-index: -1;
+}
+
+.volume-slider-st input[type='range']::-webkit-slider-thumb {
+  pointer-events: all;
+}
+
+.volume-slider-st input[type='range']::-moz-range-thumb {
+  pointer-events: all;
+}
+
+.controls-invisible * {
+  cursor: none !important;
+}
+
+.dice-player-wrapper.ready.dice-player-wrapper--picture .pip-container {
+  margin-top: 20%;
+}
+.dice-player-wrapper.is-full-screen {
+  z-index: 9999;
+}
+
+video::-webkit-media-controls {
+  display: none !important;
+}
