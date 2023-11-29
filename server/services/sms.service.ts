@@ -4,7 +4,7 @@ import { P, match } from 'ts-pattern';
 import { Err, Ok } from 'ts-results';
 import MailService from './mailer.service';
 
-const sendPhoneMessage = async (phone: number, message: string) => {
+export const sendPhoneMessage = async (phone: number, message: string) => {
   const formData = new FormData();
   formData.append('phone', phone.toString());
   formData.append('message', message);
@@ -25,7 +25,9 @@ const sendPhoneMessage = async (phone: number, message: string) => {
       const json = await res.json();
 
       if (json?.status === 'success') {
-        return Ok({});
+        return Ok({
+          status: 'success'
+        });
       }
 
       return Err('error_sending_verification_code');

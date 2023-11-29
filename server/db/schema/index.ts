@@ -3,7 +3,8 @@ import { cmsUser } from './cms_user';
 import { acceptedTerms } from './accepted_terms';
 import { verification } from './verification';
 import { activityLogs } from './activity_logs';
-import { setantaEvent } from './setanta_event';
+import { setantaEvent, setantaEventRelation } from './setanta_event';
+import { reminder, reminderRelations } from './reminder';
 
 export default {
   ...users,
@@ -12,4 +13,7 @@ export default {
   verification,
   activityLogs,
   setantaEvent,
+  reminder,
+  reminderRelations,
+  setantaEventRelation,
 };
