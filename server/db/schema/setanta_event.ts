@@ -1,4 +1,6 @@
+import { relations } from 'drizzle-orm';
 import { varchar, serial, pgTable, boolean, pgEnum, timestamp } from 'drizzle-orm/pg-core';
+import { reminder } from './reminder';
 
 export const setantaEventStatus = pgEnum('status', ['not_started', 'live', 'ended', 'not_found']);
 
@@ -16,3 +18,7 @@ export const setantaEvent = pgTable('setanta_events', {
   startAt: timestamp('startAt', { precision: 2 }).notNull(),
   createdAt: timestamp('createdAt', { precision: 2 }).defaultNow(),
 });
+
+export const setantaEventRelation = relations(setantaEvent, ({ many }) => ({
+  reminders: many(reminder)
+}))

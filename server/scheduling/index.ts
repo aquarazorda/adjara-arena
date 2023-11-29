@@ -3,11 +3,13 @@ import { cron } from '@elysiajs/cron'
 import { Schedule } from './schedule';
 import matchStatuses from './match-statuses';
 import { serverEnv } from 'server/env';
+import sendReminder from './send-reminder';
 
 const elysia = new Elysia();
 
 const jobs: Array<Schedule> = [
-    new matchStatuses()
+    new sendReminder(),
+    new matchStatuses(),
 ];
 
 jobs.forEach((job: Schedule) => {

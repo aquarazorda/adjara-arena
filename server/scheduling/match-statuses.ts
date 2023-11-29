@@ -8,7 +8,7 @@ import { addHours, subHours } from 'date-fns';
 
 export type SetantaEvent = typeof setantaEvent.$inferSelect;
 
-export default class sendReminder extends Schedule {
+export default class matchStatuses extends Schedule {
   public readonly name: string = 'Send reminder';
 
   // Every five minute
