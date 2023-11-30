@@ -33,12 +33,12 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
           buttonVariants({ variant: 'ghost' }),
           'h-9 w-9 p-0 font-normal aria-selected:opacity-100 text-grey-300 dark:text-white'
         ),
-        day_selected: 'rounded-md bg-grey-100 !text-white dark:bg-grey-500 dark:text-white',
-        day_today: 'border border-grey-100 text-grey-700 dark:border-grey-300/50 dark:text-white',
+        day_selected: 'rounded-md bg-grey-300 !text-white dark:bg-grey-300 dark:text-white',
+        day_today: 'border border-grey-300 text-white dark:border-grey-300 dark:text-white',
         day_outside: 'text-grey-500 opacity-50 dark:text-grey-200',
         day_disabled: 'text-grey-500 opacity-50 dark:text-grey-400',
         day_range_middle:
-          'aria-selected:bg-grey-100 aria-selected:text-grey-700 dark:aria-selected:bg-grey-800 dark:aria-selected:text-grey-50',
+          '!h-7 !rounded-none !my-1 aria-selected:bg-silver-500/30 aria-selected:!text-black dark:aria-selected:bg-grey-300/30 dark:aria-selected:!text-white',
         day_hidden: 'invisible',
         ...classNames,
       }}

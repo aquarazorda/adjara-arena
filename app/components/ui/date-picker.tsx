@@ -18,7 +18,7 @@ type Props = {
 export const DatePicker = forwardRef(({ placeholder, onChange }: Props, ref) => {
   const [date, setDate] = useState<Date>();
   const { t } = useTranslation();
-  
+
   useEffect(() => {
     onChange(date);
   }, [date]);
@@ -39,7 +39,14 @@ export const DatePicker = forwardRef(({ placeholder, onChange }: Props, ref) => 
         </div>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+        <Calendar
+          mode="range"
+          selected={{
+            from: new Date(2023, 10, 24),
+            to: new Date(2023, 10, 30),
+          }}
+          initialFocus
+        />
       </PopoverContent>
     </Popover>
   );
