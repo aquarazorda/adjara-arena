@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import TimerBox from './TimerBox';
 
 function SetantaHero({ img, title, date, link, liveLink, dataId }: any) {
   const [live, setLive] = useState(false);
@@ -26,8 +27,7 @@ function SetantaHero({ img, title, date, link, liveLink, dataId }: any) {
 
           {!live ? (
             <>
-              {/* TimerBox component */}
-              {/* <TimerBox date={date} classes='mt-[24px]' /> */}
+              <TimerBox classes="mt-[24px]" date="2024-01-01T00:00:00" />
               <a
                 href={link}
                 data-id={dataId || undefined}
