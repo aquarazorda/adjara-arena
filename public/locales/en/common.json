@@ -24,5 +24,9 @@
   "validation_capital_letter": "At least one uppercase letter",
   "validation_minimum_one_digit": "At least one number",
   "validation_minimum_one_symbol": "At least one special character (!@#$+*;%^&_+=)",
-  "validation_length": "Minimum 8 and maximum 30 characters"
+  "validation_length": "Minimum 8 and maximum 30 characters",
+  "live": "Live",
+  "review": "Review",
+  "ended": "Ended",
+  "upcoming_games": "Upcomming games"
 }

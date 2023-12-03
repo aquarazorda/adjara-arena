@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { cn } from '~/lib/utils';
 
-function TimerBox({ date, classes = '' }: any) {
+function TimerBox({ date, className }: any) {
   const [timer, setTimer] = useState({ D: 0, H: 0, M: 0, S: 0 });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function TimerBox({ date, classes = '' }: any) {
 
   return (
     <div
-      className={`flex text-white gap-4 drop-shadow-lg shadow-black ${classes}`}
+      className={cn('flex text-white gap-4 drop-shadow-lg shadow-black', className)}
       id={`timer_${Date.now()}`}
       data-end-date={date}
     >

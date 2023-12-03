@@ -5,7 +5,6 @@ function SetantaHero({ img, title, date, link, liveLink, dataId }: any) {
   const [live, setLive] = useState(false);
 
   useEffect(() => {
-    // For example:
     // const now = new Date();
     // const parsedDate = new Date(date);
     // setLive();
