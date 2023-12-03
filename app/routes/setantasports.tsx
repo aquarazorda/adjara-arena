@@ -1,4 +1,5 @@
 import SetantaBox from '~/components/setanta/SetantaBox';
+import SetantaHero from '~/components/setanta/SetantaHero';
 
 const setantasports = () => {
   return (
@@ -10,6 +11,7 @@ const setantasports = () => {
         >
           <div className="splide__track overflow-visible">
             <ul className="splide__list">
+              <SetantaHero img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png" title="Test 1" />
               {/* @foreach ($slide as $slideItem)
                     @php
                         $dataId = 'setanta-hero-' . $loop->index;
@@ -39,7 +41,7 @@ const setantasports = () => {
             {/* @include('web.components.new.splide-arrows', ['setanta' => true]) */}
             <div className="splide__track overflow-visible">
               <ul className="splide__list">
-                <SetantaBox date="2023-11-28 02:45:00" clock url="/register" />
+                <SetantaBox date="2023-11-30 02:45:00" clock url="/register" />
                 {/* @foreach ($live as $liveItem)
                       <li className="splide__slide">
                           @php
@@ -69,6 +71,7 @@ const setantasports = () => {
             {/* @include('web.components.new.splide-arrows', ['setanta' => true]) */}
             <div className="splide__track overflow-visible">
               <ul className="splide__list">
+                <SetantaBox date="2023-11-30 02:45:00" clock url="/register" />
                 {/* @foreach ($upcoming as $item)
                               <li className="splide__slide">
                                   @php
@@ -98,6 +101,7 @@ const setantasports = () => {
             {/* @include('web.components.new.splide-arrows', ['setanta' => true]) */}
             <div className="splide__track overflow-visible">
               <ul className="splide__list">
+                <SetantaBox date="2023-11-30 02:45:00" clock url="/register" />
                 {/* @foreach ($reviews as $review)
                               <li className="splide__slide">
                                   @include('web.components.setanta.setanta-box', [
@@ -126,6 +130,7 @@ const setantasports = () => {
             {/* @include('web.components.new.splide-arrows', ['setanta' => true]) */}
             <div className="splide__track overflow-visible">
               <ul className="splide__list">
+                <SetantaBox date="2023-11-30 02:45:00" clock url="/register" />
                 {/* @foreach ($finished as $item)
                               <li className="splide__slide">
                                   @include('web.components.setanta.setanta-box', [
