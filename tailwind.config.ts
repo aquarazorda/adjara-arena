@@ -48,6 +48,7 @@ module.exports = {
       ],
     },
     colors: {
+      'setanta-yellow': '#FCDE09',
       transparent: 'transparent',
       black: '#0C0C0D',
       white: '#F8F8F8',
