@@ -62,7 +62,7 @@ const SetantaBox = ({ url, homepage, dataId, img, title, iframe, live, date, end
       <div className="absolute -bottom-[10px] w-full h-1/2 z-[2] bg-black-to-transparent"></div>
 
       {/* {{ isset($iframe) ? "data-iframe=$iframe" : '' }} */}
-      <div className="event-item relative z-[3] font-ABMontPro inset-0 p-4 h-full flex flex-col justify-between">
+      <div className="event-item relative z-[3] font-regular inset-0 p-4 h-full flex flex-col justify-between">
         <div className="flex justify-end relative z-[2]">
           {live ? (
             <LiveIcon />

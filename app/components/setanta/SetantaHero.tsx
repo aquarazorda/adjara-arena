@@ -19,7 +19,7 @@ function SetantaHero({ img, title, date, link, liveLink, dataId }: any) {
         style={{ filter: 'brightness(.5)' }}
       />
       <div className="relative z-2 flex flex-col items-center">
-        <div className="flex flex-col items-center mt-[100px] mb-[50px] md:mb-0 md:mt-[14vw] font-ABMontProUpperCase">
+        <div className="flex flex-col items-center mt-[100px] mb-[50px] md:mb-0 md:mt-[14vw] font-regular_uppercase">
           <h1 className="text-[52px] md:text-[64px] text-white drop-shadow-lg shadow-black/70 font-bold text-center">
             {title}
           </h1>

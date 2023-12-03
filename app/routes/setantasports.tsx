@@ -8,9 +8,9 @@ const setantasports = () => {
 
   return (
     <div className="bg-black overflow-x-hidden pb-[128px] md:pb-[140px]">
-      <SectionWrapper className="relative font-ABMontPro mb-24 z-[1]">
+      <div className="relative font-regular mb-24 z-[1]">
         <SetantaHero img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png" title="Test 1" />
-      </SectionWrapper>
+      </div>
       <div className="relative z-[2] max-w-[calc(1300px+2rem)] 2xl:max-w-[calc(1744px+2rem)] mx-auto px-4 text-white">
         <SectionWrapper title={t('live')}>
           <SetantaBox date="2023-11-30 02:45:00" clock url="/register" />
