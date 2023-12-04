@@ -15,13 +15,13 @@ export default function Index() {
     <Container className="text-[#FFFFFFCC]">
       <div>
         <a
-          href="{!! route('key', ['key' => 'setantasports']) !!}"
-          className="text-[15px] md:text-[22px] font-regular_uppercase font-normal mb-[12px] flex gap-[12px] items-center"
+          href="/setantasports"
+          className="inline-flex text-[15px] md:text-[22px] font-regular_uppercase font-normal mb-[12px] gap-[12px] items-center"
         >
           <img className="w-[174px] md:w-[200px]" src={SetantaLogoSilver} alt="setanta" />
           <p className="mt-[3px] leading-[22px] text-">უყურე უფასოდ</p>
         </a>
-        <div>
+        <div className="flex">
           <SetantaBox
             // date="2023-11-04 02:00:00"
             live

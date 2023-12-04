@@ -28,5 +28,10 @@
   "live": "Live",
   "review": "Review",
   "ended": "Ended",
-  "upcoming_games": "Upcomming games"
+  "upcoming_games": "Upcomming games",
+  "event_starts_in": "Event starts in",
+  "day": "Day",
+  "hour": "Hour",
+  "minute": "Minute",
+  "second": "Second"
 }

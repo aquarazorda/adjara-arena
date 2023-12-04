@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '~/lib/utils';
 
-function TimerBox({ date, className }: any) {
+function TimerBox({ date, className, size }: any) {
+  const { t } = useTranslation();
+
   const [timer, setTimer] = useState({ D: 0, H: 0, M: 0, S: 0 });
+
+  const [fontSize, setFontSize] = useState(`text-[20px]`);
+
+  useEffect(() => {
+    setFontSize(() => {
+      return `text-[${size * 10}px]`;
+    });
+  }, [size]);
 
   useEffect(() => {
     const endDate = new Date(date);
@@ -29,25 +40,25 @@ function TimerBox({ date, className }: any) {
 
   return (
     <div
-      className={cn('flex text-white gap-4 drop-shadow-lg shadow-black', className)}
+      className={cn('flex text-white gap-4 drop-shadow-lg shadow-black', fontSize, className)}
       id={`timer_${Date.now()}`}
       data-end-date={date}
     >
       <div className={`flex flex-col items-center ${timer.D === 0 ? 'hidden' : ''}`}>
-        <p className="text-[28px] md:text-[40px]">{timer.D}</p>
-        <p className="text-[12px] md:text-[20px]">დღე</p>
+        <p className="text-[1.4em] md:text-[2em]">{timer.D}</p>
+        <p className="text-[0.6em] md:text-[1em]">{t('day')}</p>
       </div>
       <div className="flex flex-col items-center">
-        <p className="text-[28px] md:text-[40px]">{timer.H}</p>
-        <p className="text-[12px] md:text-[20px]">საათი</p>
+        <p className="text-[1.4em] md:text-[2em]">{timer.H}</p>
+        <p className="text-[0.6em] md:text-[1em]">{t('hour')}</p>
       </div>
       <div className="flex flex-col items-center">
-        <p className="text-[28px] md:text-[40px]">{timer.M}</p>
-        <p className="text-[12px] md:text-[20px]">წუთი</p>
+        <p className="text-[1.4em] md:text-[2em]">{timer.M}</p>
+        <p className="text-[0.6em] md:text-[1em]">{t('minute')}</p>
       </div>
       <div className={`flex flex-col items-center ${timer.D > 0 ? 'hidden' : ''}`}>
-        <p className="text-[28px] md:text-[40px]">{timer.S}</p>
-        <p className="text-[12px] md:text-[20px]">წამი</p>
+        <p className="text-[1.4em] md:text-[2em]">{timer.S}</p>
+        <p className="text-[0.6em] md:text-[1em]">{t('second')}</p>
       </div>
     </div>
   );

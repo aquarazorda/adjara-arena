@@ -1,6 +1,8 @@
 import { cn } from '~/lib/utils';
 import LiveIcon from './LiveIcon';
 import { useEffect, useRef } from 'react';
+import TimerBox from './TimerBox';
+import { useTranslation } from 'react-i18next';
 
 const formatDateTime = (date: Date) => {
   const pad = (n: number) => String(n).padStart(2, '0');
@@ -46,6 +48,8 @@ const dateTooltip = (date: Date) => {
 };
 
 const SetantaBox = ({ url, homepage, dataId, img, title, iframe, live, date, ended }: any) => {
+  const { t } = useTranslation();
+
   const aTagRef = useRef(null);
 
   const { result, lessThan1Hour, lessThan1Day, timeDisplay } = dateTooltip(date);
@@ -60,6 +64,7 @@ const SetantaBox = ({ url, homepage, dataId, img, title, iframe, live, date, end
   }, [url, dataId, iframe]);
 
   return (
+    // TODO: Replace with Link component
     <a
       ref={aTagRef}
       className={cn(
@@ -115,6 +120,13 @@ const SetantaBox = ({ url, homepage, dataId, img, title, iframe, live, date, end
         ) : (
           <p className="text-[16px] font-bold text-white">{title}</p>
         )}
+
+        {date && !ended ? (
+          <div className="opacity-0 hover:opacity-100 flex flex-col justify-center items-center transition-opacity absolute inset-0 bg-black/80 text-center">
+            <p className="text-[12px] text-white">{t('event_starts_in')}</p>
+            <TimerBox date={date} size={1} />
+          </div>
+        ) : null}
       </div>
     </a>
   );
