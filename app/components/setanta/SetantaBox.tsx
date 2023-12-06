@@ -114,7 +114,7 @@ const SetantaBox = ({ url, homepage, dataId, img, title, iframe, live, date, end
         )}
         {ended ? (
           <div className="bg-black/80 inset-0 w-full h-full absolute z-[1] flex flex-col gap-2 justify-center items-center">
-            <p className="text-[16px] font-bold text-setanta_yellow">ტრანსლაცია დასრულებულია</p>
+            <p className="text-[16px] font-bold text-setanta_yellow">{t('stream_ended')}</p>
             <p className="text-[16px] font-bold text-white">{title}</p>
           </div>
         ) : (

@@ -33,5 +33,6 @@
   "day": "Day",
   "hour": "Hour",
   "minute": "Minute",
-  "second": "Second"
+  "second": "Second",
+  "stream_ended": "Stream ended"
 }

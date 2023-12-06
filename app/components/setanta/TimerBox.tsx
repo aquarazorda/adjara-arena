@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '~/lib/utils';
 
-function TimerBox({ date, className, size }: any) {
+function TimerBox({ date, className, size = 2 }: any) {
   const { t } = useTranslation();
 
   const [timer, setTimer] = useState({ D: 0, H: 0, M: 0, S: 0 });
@@ -40,7 +40,7 @@ function TimerBox({ date, className, size }: any) {
 
   return (
     <div
-      className={cn('flex text-white gap-4 drop-shadow-lg shadow-black', fontSize, className)}
+      className={cn('flex justify-center text-white gap-4 drop-shadow-lg shadow-black', fontSize, className)}
       id={`timer_${Date.now()}`}
       data-end-date={date}
     >
