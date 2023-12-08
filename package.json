@@ -29,6 +29,7 @@
     "@remix-run/node": "^2.2.0",
     "@remix-run/react": "^2.2.0",
     "@remix-run/serve": "^2.2.0",
+    "@splidejs/splide": "^4.1.4",
     "@trpc/client": "^10.43.3",
     "@trpc/server": "^10.43.3",
     "@types/nodemailer": "^6.4.14",
