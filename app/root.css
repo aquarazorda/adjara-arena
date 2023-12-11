@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.embla {
+  --slide-spacing: 1rem;
+  --slide-size: 100%;
+  --slide-height: 19rem;
+}
+
+.spacing-embla:not(:first-child) {
+  padding-left: var(--slide-spacing);
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  @apply spacing-embla;
+}

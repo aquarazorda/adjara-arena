@@ -1,7 +1,7 @@
 import { json } from '@remix-run/node';
 import type { LoaderFunctionArgs, LinksFunction } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react';
-import './tailwind.css';
+import './root.css';
 import { ThemeProvider } from './components/theme-provider';
 import { useTranslation } from 'react-i18next';
 import { ToastProvider } from './hooks/Toast';

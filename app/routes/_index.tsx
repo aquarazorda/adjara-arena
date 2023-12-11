@@ -3,6 +3,7 @@ import Container from '~/components/container';
 import SetantaBox from '~/components/setanta/SetantaBox';
 import { mainPageLoader } from '~/lib/loaders/mainPage';
 import SetantaLogoSilver from '~/components/icons/setantalogo-silver.svg';
+import SliderWrapper, { Slide } from '~/components/slider-wrapper';
 
 export const meta: MetaFunction = ({ data: { langs } }: any) => {
   return [{ title: langs.title }];
@@ -21,16 +22,16 @@ export default function Index() {
           <img className="w-[174px] md:w-[200px]" src={SetantaLogoSilver} alt="setanta" />
           <p className="mt-[3px] leading-[22px] text-">უყურე უფასოდ</p>
         </a>
-        {/* <div className="splide">
-          <div className="splide__slide">
+        <SliderWrapper>
+          <Slide>
             <SetantaBox
               // date="2023-11-04 02:00:00"
               live
               url="/register"
               img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png"
             />
-          </div>
-          <div className="splide__slide">
+          </Slide>
+          <Slide>
             <SetantaBox
               date={
                 new Date(
@@ -45,8 +46,8 @@ export default function Index() {
               url="/register"
               img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png"
             />
-          </div>
-          <div className="splide__slide">
+          </Slide>
+          <Slide>
             <SetantaBox
               date={
                 new Date(
@@ -61,8 +62,8 @@ export default function Index() {
               url="/register"
               img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png"
             />
-          </div>
-          <div className="splide__slide">
+          </Slide>
+          <Slide>
             <SetantaBox
               date={
                 new Date(
@@ -77,18 +78,18 @@ export default function Index() {
               url="/register"
               img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png"
             />
-          </div>
-          <div className="splide__slide">
+          </Slide>
+          <Slide>
             <SetantaBox
               date="Mon Dec 04 2024 03:10:00 GMT+0400 (Georgia Standard Time)"
               url="/register"
               img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png"
             />
-          </div>
-          <div className="splide__slide">
+          </Slide>
+          <Slide>
             <SetantaBox ended url="/register" img="https://adjarabetarena.com/s3-static/Luton---Arsenal.png" />
-          </div>
-        </div> */}
+          </Slide>
+        </SliderWrapper>
       </div>
     </Container>
   );
