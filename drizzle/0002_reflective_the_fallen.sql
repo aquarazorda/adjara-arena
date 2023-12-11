@@ -1,1 +1,0 @@
-ALTER TABLE "reminders" ADD PRIMARY KEY ("id");
