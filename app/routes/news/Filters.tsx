@@ -15,7 +15,7 @@ const Filters = ({
 
   return (
     <Container className="px-0">
-      <div className="px-0 md:px-4">
+      <div className="px-0 lg:px-4">
         <div className="bg-grey-600 mb-5">
           <div className="flex items-center py-2 px-4 gap-8 border-b-[1px] border-solid border-grey-400">
             {categories.map((category) => (

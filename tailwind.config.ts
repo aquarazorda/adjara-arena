@@ -124,6 +124,9 @@ module.exports = {
       'yellow-500': '#FFC700',
     },
     extend: {
+      screens: {
+        'max-md': { max: '767px' },
+      },
       fontSize: {
         xxs: '10px',
       },
