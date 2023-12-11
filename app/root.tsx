@@ -14,8 +14,6 @@ import { queryClient } from './lib/queryClient';
 import Header from './components/header';
 import { Suspense, lazy } from 'react';
 
-import '@splidejs/splide/css';
-
 const CommandMenu = lazy(() => import('~/components/admin/command-menu'));
 
 export async function loader({ request }: LoaderFunctionArgs) {
