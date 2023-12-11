@@ -35,5 +35,13 @@
   "minute": "Minute",
   "second": "Second",
   "stream_ended": "Stream ended",
-  "sport_news": "Sport News"
+  "sport_news": "Sport News",
+  "sport": "Sport",
+  "football": "Football",
+  "basketball": "Basketball",
+  "tennis": "Tennis",
+  "ufc": "UFC",
+  "rugby": "Rugby",
+  "other": "Other",
+  "all": "All"
 }

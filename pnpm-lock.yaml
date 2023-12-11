@@ -50,9 +50,6 @@ dependencies:
   '@remix-run/serve':
     specifier: ^2.2.0
     version: 2.2.0(typescript@5.2.2)
-  '@splidejs/splide':
-    specifier: ^4.1.4
-    version: 4.1.4
   '@trpc/client':
     specifier: ^10.43.3
     version: 10.44.1(@trpc/server@10.44.1)
@@ -86,6 +83,9 @@ dependencies:
   elysia:
     specifier: ^0.7.29
     version: 0.7.30(typescript@5.2.2)
+  embla-carousel-react:
+    specifier: ^8.0.0-rc15
+    version: 8.0.0-rc15(react@18.2.0)
   i18next:
     specifier: ^23.7.6
     version: 23.7.6
@@ -3003,10 +3003,6 @@ packages:
     resolution: {integrity: sha512-0xd7qez0AQ+MbHatZTlI1gu5vkG8r7MYRUJAHPAHJBmGLs16zpkrpAVLvjQKQOqaXPDUBwOiJzNc00znHSCVBw==}
     dev: true
 
-  /@splidejs/splide@4.1.4:
-    resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
-    dev: false
-
   /@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.22.11):
     resolution: {integrity: sha512-b9MIk7yhdS1pMCZM8VeNfUlSKVRhsHZNMl5O9SfaX0l0t5wjdgu4IDzGB8bpnGBBOjGST3rRFVsaaEtI4W6f7g==}
     engines: {node: '>=14'}
@@ -4538,6 +4534,28 @@ packages:
       fast-querystring: 1.1.2
       memoirist: 0.1.4
       typescript: 5.2.2
+    dev: false
+
+  /embla-carousel-react@8.0.0-rc15(react@18.2.0):
+    resolution: {integrity: sha512-PePOkyPMWsUDNJKYRhUmGScYhex9mfpEiYiKT8OgwP/4K60plW0qk8cAXWvS9N61A/3RkUq7uz+hQsmhAtYMcA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      embla-carousel: 8.0.0-rc15
+      embla-carousel-reactive-utils: 8.0.0-rc15(embla-carousel@8.0.0-rc15)
+      react: 18.2.0
+    dev: false
+
+  /embla-carousel-reactive-utils@8.0.0-rc15(embla-carousel@8.0.0-rc15):
+    resolution: {integrity: sha512-17Pr+N2vULFS8Lxzi2jaebwVloiFJLpdJMJLKJKQ26NzEmX8pVtHSu3uuTWc8HPwye5HFugqCPJ2QoWWhKs6Kg==}
+    peerDependencies:
+      embla-carousel: 8.0.0-rc15
+    dependencies:
+      embla-carousel: 8.0.0-rc15
+    dev: false
+
+  /embla-carousel@8.0.0-rc15:
+    resolution: {integrity: sha512-s7VPexK2h8VEYjEVQFnJAPcRnY5YqJYicFxKVVyWXP3Hk9FFDkT0kqVxMM1PcL187qHOUgmGVHOrfC8xWy3OKQ==}
     dev: false
 
   /eme-encryption-scheme-polyfill@2.1.1:

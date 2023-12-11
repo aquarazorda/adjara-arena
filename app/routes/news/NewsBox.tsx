@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+import SportIcon from '~/components/icons/SportIcon';
 import { cn } from '~/lib/utils';
 
 const NewsBox = ({
@@ -13,14 +15,17 @@ const NewsBox = ({
   tags?: string[];
   large?: boolean;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="w-full h-full overflow-hidden p-2 font-regular">
       <img className="w-full aspect-[315/172] object-cover rounded-xl" src={img} alt="News image" />
       <div className={cn('', large ? 'px-2 pt-[20px]' : 'pt-[10px]')}>
         <div className={cn('flex flex-wrap gap-4 gap-y-2 items-center mb-1 md:mb-2')}>
           {tags.map((tag, index) => (
-            <div key={index} className="p-1 flex gap-1 items-start justify-center bg-grey-500 rounded-full">
-              <span className="text-grey-100 text-xs font-regular_uppercase">{tag}</span>
+            <div key={index} className="p-1 flex gap-1 items-center justify-center bg-grey-500 rounded-full">
+              <SportIcon name={tag} size={14} />
+              <span className="text-grey-100 text-xs font-regular_uppercase">{t(tag)}</span>
             </div>
           ))}
           <p className="text-xs text-grey-100">2 საათის წინ</p>
