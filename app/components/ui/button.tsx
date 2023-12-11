@@ -14,9 +14,10 @@ const buttonVariants = cva(
         outline: 'border border-silver-200 bg-white text-silver-800',
         // destructive:
         //   "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        // secondary:
-        //   "text-secondary-foreground bg-secondary hover:bg-secondary/80",
-        ghost: 'text-white focus-visible:ring-0',
+        secondary: 'text-white bg-transparent hover:bg-white/10 aria-selected:bg-grey-400',
+        ghost: 'text-white focus-visible:ring-0 aria-selected:bg-grey-400',
+        ghost_secondary:
+          'bg-grey-500 aria-selected:bg-grey-400 border-solid border-[1px] border-transparent aria-selected:border-grey-100 text-white rounded-full',
         plain: '',
         link: 'text-primary underline-offset-4 hover:underline',
       },
