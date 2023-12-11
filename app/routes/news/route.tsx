@@ -40,7 +40,7 @@ const NewsPage = () => {
         <NewsFeed newsArray={newsArray} />
         <div className="flex justify-center pt-5">
           <Button className="bg-grey-500 border-grey-500 flex gap-1 font-regular_uppercase">
-            მაჩვენე მეტი
+            {t('show_more')}
             <img src={ArrowDown} />
           </Button>
         </div>
