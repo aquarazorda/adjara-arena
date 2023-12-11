@@ -18,9 +18,10 @@ const Filters = ({
       <div className="px-0 lg:px-4">
         <div className="bg-grey-600 mb-5">
           <div className="flex items-center py-2 px-4 gap-8 border-b-[1px] border-solid border-grey-400">
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               // !! todo : aria-selected attribute when active button
               <Button
+                key={index}
                 aria-selected={category.name === 'sport'}
                 variant="secondary"
                 className="text-grey-100 font-regular_uppercase gap-[10px]"
