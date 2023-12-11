@@ -49,7 +49,8 @@ const NewsBox = ({
       <div className={cn('flex-1', large ? 'md:px-2 md:pt-[20px]' : 'md:pt-[10px]')}>
         <div
           className={cn(
-            'flex flex-wrap max-md:justify-between md:gap-4 gap-y-2 items-center mb-1 md:mb-2 max-md:hidden'
+            'flex flex-wrap max-md:justify-between md:gap-4 gap-y-2 items-center mb-1 md:mb-2',
+            large ? 'max-md:hidden' : ''
           )}
         >
           {tags.map((tag, index) => (
@@ -69,9 +70,11 @@ const NewsBox = ({
         >
           {title}
         </h3>
-        <div className="mb-2">
-          <p className="text-xs text-grey-100">2 {t('hours_ago')}</p>
-        </div>
+        {large && (
+          <div className="mb-2">
+            <p className="text-xs text-grey-100">2 {t('hours_ago')}</p>
+          </div>
+        )}
         {description && (
           <p
             className={cn(

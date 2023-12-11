@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import NewsBox from './NewsBox';
 
-const NewsFeed = ({
+const NewsFeedGrid = ({
   newsArray,
 }: {
   newsArray: {
@@ -80,4 +80,4 @@ const NewsFeed = ({
   );
 };
 
-export default NewsFeed;
+export default NewsFeedGrid;

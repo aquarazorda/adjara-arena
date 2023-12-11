@@ -1,7 +1,7 @@
 import Container from '~/components/container';
 import { Button } from '~/components/ui/button';
 import ArrowDown from '~/components/icons/arrow-down.svg';
-import NewsFeed from './NewsFeed';
+import NewsFeedGrid from './NewsFeedGrid';
 import { useTranslation } from 'react-i18next';
 import Filters from './Filters';
 
@@ -37,7 +37,7 @@ const NewsPage = () => {
       <Filters categories={mainCategories} />
 
       <Container className="pb-5 md:pb-10">
-        <NewsFeed newsArray={newsArray} />
+        <NewsFeedGrid newsArray={newsArray} />
         <div className="flex justify-center pt-5">
           <Button className="bg-grey-500 border-grey-500 flex gap-1 font-regular_uppercase">
             {t('show_more')}
