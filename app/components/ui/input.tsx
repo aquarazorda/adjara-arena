@@ -55,7 +55,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {tooltipContent && (
           <div
             className={cn(
-              'absolute bottom-[calc(100%+12px)] bg-silver-300 dark:bg-grey-500 p-4 rounded-[12px] after:block after:rounded-[4px] after:w-[18px] after:h-[18px] after:rotate-45 after:bg-silver-300 dark:after:bg-grey-500 after:bottom-[-7px] after:absolute transition-opacity',
+              'absolute bottom-[calc(100%+12px)] bg-silver-300 dark:bg-grey-500 p-4 rounded-[12px] after:block after:rounded-base after:w-[18px] after:h-[18px] after:rotate-45 after:bg-silver-300 dark:after:bg-grey-500 after:bottom-[-7px] after:absolute transition-opacity',
               inputFocus ? 'opacity-100' : 'invisible opacity-0'
             )}
           >

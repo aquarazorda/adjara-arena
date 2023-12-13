@@ -76,7 +76,7 @@ const SetantasportsMatch = () => {
         <input id="eventId" type="hidden" value="{{ $event->id }}" />
         <button
           className={cn(
-            'text-[16px] mt-10 mx-auto px-[22px] md:px-[32px] flex justify-center items-center py-4 sm:py-0 sm:h-[55px] bg-setanta-yellow rounded-[4px] font-semibold text-black text-center',
+            'text-[16px] mt-10 mx-auto px-[22px] md:px-[32px] flex justify-center items-center py-4 sm:py-0 sm:h-[55px] bg-setanta-yellow rounded-base font-semibold text-black text-center',
             subscribed ? 'bg-white' : 'bg-setanta-yellow'
           )}
           onClick={() => setSubscribed(!subscribed)}
@@ -108,7 +108,7 @@ const SetantasportsMatch = () => {
           </a>
           <a
             className={cn(
-              'text-[10px] py-[10px] px-[4px] flex justify-center items-center rounded-[4px] font-semibold text-black cursor-pointer',
+              'text-[10px] py-[10px] px-[4px] flex justify-center items-center rounded-base font-semibold text-black cursor-pointer',
               copied ? 'bg-white' : 'bg-setanta-yellow'
             )}
             onClick={() => copyButtonClick('https://adjarabetarena.com/setanta/123')}

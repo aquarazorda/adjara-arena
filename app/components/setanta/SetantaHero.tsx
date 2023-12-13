@@ -30,7 +30,7 @@ function SetantaHero({ img, title, date, link, liveLink, dataId }: any) {
               <a
                 href={link}
                 data-id={dataId || undefined}
-                className="text-[16px] mt-10 flex justify-center items-center h-[55px] w-[180px] bg-setanta-yellow rounded-[4px] font-semibold text-black"
+                className="text-[16px] mt-10 flex justify-center items-center h-[55px] w-[180px] bg-setanta-yellow rounded-base font-semibold text-black"
               >
                 გაიგე მეტი
               </a>
@@ -39,7 +39,7 @@ function SetantaHero({ img, title, date, link, liveLink, dataId }: any) {
             <a
               href={liveLink}
               data-id={dataId || undefined}
-              className="text-[16px] mt-10 flex justify-center items-center h-[55px] w-[180px] bg-setanta-yellow rounded-[4px] font-semibold text-black"
+              className="text-[16px] mt-10 flex justify-center items-center h-[55px] w-[180px] bg-setanta-yellow rounded-base font-semibold text-black"
             >
               ლაივი
             </a>

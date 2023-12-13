@@ -124,6 +124,9 @@ module.exports = {
       'yellow-500': '#FFC700',
     },
     extend: {
+      borderRadius: {
+        base: '0.25rem',
+      },
       screens: {
         'max-md': { max: '767px' },
       },

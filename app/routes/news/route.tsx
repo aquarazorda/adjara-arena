@@ -31,7 +31,7 @@ const NewsPage = () => {
   return (
     <>
       <Container className="pt-5 md:pt-10">
-        <h1 className="font-regular_uppercase text-[22px] mb-4 md:mb-6">{t('sport_news')}</h1>
+        <h1 className="font-regular_uppercase text-sm md:text-[22px] mb-4 md:mb-6">{t('sport_news')}</h1>
       </Container>
 
       <Filters categories={mainCategories} />

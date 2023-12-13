@@ -27,7 +27,7 @@ const NewsBox = ({
       <div className="flex-initial relative">
         <img
           className={cn(
-            'w-full aspect-[315/172] object-cover rounded-[4px]',
+            'w-full aspect-[315/172] object-cover rounded-base',
             large
               ? 'md:rounded-xl'
               : 'md:rounded-lg w-[120px] md:w-full h-[70px] md:h-full aspect-[120/70] md:aspect-[315/172]'
