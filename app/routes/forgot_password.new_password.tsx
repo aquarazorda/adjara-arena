@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import type { z } from 'zod';
 import { registrationSchema } from '~/lib/schemas/registration.schema';
@@ -8,11 +7,12 @@ import { Input } from '~/components/ui/input';
 import { Button } from '~/components/ui/button';
 import PasswordInput from '~/components/form/password/passwordInput';
 import { action$ } from './api.trpc.$/root';
-import { getValidatedFormData } from 'remix-hook-form';
+import { getValidatedFormData, useRemixForm } from 'remix-hook-form';
 import { forgotPasswordSecondStepSchema } from '~/lib/schemas/forgot-password';
 import { json, redirect } from '@remix-run/node';
 import { auth } from 'server/auth/lucia';
 import { saveLog } from 'server/services/logger.service';
+import { Form } from '@remix-run/react';
 
 export const action = action$(async (caller, request) => {
   const {
@@ -74,28 +74,31 @@ export const action = action$(async (caller, request) => {
 
 export default function NewPasswordRoute() {
   const { t } = useTranslation();
-  const form = useForm<z.infer<typeof registrationSchema>>({
+  const form = useRemixForm<z.infer<typeof registrationSchema>>({
     resolver: zodResolver(registrationSchema),
+    mode: 'onSubmit',
   });
 
   return (
     <FormProvider {...form}>
-      <PasswordInput />
-      <FormField
-        control={form.control}
-        name="confirmPassword"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <Input placeholder={t('confirm_password')} {...field} type="password" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Button variant="success" size="lg" onClick={console.log}>
-        <p className="font-regular_uppercase text-base">{t('აღდგენა')}</p>
-      </Button>
+      <Form className="flex flex-col gap-6" onSubmit={form.handleSubmit}>
+        <PasswordInput />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder={t('confirm_password')} {...field} type="password" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button variant="success" size="lg" onClick={console.log}>
+          <p className="font-regular_uppercase text-base">{t('აღდგენა')}</p>
+        </Button>
+      </Form>
     </FormProvider>
   );
 }
