@@ -3,6 +3,7 @@ import { cmsUser } from './cms_user';
 import { acceptedTerms } from './accepted_terms';
 import { verification } from './verification';
 import { activityLogs } from './activity_logs';
+import { category, categoryRelation } from './category';
 import { setantaEvent, setantaEventRelation } from './setanta_event';
 import { reminder, reminderRelations } from './reminder';
 
@@ -16,4 +17,6 @@ export default {
   reminder,
   reminderRelations,
   setantaEventRelation,
+  category,
+  categoryRelation
 };

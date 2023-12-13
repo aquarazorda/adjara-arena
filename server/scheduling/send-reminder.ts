@@ -13,8 +13,8 @@ type Reminder = typeof reminder.$inferSelect;
 export default class sendReminder extends Schedule {
   public readonly name: string = 'Send reminder job';
 
-  // Every five minute
-  public readonly pattern: string = '*/2 * * * * *';
+  // Every five minute. */2 * * * * * - every 2 second
+  public readonly pattern: string = '*/5 * * * *';
 
   now() {
     const timeZone = 'Asia/Tbilisi';
