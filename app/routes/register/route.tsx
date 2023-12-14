@@ -9,11 +9,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registrationSchema } from '~/lib/schemas/registration.schema';
 import { auth } from 'server/auth/lucia';
 import { LuciaError } from 'lucia';
-import { PostgresError } from 'postgres';
 import { match } from 'ts-pattern';
 import { createFormErrorReturnJson } from 'server/utils/request';
 import type { z } from 'zod';
 import { validateVerificationCode } from 'server/services/verification.service';
+import postgres from 'postgres';
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const {
@@ -82,12 +82,21 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       return errorResponse({ userName: 'username_already_exists' });
     }
 
-    if (e instanceof PostgresError) {
+    if (e instanceof postgres.PostgresError) {
       if (e.code === '23505') {
         return match(e.constraint_name)
-          .when((s) => s?.includes('username'), () => errorResponse({ userName: 'username_already_exists' }))
-          .when((s) => s?.includes('email'), () => errorResponse({ email: 'email_already_exists' }))
-          .when((s) => s?.includes('phone_number'), () => errorResponse({ phoneNumber: 'phone_number_already_exists' }))
+          .when(
+            (s) => s?.includes('username'),
+            () => errorResponse({ userName: 'username_already_exists' })
+          )
+          .when(
+            (s) => s?.includes('email'),
+            () => errorResponse({ email: 'email_already_exists' })
+          )
+          .when(
+            (s) => s?.includes('phone_number'),
+            () => errorResponse({ phoneNumber: 'phone_number_already_exists' })
+          )
           .otherwise(() => json({}, { status: 500 }));
       }
     }

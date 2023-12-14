@@ -3,9 +3,9 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "vite build && vite build --ssr",
+    "build": "vite build && vite build --ssr && shopt -s dotglob; mv build/server/* build/; shopt -u dotglob",
     "dev": "vite dev",
-    "start": "remix-serve build/index.js",
+    "start": "remix-serve build/server/index.js",
     "typecheck": "tsc",
     "generate": "drizzle-kit generate:pg",
     "migrate": "bun run server/db/migration.ts",
@@ -15,7 +15,7 @@
     "sst-dev": "AWS_PROFILE=abetarena sst bind vite dev",
     "sst-build": "AWS_PROFILE=abetarena sst deploy",
     "sst-remove": "sst remove",
-    "sst-console": "sst console"
+    "sst-console": "AWS_PROFILE=abetarena sst console"
   },
   "dependencies": {
     "@authenio/samlify-node-xmllint": "^2.0.0",
@@ -55,6 +55,7 @@
     "lodash.throttle": "^4.1.1",
     "lucia": "^2.7.4",
     "lucide-react": "^0.295.0",
+    "mysql2": "^3.6.5",
     "nodemailer": "^6.9.7",
     "postgres": "^3.4.3",
     "react": "^18.2.0",
@@ -80,21 +81,21 @@
   "devDependencies": {
     "@remix-run/dev": "^2.4.0",
     "@remix-run/eslint-config": "^2.4.0",
+    "@tsconfig/node18": "^18.2.2",
     "@types/lodash.debounce": "^4.0.9",
     "@types/lodash.throttle": "^4.1.9",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.17",
+    "aws-cdk-lib": "2.114.1",
+    "constructs": "10.3.0",
     "drizzle-kit": "^0.20.6",
     "eslint": "^8.55.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "nodemon": "^3.0.2",
+    "sst": "^2.38.7",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.3.3",
-    "vite-plugin-svgr": "^4.2.0",
-    "sst": "^2.38.7",
-    "aws-cdk-lib": "2.114.1",
-    "@tsconfig/node18": "^18.2.2",
-    "constructs": "10.3.0"
+    "vite-plugin-svgr": "^4.2.0"
   },
   "engines": {
     "node": ">=18"
