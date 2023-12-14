@@ -47,11 +47,13 @@ export default function CommandMenu() {
   }, [open]);
 
   return (
-    <CommandMenuContext.Provider value={{
-      items: pages,
-      open,
-      setOpen
-    }}>
+    <CommandMenuContext.Provider
+      value={{
+        items: pages,
+        open,
+        setOpen,
+      }}
+    >
       <div
         onKeyDown={(e) => {
           if (e.key === 'Escape' || (e.key === 'Backspace' && !search)) {
