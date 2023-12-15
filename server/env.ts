@@ -39,7 +39,6 @@ const envSchema = z
     POSTGRES_URL: `postgres://${val.DB_USERNAME}:${val.DB_PASSWORD}@${val.DB_HOST}:${val.DB_PORT}/${val.DB_DATABASE}`,
   }));
 
-console.log(process.env);
 const parsedEnv = envSchema.parse(process.env);
 
 export const serverEnv = parsedEnv;
