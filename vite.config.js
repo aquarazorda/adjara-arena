@@ -15,7 +15,10 @@ export default defineConfig({
     tsconfigPaths(),
     svgr(),
   ],
+  build: {
+    target: 'ES2022',
+  },
   ssr: {
-    noExternal: ['remix-i18next', 'react-i18next', 'ts-results'],
+    noExternal: ['remix-i18next', 'react-i18next', 'ts-results', 'sst'],
   },
 });

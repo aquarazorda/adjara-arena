@@ -13,6 +13,7 @@ import { QueryClientProvider } from 'react-query';
 import { queryClient } from './lib/queryClient';
 import Header from './components/header';
 import { Suspense, lazy } from 'react';
+import { useChangeLanguage } from 'remix-i18next';
 
 const CommandMenu = lazy(() => import('~/components/admin/command-menu'));
 
@@ -44,6 +45,7 @@ export const links: LinksFunction = () => [
 export default function App() {
   let { locale, theme, user } = useLoaderData<typeof loader>();
   let { i18n } = useTranslation();
+  useChangeLanguage(locale);
 
   return (
     <html lang={locale} className={clsx('font-regular', theme === 'dark' && 'dark')} dir={i18n.dir()}>
@@ -56,7 +58,6 @@ export default function App() {
       <body className="bg-white dark:bg-blue-gray-700 text-silver-800 dark:text-white">
         <QueryClientProvider client={queryClient}>
           <Suspense>
-            {/* @ts-ignore https://github.com/remix-run/remix/issues/7599 */}
             <UserProvider user={user}>
               <ThemeProvider>
                 <ToastProvider>

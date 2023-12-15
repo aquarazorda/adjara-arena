@@ -22,9 +22,6 @@ export default function RemixStack({ stack }: StackContext) {
       format: 'esm',
     },
     environment: {
-      RDS_ARN: rds.clusterArn,
-      RDS_SECRET: rds.secretArn,
-      RDS_DATABASE: rds.defaultDatabaseName,
       ...envStrings,
     },
     cdk: {
